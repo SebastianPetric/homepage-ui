@@ -17,9 +17,9 @@ export default function Academic() {
         <div className={"flex flex-col"}>
             <p className={"text-5xl font-bold"}>Akademischer Werdegang.</p>
             <span className={"w-96 h-auto mt-8"}>
-                Hello! I am an Android and Data engineer based in Paris France. The guiding quasar of my journey is working on solutions that leverage best-practice technologies to deliver a top user experience. I love all things android.
+                <b>"Furtwangen ist das, was du drauß machst."</b> Wie wahr dieser Satz doch ist. Hier wurden sowohl Freunde fürs Leben gefunden, als auch die Basis für meine berufliche Laufbahn gelegt.
             </span>
-            <div className={"flex flex-wrap justify-start mt-16"}>{academic.map(exp => <AcademicTab {...exp}/>)}</div>
+            <div className={"flex flex-wrap justify-start mt-8"}>{academic.map(exp => <AcademicTab {...exp}/>)}</div>
         </div>
     );
 }

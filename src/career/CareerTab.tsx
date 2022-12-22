@@ -17,7 +17,7 @@ export default function CareerTab(career: TCareer) {
     return (<>
         <div className={"flex flex-col careerTileWidth mt-5 mr-5"}>
             <p className={"text-xl font-bold mb-2 text-green-600"}>{career.title}</p>
-            <p className={"text-sm font-bold"}>{career.company} von {formattedFromDate.getUTCDay()}/{formattedFromDate.getFullYear()} bis {career.to_date ? `${new Date(career.to_date).getDay()}/${new Date(career.to_date).getFullYear()}` : "Heute"}</p>
+            <p className={"text-sm font-bold"}>{career.company} von {formattedFromDate.getMonth()}/{formattedFromDate.getFullYear()} bis {career.to_date ? `${new Date(career.to_date).getMonth()}/${new Date(career.to_date).getFullYear()}` : "Heute"}</p>
             <ul className={"flex flex-col items-start text-sm"}>{career.toDos.map(toDo => <li>{toDo}</li>)}</ul>
         </div>
     </>);

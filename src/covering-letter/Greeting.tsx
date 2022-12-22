@@ -3,7 +3,7 @@ export default function Greeting() {
         <div className={"flex flex-col"}>
             <p className={"text-5xl font-bold"}>Sebastian Petöcz.</p>
             <span className={"w-96 h-auto mt-8"}>
-                Hello! I am an Android and Data engineer based in Paris France. The guiding quasar of my journey is working on solutions that leverage best-practice technologies to deliver a top user experience. I love all things android.
+                Hey! Ich bin Fullstack Software Engineer wohnhaft in Freiburg. Wie Aristoteles einst sagte: <br/><br/> <b>"Das Ganze ist mehr als die Summe seiner Teile".</b><br/><br/> Wenn das Frontend das Aussehen ist, so ist das Backend die Seele. Ich liebe es beides miteinander zu einem großen Ganzen zu vereinen.
             </span>
         </div>
     );

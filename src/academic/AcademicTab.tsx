@@ -21,7 +21,7 @@ export default function AcademicTab(career: TAcademic) {
     return (<>
         <div className={"flex flex-col items-start careerTileWidth h-auto mt-5 mr-5"}>
             <p className={"text-xl font-bold mb-2 text-green-600"}>{career.title}</p>
-            <p className={"text-sm font-bold"}>{career.school} von {formattedFromDate.getUTCDay()}/{formattedFromDate.getFullYear()} bis {formattedToDate.getDay()}/{formattedToDate.getFullYear()}</p>
+            <p className={"text-sm font-bold"}>{career.school} von {formattedFromDate.getMonth()}/{formattedFromDate.getFullYear()} bis {formattedToDate.getMonth()}/{formattedToDate.getFullYear()}</p>
             <ul className={"flex flex-col items-start text-sm"}>{career.focusList.map(focus => <li>{focus}</li>)}</ul>
         </div>
     </>);

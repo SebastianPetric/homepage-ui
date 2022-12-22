@@ -17,9 +17,9 @@ export default function AboutMe() {
         <div className={"flex flex-col"}>
             <p className={"text-5xl font-bold"}>Über mich.</p>
             <span className={"w-96 h-auto mt-8"}>
-                Hello! I am an Android and Data engineer based in Paris France. The guiding quasar of my journey is working on solutions that leverage best-practice technologies to deliver a top user experience. I love all things android.
+                Aktuell arbeite ich als Software Engineer bei der <b>Inxmail GmbH</b>. Mein erster Arbeitgeber nach meinem Studium in der Hochschule Furtwangen, wo ich sowohl meinen <b>Bachelor of Science</b>, als auch meinen <b>Master of Science</b> in <b>Medieninformatik</b> erhalten habe.
             </span>
-            <div className={"flex flex-wrap justify-start mt-16"}>{experiences.map(exp =>
+            <div className={"flex flex-wrap justify-start mt-8"}>{experiences.map(exp =>
                 <ExperienceTab {...exp}/>)}</div>
         </div>
     );
