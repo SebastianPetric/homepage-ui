@@ -6,6 +6,9 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      colors: {
+        'imageColor': '#101115',
+      },
       fontFamily: {
         "sans": ["Poppins", ...defaultTheme.fontFamily.sans],
         "serif": [...defaultTheme.fontFamily.serif],

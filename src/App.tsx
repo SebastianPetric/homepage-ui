@@ -11,10 +11,10 @@ import {Element} from "react-scroll";
 
 function App() {
     return (
-        <div className={"min-w-1200 font-sans"}>
+        <div className={"min-w-1200 font-sans text-imageColor"}>
             <NavigationBar/>
             <div className="flex">
-                <aside className="h-screen w-1/2 sticky top-0 bg-black">
+                <aside className="h-screen w-1/2 sticky top-0 bg-imageColor">
                     <Sidebar/>
                 </aside>
 

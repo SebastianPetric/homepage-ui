@@ -1,6 +1,5 @@
 import {useEffect, useState} from "react";
 import InfoTab, {TUserInfo} from "./InfoTab";
-//import pdf from '../assets/Bewerbung.pdf';
 
 export default function Info() {
     const [user, setUser] = useState<TUserInfo[]>([]);
