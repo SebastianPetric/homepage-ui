@@ -22,7 +22,8 @@ function App() {
                     <Element name={"greeting-scroll"} className={"tile"}>
                         <Greeting/>
                     </Element>
-                    <Element name={"aboutme-scroll"} className={"tile"}>
+                    <Element name={"aboutme-scroll"}
+                             className={"flex items-center justify-start pl-20 pt-40 pb-40 h-auto w-full border-b-2"}>
                         <AboutMe/>
                     </Element>
                     <Element name={"career-scroll"} className={"tile"}>

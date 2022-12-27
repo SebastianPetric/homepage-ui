@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'imageColor': '#101115',
+        "imageColor": "#101115",
       },
       fontFamily: {
         "sans": ["Poppins", ...defaultTheme.fontFamily.sans],
