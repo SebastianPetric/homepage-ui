@@ -6,7 +6,7 @@ export default function Academic() {
 
     const [academic, setAcademic] = useState<TAcademic[]>([]);
     const [text, setText] = useState<string>("<b>\"Furtwangen ist das, was du drauß machst.\"</b> Wie wahr dieser Satz doch ist. Hier wurden sowohl Freunde fürs Leben gefunden, als auch die Basis für meine berufliche Laufbahn gelegt.");
-    const [isEditVisible, setIsEditVisible] = useState<boolean>(true);
+    const [isEditVisible, setIsEditVisible] = useState<boolean>(false);
 
     useEffect(() => {
         const callApi = async () => {

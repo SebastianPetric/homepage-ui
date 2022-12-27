@@ -5,7 +5,7 @@ import EditableText from "../shared/EditableText";
 export default function Career() {
     const [career, setCareer] = useState<TCareer[]>([]);
     const [text, setText] = useState<string>("Ja, Du siehst richtig. Meinen Zivildienst habe ich im Krankenhaus absolviert. Das liegt an meinem ursprünglichen Wunsch Medizin zu studieren. Dieser ist jedoch nach dem Zivildienst dem Wunsch <b>Software Entwickler</b> zu werden, gewichen.");
-    const [isEditVisible, setIsEditVisible] = useState<boolean>(true);
+    const [isEditVisible, setIsEditVisible] = useState<boolean>(false);
 
     useEffect(() => {
         const callApi = async () => {

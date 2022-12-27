@@ -3,7 +3,7 @@ import EditableText from "../shared/EditableText";
 
 export default function Greeting() {
     const [text, setText] = useState<string>("Hey! Ich bin Fullstack Software Engineer wohnhaft in Freiburg. Wie Aristoteles einst sagte: <br/><br/> <b>\"Das Ganze ist mehr als die Summe seiner Teile\".</b><br/><br/> Wenn das Frontend das Aussehen ist, so ist das Backend die Seele. Ich liebe es beides miteinander zu einem großen Ganzen zu vereinen.");
-    const [isEditVisible, setIsEditVisible] = useState<boolean>(true);
+    const [isEditVisible, setIsEditVisible] = useState<boolean>(false);
 
     const onSaveText = (cur: string) => {
         setText(cur);

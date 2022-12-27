@@ -12,7 +12,7 @@ export default function AboutMe() {
 
     const [experiences, setExperiences] = useState<TExperience[]>([]);
     const [text, setText] = useState<string>("Aktuell arbeite ich als Software Engineer bei der \<b\>Inxmail GmbH\<\/b\>. Mein erster Arbeitgeber nach meinem Studium in der Hochschule Furtwangen, wo ich sowohl meinen <b>Bachelor of Science</b>, als auch meinen <b>Master of Science</b> in <b>Medieninformatik</b> erhalten habe.")
-    const [isEditVisible, setIsEditVisible] = useState<boolean>(true);
+    const [isEditVisible, setIsEditVisible] = useState<boolean>(false);
 
     useEffect(() => {
         const callApi = async () => {

@@ -5,7 +5,7 @@ import EditableText from "../shared/EditableText";
 export default function Info() {
     const [user, setUser] = useState<TUserInfo[]>([]);
     const [text, setText] = useState<string>("Hab' ich Dein Interesse geweckt? Dann melde Dich doch einfach bei mir! Oder lade Dir meinen Lebenslauf herunter.");
-    const [isEditVisible, setIsEditVisible] = useState<boolean>(true);
+    const [isEditVisible, setIsEditVisible] = useState<boolean>(false);
 
     useEffect(() => {
         const callApi = async () => {
