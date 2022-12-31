@@ -28,9 +28,7 @@ export default function EditTextModal({
                                       }: { onSaveText: (obj: TText) => void, editTextObj: TText, titleModal: string }) {
     const [showModal, setShowModal] = useState<boolean>(false);
     const [isActive, setIsActive] = useState<boolean>(false);
-    const [id, setId] = useState<string>(editTextObj.id);
     const [text, setText] = useState<string>(editTextObj.text);
-    const [type, setType] = useState<string>(editTextObj.type);
 
 
     useEffect(() => {
@@ -44,8 +42,8 @@ export default function EditTextModal({
     const onSave = () => {
         setShowModal(false);
         let newObj: TText = {
-            id: id,
-            type: type,
+            id: editTextObj.id,
+            type: editTextObj.type,
             text: text,
         }
         onSaveText(newObj);
@@ -69,7 +67,7 @@ export default function EditTextModal({
                                     </h4>
                                     <div>
                                         <p className={"mt-5"}>Typ:</p>
-                                        <p>{type}</p>
+                                        <p>{editTextObj.type}</p>
 
                                         <p className={"mt-5"}>Text</p>
                                         <textarea className={"border-2 w-full h-72 mt-2 mb-2"}

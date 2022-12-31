@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
-import EditableTile from "../shared/EditableTile";
 import NewExperienceModal from "./NewExperienceModal";
 import {deleteEntity, findAllEntities, saveEntity, updateEntity} from "../shared/RestCaller";
 import EditTextModal, {TextType, TText, TTextDTO} from "../shared/EditTextModal";
+import ExperienceTab from "./ExperienceTab";
 
 export type TExperience = {
     id: string,
@@ -19,7 +19,7 @@ export default function AboutMe({isEditActive}: { isEditActive: boolean }) {
 
     const [experiences, setExperiences] = useState<TExperience[]>([]);
     const [textObj, setTextObj] = useState<TText>({id: "", text: "", type: ""});
-    const [isLoaded, setIsLoaded] = useState<boolean>(false);
+    const [isLoadedCovering, setIsLoadedCovering] = useState<boolean>(false);
     const COVERING_ENDPOINT = "covering-letter"
     const EXPERIENCE_ENDPOINT = "experiences";
 
@@ -34,7 +34,7 @@ export default function AboutMe({isEditActive}: { isEditActive: boolean }) {
             let response: TText[] = await findAllEntities(COVERING_ENDPOINT);
 
             setTextObj(response.filter(it => it.type === TextType.ABOUT_ME)[0]);
-            setIsLoaded(true);
+            setIsLoadedCovering(true);
         }
         getCoveringLetter();
 
@@ -42,24 +42,28 @@ export default function AboutMe({isEditActive}: { isEditActive: boolean }) {
 
 
     const saveNewExperience = async (exp: TExperienceDTO) => {
-        const newExp: TExperience = await saveEntity(EXPERIENCE_ENDPOINT, JSON.stringify({...exp}));
-        setExperiences([...experiences, newExp]);
+        const experienceDTO: TExperienceDTO = {
+            title: exp.title,
+            experiencePoints: exp.experiencePoints
+        }
+
+        const saved: TExperience = await saveEntity(EXPERIENCE_ENDPOINT, JSON.stringify(experienceDTO));
+        setExperiences([...experiences, saved]);
     }
 
-    const onDeleteTile = async (id: string) => {
-        let tmp = experiences.filter(ex => ex.id !== id);
+    const saveEditedExperience = async (exp: TExperience) => {
+        const experienceDTO: TExperienceDTO = {
+            title: exp.title,
+            experiencePoints: exp.experiencePoints
+        }
+
+        const saved: TExperience = await updateEntity(EXPERIENCE_ENDPOINT, exp.id, JSON.stringify(experienceDTO));
+        const index = experiences.findIndex(it => it.id == exp.id);
+        let tmp = [...experiences];
+        tmp[index] = saved;
         setExperiences(tmp);
-        await deleteEntity(EXPERIENCE_ENDPOINT, id);
     }
 
-    const onSaveTile = (id: string, curTitle: string, items: string[]) => {
-        let tmp = [...experiences]
-        let idx = tmp.findIndex(it => it.id === id);
-        tmp[idx].title = curTitle;
-        tmp[idx].experiencePoints = items;
-        setExperiences(tmp);
-        //TODO Server call
-    }
 
     const onSaveText = async (cur: TText) => {
         const textDt: TTextDTO = {
@@ -67,8 +71,14 @@ export default function AboutMe({isEditActive}: { isEditActive: boolean }) {
             type: cur.type
         }
 
-        const saved: TText = await updateEntity(COVERING_ENDPOINT, cur.id, JSON.stringify(textDt));
+        const saved: TText = await updateEntity(EXPERIENCE_ENDPOINT, cur.id, JSON.stringify(textDt));
         setTextObj(saved);
+    }
+
+    const onDelete = async (id: string) => {
+        await deleteEntity(EXPERIENCE_ENDPOINT, id);
+        const tmp = experiences.filter(it => it.id !== id);
+        setExperiences(tmp);
     }
 
     return (
@@ -76,16 +86,16 @@ export default function AboutMe({isEditActive}: { isEditActive: boolean }) {
             <p className={"text-5xl font-bold"}>Über mich.</p>
 
             <span className={"w-96 h-auto mt-8"}>
-                {isLoaded && isEditActive &&
+                {isLoadedCovering && isEditActive &&
                   <EditTextModal titleModal={"Bearbeiten"} onSaveText={onSaveText} editTextObj={textObj}/>}
                 <p dangerouslySetInnerHTML={{__html: textObj.text}}></p>
             </span>
             <div className={"flex flex-wrap justify-start mt-16"}>
                 {
-                    experiences.map(exp => <EditableTile key={`${exp.id}`} isEditVisible={isEditActive}
-                                                         deleteTile={onDeleteTile} id={exp.id}
-                                                         items={exp.experiencePoints} oldTitle={exp.title}
-                                                         saveTile={onSaveTile}/>)
+                    experiences.map((exp, index) => <ExperienceTab key={`${exp.id}-${index}`} exp={exp}
+                                                                   isEditVisible={isEditActive}
+                                                                   onSaveEdit={saveEditedExperience}
+                                                                   onDelete={onDelete}/>)
                 }
             </div>
             <NewExperienceModal isEditVisible={isEditActive} onSaveExp={saveNewExperience}/>

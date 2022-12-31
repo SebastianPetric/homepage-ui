@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {FaEdit, FaMinus, FaPlus} from "react-icons/all";
 
-export type TExperienceKeyValue = {
+export type TKeyValue = {
     key: string,
     value: string
 }
@@ -23,13 +23,12 @@ export default function EditStepModal({
                                       }: { onSaveExp: (obj: GENERIC_DAO) => void, editExpObj: GENERIC_DAO, titleModal: string }) {
     const [showModal, setShowModal] = useState<boolean>();
     const [isActive, setIsActive] = useState<boolean>(false);
-    const [id, setId] = useState<string>(editExpObj.id);
     const [title, setTitle] = useState<string>(editExpObj.title);
     const [institution, setInstitution] = useState<string>(editExpObj.institution);
     const [fromDate, setFromDate] = useState<string>(editExpObj.from_date);
     const [toDate, setToDate] = useState<string | undefined>(editExpObj.to_date);
 
-    const [experiences, setExperiences] = useState<TExperienceKeyValue[]>([]);
+    const [experiences, setExperiences] = useState<TKeyValue[]>([]);
 
 
     useEffect(() => {
@@ -49,7 +48,7 @@ export default function EditStepModal({
     }, [title, institution, fromDate, experiences]);
 
 
-    const setExp = (cur: TExperienceKeyValue) => {
+    const setExp = (cur: TKeyValue) => {
         let tmp = [...experiences]
         tmp.forEach(exp => {
             if (exp.key === cur.key) {
@@ -60,7 +59,7 @@ export default function EditStepModal({
     }
 
     const addExp = () => {
-        let newExp: TExperienceKeyValue = {
+        let newExp: TKeyValue = {
             key: `new-${Math.random() * 10}`,
             value: ""
         }
@@ -68,7 +67,7 @@ export default function EditStepModal({
         setExperiences(tmp);
     };
 
-    const deleteExp = (cur: TExperienceKeyValue) => {
+    const deleteExp = (cur: TKeyValue) => {
         let tmp = experiences.filter(it => it !== cur);
         setExperiences(tmp);
     };
@@ -78,7 +77,7 @@ export default function EditStepModal({
         let tmp = [...experiences];
         let expArray: string[] = tmp.filter(exp => exp.value !== '').map(it => it.value);
         let newObj: GENERIC_DAO = {
-            id: id,
+            id: editExpObj.id,
             title: title,
             institution: institution,
             from_date: fromDate,
