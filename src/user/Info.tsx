@@ -1,15 +1,15 @@
 import {useEffect, useState} from "react";
 import InfoTab, {TUserInfo} from "./InfoTab";
 import EditableText from "../shared/EditableText";
+import {findAllEntities} from "../shared/RestCaller";
 
-export default function Info() {
+export default function Info({isEditActive}: { isEditActive: boolean }) {
     const [user, setUser] = useState<TUserInfo[]>([]);
     const [text, setText] = useState<string>("Hab' ich Dein Interesse geweckt? Dann melde Dich doch einfach bei mir! Oder lade Dir meinen Lebenslauf herunter.");
-    const [isEditVisible, setIsEditVisible] = useState<boolean>(false);
 
     useEffect(() => {
         const callApi = async () => {
-            let response: TUserInfo[] = await (await fetch(`${import.meta.env.VITE_REQUEST_URL}/users`)).json();
+            let response: TUserInfo[] = await findAllEntities("users")
             setUser(response);
         }
         callApi();
@@ -24,7 +24,7 @@ export default function Info() {
         <div className={"flex flex-col"}>
             <p className={"text-5xl font-bold"}>Interesse geweckt?</p>
             <span className={"w-96 h-auto mt-8"}>
-                <EditableText isEditVisible={isEditVisible} txt={text} onSave={onSaveText}/>
+                <EditableText isEditVisible={isEditActive} txt={text} onSave={onSaveText}/>
             </span>
             <div className={"flex flex-wrap justify-start mt-8"}>{user.map((exp: TUserInfo, index: number) => <InfoTab
                 key={`${exp.id}-${index}`} {...exp}/>)}</div>

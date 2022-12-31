@@ -1,38 +1,44 @@
 import React, {useEffect, useState} from 'react';
-import {FaMinus, FaPlus} from "react-icons/all";
+import {FaEdit, FaMinus, FaPlus} from "react-icons/all";
 
 export type TExperienceKeyValue = {
     key: string,
     value: string
 }
 
-export type DTO = {
+export type GENERIC_DAO = {
+    id: string,
     title: string,
-
     institution: string,
-
     from_date: string,
-
     to_date: string | undefined,
-
     points: string[]
 }
 
 
-export default function NewStepModal({
-                                         isEditVisible,
-                                         onSaveExp,
-                                         titleModal
-                                     }: { isEditVisible: boolean, onSaveExp: (obj: DTO) => void, titleModal: string }) {
+export default function EditStepModal({
+                                          titleModal,
+                                          onSaveExp,
+                                          editExpObj,
+                                      }: { onSaveExp: (obj: GENERIC_DAO) => void, editExpObj: GENERIC_DAO, titleModal: string }) {
     const [showModal, setShowModal] = useState<boolean>();
     const [isActive, setIsActive] = useState<boolean>(false);
-    const [title, setTitle] = useState<string>("");
-    const [institution, setInstitution] = useState<string>("");
-    const [fromDate, setFromDate] = useState<string>("");
-    const [toDate, setToDate] = useState<string | undefined>(undefined);
+    const [id, setId] = useState<string>(editExpObj.id);
+    const [title, setTitle] = useState<string>(editExpObj.title);
+    const [institution, setInstitution] = useState<string>(editExpObj.institution);
+    const [fromDate, setFromDate] = useState<string>(editExpObj.from_date);
+    const [toDate, setToDate] = useState<string | undefined>(editExpObj.to_date);
 
     const [experiences, setExperiences] = useState<TExperienceKeyValue[]>([]);
 
+
+    useEffect(() => {
+        const tmp = editExpObj.points.map(it => ({
+            key: `new-${Math.random() * 10}`,
+            value: it
+        }));
+        setExperiences(tmp);
+    }, []);
 
     useEffect(() => {
         let tmp = experiences.map(it => it.value);
@@ -71,8 +77,8 @@ export default function NewStepModal({
         setShowModal(false);
         let tmp = [...experiences];
         let expArray: string[] = tmp.filter(exp => exp.value !== '').map(it => it.value);
-
-        let newObj: DTO = {
+        let newObj: GENERIC_DAO = {
+            id: id,
             title: title,
             institution: institution,
             from_date: fromDate,
@@ -82,14 +88,8 @@ export default function NewStepModal({
         onSaveExp(newObj);
     }
 
-    return (<>{isEditVisible ? (<>
-        <button
-            className="bg-green-500 w-auto h-20 rounded-br-3xl flex items-center justify-center text-xl font-bold hover:text-white cursor-pointer mt-10"
-            type="button"
-            onClick={() => setShowModal(true)}
-        >
-            Erstellen
-        </button>
+    return (<>
+        <FaEdit className={"hover:text-green-600 cursor-pointer mb-2"} onClick={() => setShowModal(true)}/>
         {showModal ? (
             <>
                 <div className="fixed inset-0 z-20 overflow-y-auto">
@@ -107,25 +107,26 @@ export default function NewStepModal({
                                     <div>
                                         <p className={"mt-5"}>Titel</p>
                                         <input className={"border-2 w-full mt-2 mb-2"}
-                                               onChange={(event => setTitle(event.target.value))}></input>
+                                               onChange={(event => setTitle(event.target.value))} value={title}></input>
 
                                         <p className={"mt-5"}>Institution</p>
                                         <input className={"border-2 w-full mt-2 mb-2"}
-                                               onChange={(event => setInstitution(event.target.value))}></input>
+                                               onChange={(event => setInstitution(event.target.value))}
+                                               value={institution}></input>
 
                                         <div className={"flex flex-row"}>
                                             <div className={"flex flex-col w-1/2 mr-2"}>
                                                 <p className={"mt-5"}>Von</p>
                                                 <input className={"border-2 w-full mt-2 mb-2"}
                                                        onChange={(event => setFromDate(event.target.value))}
-                                                       placeholder={"yyyy-mm-tt"}></input>
+                                                       placeholder={"yyyy-mm-tt"} value={fromDate}></input>
                                             </div>
 
                                             <div className={"flex flex-col  w-1/2"}>
-                                                <p className={"mt-5"}>Bis</p>
+                                                <p className={"mt-5"}>Bis (kein Datum = Heute)</p>
                                                 <input className={"border-2 w-full mt-2 mb-2"}
                                                        onChange={(event => setToDate(event.target.value))}
-                                                       placeholder={"yyyy-mm-tt"}></input>
+                                                       placeholder={"yyyy-mm-tt"} value={toDate ? toDate : ""}></input>
                                             </div>
                                         </div>
 
@@ -138,6 +139,7 @@ export default function NewStepModal({
                                             experiences.map((exp, index) => (<div key={`${exp}-${index}`}
                                                                                   className={"flex flex-row items-center"}>
                                                 <input className={"border-2 w-full mt-2 mb-2"}
+                                                       value={exp.value}
                                                        onChange={(event) => setExp({
                                                            key: exp.key,
                                                            value: event.target.value
@@ -169,6 +171,5 @@ export default function NewStepModal({
                 </div>
             </>
         ) : null}
-    </>) : null}
     </>);
 }

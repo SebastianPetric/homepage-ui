@@ -7,9 +7,22 @@ import Career from "./career/Career";
 import Academic from "./academic/Academic";
 import Info from "./user/Info";
 import {Element} from "react-scroll";
-
+import {useEffect, useState} from "react";
+import {useAuth0} from "@auth0/auth0-react";
 
 function App() {
+    const {isAuthenticated} = useAuth0();
+    const [isEditActive, setIsEditActive] = useState<boolean>(false);
+
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            setIsEditActive(true);
+        } else
+            setIsEditActive(false);
+    }, [isAuthenticated])
+
+
     return (
         <div className={"min-w-1200 font-sans text-imageColor"}>
             <NavigationBar/>
@@ -20,22 +33,22 @@ function App() {
 
                 <main className={"w-1/2 flex-grow"}>
                     <Element name={"greeting-scroll"} className={"tile"}>
-                        <Greeting/>
+                        <Greeting isEditActive={isEditActive}/>
                     </Element>
                     <Element name={"aboutme-scroll"}
-                             className={"flex items-center justify-start pl-20 pt-40 pb-40 h-auto w-full border-b-2"}>
-                        <AboutMe/>
+                             className={"tile"}>
+                        <AboutMe isEditActive={isEditActive}/>
                     </Element>
                     <Element name={"career-scroll"}
-                             className={"flex items-center justify-start pl-20 pt-40 pb-40 h-auto w-full border-b-2"}>
-                        <Career/>
+                             className={"tile"}>
+                        <Career isEditActive={isEditActive}/>
                     </Element>
                     <Element name={"academic-scroll"}
-                             className={"flex items-center justify-start pl-20 pt-40 pb-40 h-screen w-full border-b-2"}>
-                        <Academic/>
+                             className={"tile"}>
+                        <Academic isEditActive={isEditActive}/>
                     </Element>
                     <Element name={"info-scroll"} className={"tile"}>
-                        <Info/>
+                        <Info isEditActive={isEditActive}/>
                     </Element>
                 </main>
             </div>

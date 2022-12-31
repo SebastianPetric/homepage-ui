@@ -116,7 +116,7 @@ export default function NewExperienceModal({
                                         </button>
                                         <button
                                             className="w-full mt-2 p-2.5 flex-1 text-gray-800 rounded-md outline-none border ring-offset-2 ring-indigo-600 focus:ring-2"
-                                            onClick={onSave}
+                                            onClick={() => setShowModal(false)}
                                         >
                                             Abbrechen
                                         </button>
