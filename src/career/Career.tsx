@@ -1,26 +1,41 @@
 import {useEffect, useState} from "react";
 import CareerTab, {TCareer, TCareerDTO} from "./CareerTab";
-import EditableText from "../shared/EditableText";
 import NewStepModal, {DTO} from "../shared/NewStepModal";
 import {deleteEntity, findAllEntities, saveEntity, updateEntity} from "../shared/RestCaller";
 import {GENERIC_DAO} from "../shared/EditStepModal";
+import EditTextModal, {TextType, TText, TTextDTO} from "../shared/EditTextModal";
 
 export default function Career({isEditActive}: { isEditActive: boolean }) {
     const [career, setCareer] = useState<TCareer[]>([]);
-    const [text, setText] = useState<string>("Ja, Du siehst richtig. Meinen Zivildienst habe ich im Krankenhaus absolviert. Das liegt an meinem ursprünglichen Wunsch Medizin zu studieren. Dieser ist jedoch nach dem Zivildienst dem Wunsch <b>Software Entwickler</b> zu werden, gewichen.");
+    const [textObj, setTextObj] = useState<TText>({id: "", text: "", type: ""});
+    const [isLoaded, setIsLoaded] = useState<boolean>(false);
+    const COVERING_ENDPOINT = "covering-letter"
     const CAREER_ENDPOINT = "career";
 
     useEffect(() => {
-        const callApi = async () => {
+        const getAllCareer = async () => {
             let response: TCareer[] = await findAllEntities(CAREER_ENDPOINT);
             setCareer(response);
         }
-        callApi();
+        getAllCareer();
+
+        const getCoveringLetter = async () => {
+            let response: TText[] = await findAllEntities(COVERING_ENDPOINT);
+
+            setTextObj(response.filter(it => it.type === TextType.CAREER)[0]);
+            setIsLoaded(true);
+        }
+        getCoveringLetter();
     }, []);
 
-    const onSaveText = (curText: string) => {
-        setText(curText);
-        //TODO server call
+    const onSaveText = async (cur: TText) => {
+        const textDt: TTextDTO = {
+            text: cur.text,
+            type: cur.type
+        }
+
+        const saved: TText = await updateEntity(COVERING_ENDPOINT, cur.id, JSON.stringify(textDt));
+        setTextObj(saved);
     }
 
     const onSaveCareer = async (car: DTO) => {
@@ -63,7 +78,9 @@ export default function Career({isEditActive}: { isEditActive: boolean }) {
         <div className={"flex flex-col"}>
             <p className={"text-5xl font-bold"}>Beruflicher Werdegang.</p>
             <span className={"w-96 h-auto mt-8"}>
-                <EditableText isEditVisible={isEditActive} txt={text} onSave={onSaveText}/>
+                 {isLoaded && isEditActive &&
+                   <EditTextModal titleModal={"Bearbeiten"} onSaveText={onSaveText} editTextObj={textObj}/>}
+                <p dangerouslySetInnerHTML={{__html: textObj.text}}></p>
             </span>
             <div className={"flex flex-wrap justify-start mt-8"}>
                 {career.map((exp, index) => <CareerTab key={`${exp.id}-${index}`} isEditVisible={isEditActive}

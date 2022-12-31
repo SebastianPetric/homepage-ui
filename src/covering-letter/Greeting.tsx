@@ -1,19 +1,42 @@
-import {useState} from "react";
-import EditableText from "../shared/EditableText";
+import {useEffect, useState} from "react";
+import EditTextModal, {TextType, TText, TTextDTO} from "../shared/EditTextModal";
+import {findAllEntities, updateEntity} from "../shared/RestCaller";
 
 export default function Greeting({isEditActive}: { isEditActive: boolean }) {
-    const [text, setText] = useState<string>("Hey! Ich bin Fullstack Software Engineer wohnhaft in Freiburg. Wie Aristoteles einst sagte: <br/><br/> <b>\"Das Ganze ist mehr als die Summe seiner Teile\".</b><br/><br/> Wenn das Frontend das Aussehen ist, so ist das Backend die Seele. Ich liebe es beides miteinander zu einem großen Ganzen zu vereinen.");
+    const [textObj, setTextObj] = useState<TText>({id: "", text: "", type: ""});
+    const [isLoaded, setIsLoaded] = useState<boolean>(false);
+    const COVERING_ENDPOINT = "covering-letter"
 
-    const onSaveText = (cur: string) => {
-        setText(cur);
+    useEffect(() => {
+        const getCoveringLetter = async () => {
+            let response: TText[] = await findAllEntities(COVERING_ENDPOINT);
+
+            setTextObj(response.filter(it => it.type === TextType.COVERING)[0]);
+            setIsLoaded(true);
+        }
+        getCoveringLetter();
+
+    }, []);
+
+    const onSaveText = async (cur: TText) => {
+        const textDt: TTextDTO = {
+            text: cur.text,
+            type: cur.type
+        }
+
+        const saved: TText = await updateEntity(COVERING_ENDPOINT, cur.id, JSON.stringify(textDt));
+        setTextObj(saved);
     }
+
 
     return (
         <div className={"flex flex-col"}>
             <p className={"text-5xl font-bold"}>Sebastian Petöcz.</p>
             <span className={"w-96 h-auto mt-8"}>
-                <EditableText isEditVisible={isEditActive} txt={text} onSave={onSaveText}/>
-            </span>
+           {isLoaded && isEditActive &&
+             <EditTextModal titleModal={"Bearbeiten"} onSaveText={onSaveText} editTextObj={textObj}/>}
+                <p dangerouslySetInnerHTML={{__html: textObj.text}}></p>
+        </span>
         </div>
     );
 }

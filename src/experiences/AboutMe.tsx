@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
 import EditableTile from "../shared/EditableTile";
-import EditableText from "../shared/EditableText";
 import NewExperienceModal from "./NewExperienceModal";
-import {deleteEntity, findAllEntities, saveEntity} from "../shared/RestCaller";
+import {deleteEntity, findAllEntities, saveEntity, updateEntity} from "../shared/RestCaller";
+import EditTextModal, {TextType, TText, TTextDTO} from "../shared/EditTextModal";
 
 export type TExperience = {
     id: string,
@@ -18,15 +18,26 @@ export type TExperienceDTO = {
 export default function AboutMe({isEditActive}: { isEditActive: boolean }) {
 
     const [experiences, setExperiences] = useState<TExperience[]>([]);
-    const [text, setText] = useState<string>("Aktuell arbeite ich als Software Engineer bei der \<b\>Inxmail GmbH\<\/b\>. Mein erster Arbeitgeber nach meinem Studium in der Hochschule Furtwangen, wo ich sowohl meinen <b>Bachelor of Science</b>, als auch meinen <b>Master of Science</b> in <b>Medieninformatik</b> erhalten habe.")
+    const [textObj, setTextObj] = useState<TText>({id: "", text: "", type: ""});
+    const [isLoaded, setIsLoaded] = useState<boolean>(false);
+    const COVERING_ENDPOINT = "covering-letter"
     const EXPERIENCE_ENDPOINT = "experiences";
 
     useEffect(() => {
-        const callApi = async () => {
+        const getAllExperiences = async () => {
             let response: TExperience[] = await findAllEntities(EXPERIENCE_ENDPOINT);
             setExperiences(response);
         }
-        callApi();
+        getAllExperiences();
+
+        const getCoveringLetter = async () => {
+            let response: TText[] = await findAllEntities(COVERING_ENDPOINT);
+
+            setTextObj(response.filter(it => it.type === TextType.ABOUT_ME)[0]);
+            setIsLoaded(true);
+        }
+        getCoveringLetter();
+
     }, []);
 
 
@@ -50,9 +61,14 @@ export default function AboutMe({isEditActive}: { isEditActive: boolean }) {
         //TODO Server call
     }
 
-    const onSaveText = (curText: string) => {
-        setText(curText);
-        //TODO server call
+    const onSaveText = async (cur: TText) => {
+        const textDt: TTextDTO = {
+            text: cur.text,
+            type: cur.type
+        }
+
+        const saved: TText = await updateEntity(COVERING_ENDPOINT, cur.id, JSON.stringify(textDt));
+        setTextObj(saved);
     }
 
     return (
@@ -60,7 +76,9 @@ export default function AboutMe({isEditActive}: { isEditActive: boolean }) {
             <p className={"text-5xl font-bold"}>Über mich.</p>
 
             <span className={"w-96 h-auto mt-8"}>
-                <EditableText isEditVisible={isEditActive} txt={text} onSave={onSaveText}/>
+                {isLoaded && isEditActive &&
+                  <EditTextModal titleModal={"Bearbeiten"} onSaveText={onSaveText} editTextObj={textObj}/>}
+                <p dangerouslySetInnerHTML={{__html: textObj.text}}></p>
             </span>
             <div className={"flex flex-wrap justify-start mt-16"}>
                 {

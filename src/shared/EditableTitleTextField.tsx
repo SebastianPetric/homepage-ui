@@ -1,4 +1,4 @@
-import {FaMinus, FaPencilAlt, FaPlus, FaSave, FaTimes} from "react-icons/all";
+import {FaEdit, FaMinus, FaPlus, FaSave, FaTimes} from "react-icons/all";
 import {useEffect, useState} from "react";
 
 export default function EditableTitleTextField({
@@ -59,7 +59,7 @@ export default function EditableTitleTextField({
             {(hasBeenEdited || hasTitleChanged) && isEditVisible &&
               <FaSave className={"mb-2 mr-2 hover:text-green-600 cursor-pointer"} onClick={() => onSave(title)}/>}
             {!shouldEdit && isEditVisible &&
-              <FaPencilAlt className={"text-sm mb-2 mr-2 hover:text-green-600 cursor-pointer"} onClick={(() => {
+              <FaEdit className={"text-sm mb-2 mr-2 hover:text-green-600 cursor-pointer"} onClick={(() => {
                   setShouldEdit(true);
               })}/>}
             {shouldEdit && isEditVisible &&

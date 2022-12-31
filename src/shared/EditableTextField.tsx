@@ -1,4 +1,4 @@
-import {FaCheck, FaMinus, FaPencilAlt, FaTimes} from "react-icons/all";
+import {FaCheck, FaEdit, FaMinus, FaTimes} from "react-icons/all";
 import {useState} from "react";
 
 export type TEditableTextFieldType = {
@@ -47,7 +47,7 @@ export default function EditableTextField(props: TEditableTextFieldType) {
               <FaCheck className={"ml-2 text-sm hover:text-green-600 cursor-pointer"}
                        onClick={() => onSave(props.value, text)}/>}
             {!shouldEdit && props.isEditVisible &&
-              <FaPencilAlt className={"ml-2 text-sm hover:text-green-600 cursor-pointer"} onClick={(e => {
+              <FaEdit className={"ml-2 text-sm hover:text-green-600 cursor-pointer"} onClick={(e => {
                   setShouldEdit(true);
               })}/>}
             {!shouldEdit && props.isEditVisible &&

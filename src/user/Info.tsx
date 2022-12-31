@@ -1,30 +1,47 @@
 import {useEffect, useState} from "react";
 import InfoTab, {TUserInfo} from "./InfoTab";
-import EditableText from "../shared/EditableText";
-import {findAllEntities} from "../shared/RestCaller";
+import {findAllEntities, updateEntity} from "../shared/RestCaller";
+import EditTextModal, {TextType, TText, TTextDTO} from "../shared/EditTextModal";
 
 export default function Info({isEditActive}: { isEditActive: boolean }) {
     const [user, setUser] = useState<TUserInfo[]>([]);
-    const [text, setText] = useState<string>("Hab' ich Dein Interesse geweckt? Dann melde Dich doch einfach bei mir! Oder lade Dir meinen Lebenslauf herunter.");
+    const [textObj, setTextObj] = useState<TText>({id: "", text: "", type: ""});
+    const [isLoaded, setIsLoaded] = useState<boolean>(false);
+    const COVERING_ENDPOINT = "covering-letter"
 
     useEffect(() => {
-        const callApi = async () => {
+        const getAllInfo = async () => {
             let response: TUserInfo[] = await findAllEntities("users")
             setUser(response);
         }
-        callApi();
+        getAllInfo();
+
+        const getCoveringLetter = async () => {
+            let response: TText[] = await findAllEntities(COVERING_ENDPOINT);
+
+            setTextObj(response.filter(it => it.type === TextType.INFO)[0]);
+            setIsLoaded(true);
+        }
+        getCoveringLetter();
     }, []);
 
-    const onSaveText = (curText: string) => {
-        setText(curText);
-        //TODO server call
+    const onSaveText = async (cur: TText) => {
+        const textDt: TTextDTO = {
+            text: cur.text,
+            type: cur.type
+        }
+
+        const saved: TText = await updateEntity(COVERING_ENDPOINT, cur.id, JSON.stringify(textDt));
+        setTextObj(saved);
     }
 
     return (
         <div className={"flex flex-col"}>
             <p className={"text-5xl font-bold"}>Interesse geweckt?</p>
             <span className={"w-96 h-auto mt-8"}>
-                <EditableText isEditVisible={isEditActive} txt={text} onSave={onSaveText}/>
+                {isLoaded && isEditActive &&
+                  <EditTextModal titleModal={"Bearbeiten"} onSaveText={onSaveText} editTextObj={textObj}/>}
+                <p dangerouslySetInnerHTML={{__html: textObj.text}}></p>
             </span>
             <div className={"flex flex-wrap justify-start mt-8"}>{user.map((exp: TUserInfo, index: number) => <InfoTab
                 key={`${exp.id}-${index}`} {...exp}/>)}</div>

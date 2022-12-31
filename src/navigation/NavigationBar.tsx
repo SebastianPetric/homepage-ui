@@ -18,7 +18,7 @@ export default function NavigationBar() {
                 setCookie('token', token, {
                     SameSite: 'Strict',
                     Secure: true,
-                    HttpOnly: true
+                    /*HttpOnly: true*/
                 });
             }
             setToken();
