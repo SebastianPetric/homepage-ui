@@ -20,8 +20,8 @@ export default function ExperienceTab({
         <>
             <div className={"flex flex-col w-72 mt-10"}>
                 <div className={"flex flex-row"}>
-                    <FaMinus className={"hover:text-green-600 cursor-pointer mr-2 mb-2"}
-                             onClick={() => onDelete(exp.id)}/>
+                    {isEditVisible && <FaMinus className={"hover:text-green-600 cursor-pointer mr-2 mb-2"}
+                                               onClick={() => onDelete(exp.id)}/>}
                     <EditExperienceModal onSaveExp={onSaveEditedExperience} isEditVisible={isEditVisible}
                                          experience={exp}/>
                 </div>
