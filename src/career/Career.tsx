@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
-import CareerTab, {TCareer} from "./CareerTab";
+import CareerTab, {TCareer, TCareerDTO} from "./CareerTab";
 import EditableText from "../shared/EditableText";
+import NewStepModal, {DTO} from "../shared/NewStepModal";
 
 export default function Career() {
     const [career, setCareer] = useState<TCareer[]>([]);
@@ -20,6 +21,18 @@ export default function Career() {
         //TODO server call
     }
 
+    const onSaveCareer = (career: DTO) => {
+        let newObj: TCareerDTO = {
+            title: career.title,
+            company: career.institution,
+            from_date: career.from_date,
+            to_date: career.to_date,
+            toDos: career.points
+        }
+
+        //TODO server call
+    }
+
     return (
         <div className={"flex flex-col"}>
             <p className={"text-5xl font-bold"}>Beruflicher Werdegang.</p>
@@ -29,6 +42,7 @@ export default function Career() {
             <div className={"flex flex-wrap justify-start mt-8"}>
                 {career.map((exp, index) => <CareerTab key={`${exp.id}-${index}`} {...exp}/>)}
             </div>
+            <NewStepModal isEditVisible={isEditVisible} onSaveExp={onSaveCareer} titleModal={"Karriereschritt hinzufügen"}/>
         </div>
     );
 }

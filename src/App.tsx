@@ -26,10 +26,12 @@ function App() {
                              className={"flex items-center justify-start pl-20 pt-40 pb-40 h-auto w-full border-b-2"}>
                         <AboutMe/>
                     </Element>
-                    <Element name={"career-scroll"} className={"tile"}>
+                    <Element name={"career-scroll"}
+                             className={"flex items-center justify-start pl-20 pt-40 pb-40 h-auto w-full border-b-2"}>
                         <Career/>
                     </Element>
-                    <Element name={"academic-scroll"} className={"tile"}>
+                    <Element name={"academic-scroll"}
+                             className={"flex items-center justify-start pl-20 pt-40 pb-40 h-screen w-full border-b-2"}>
                         <Academic/>
                     </Element>
                     <Element name={"info-scroll"} className={"tile"}>

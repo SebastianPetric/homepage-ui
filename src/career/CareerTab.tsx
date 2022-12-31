@@ -11,6 +11,18 @@ export type TCareer = {
     toDos: string[]
 }
 
+export type TCareerDTO = {
+    title: string,
+
+    company: string,
+
+    from_date: string,
+
+    to_date: string | undefined,
+
+    toDos: string[]
+}
+
 
 export default function CareerTab(career: TCareer) {
     const formattedFromDate = new Date(career.from_date)

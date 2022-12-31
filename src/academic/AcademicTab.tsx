@@ -12,6 +12,19 @@ export type TAcademic = {
 }
 
 
+export type TAcademicDTO = {
+    title: string,
+
+    school: string,
+
+    from_date: string,
+
+    to_date: string | undefined,
+
+    focusList: string[]
+}
+
+
 export default function AcademicTab(career: TAcademic) {
 
     const formattedFromDate = new Date(career.from_date)

@@ -22,9 +22,8 @@ export default function EditableText({
                 {shouldEdit && isEditVisible &&
                   <FaSave className={"hover:text-green-600 cursor-pointer"} onClick={() => save(text)}/>}
                 {!shouldEdit && isEditVisible &&
-                  <FaPencilAlt className={"text-sm hover:text-green-600 cursor-pointer"} onClick={(e => {
-                      setShouldEdit(true);
-                  })}/>}
+                  <FaPencilAlt className={"text-sm hover:text-green-600 cursor-pointer"}
+                               onClick={() => setShouldEdit(true)}/>}
             </div>
 
             {shouldEdit && isEditVisible ?

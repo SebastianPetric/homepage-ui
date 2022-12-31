@@ -1,9 +1,15 @@
 import {useEffect, useState} from "react";
 import EditableTile from "../shared/EditableTile";
 import EditableText from "../shared/EditableText";
+import NewExperienceModal from "./NewExperienceModal";
 
 export type TExperience = {
     id: string,
+    title: string,
+    experiencePoints: string[]
+}
+
+export type TExperienceDTO = {
     title: string,
     experiencePoints: string[]
 }
@@ -42,6 +48,11 @@ export default function AboutMe() {
         //TODO server call
     }
 
+
+    const onSaveExp = (exp: TExperienceDTO) => {
+        //TODO server call
+    }
+
     return (
         <div className={"flex flex-col"}>
             <p className={"text-5xl font-bold"}>Über mich.</p>
@@ -57,12 +68,7 @@ export default function AboutMe() {
                                                          saveTile={onSaveTile}/>)
                 }
             </div>
-
-            <div>
-
-            </div>
-            <a href={""} target="_blank"
-               className={"bg-green-500 w-auto h-20 rounded-br-3xl flex items-center justify-center text-xl font-bold hover:text-white cursor-pointer mt-10"}>Erstellen</a>
+            <NewExperienceModal isEditVisible={isEditVisible} onSaveExp={onSaveExp}/>
         </div>
     );
 }

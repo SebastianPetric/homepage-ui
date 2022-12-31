@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
-import AcademicTab, {TAcademic} from "./AcademicTab";
+import AcademicTab, {TAcademic, TAcademicDTO} from "./AcademicTab";
 import EditableText from "../shared/EditableText";
+import NewStepModal, {DTO} from "../shared/NewStepModal";
 
 export default function Academic() {
 
@@ -20,6 +21,17 @@ export default function Academic() {
         setText(cur);
     }
 
+    const onSaveAcademic = (academic: DTO) => {
+        let newObj: TAcademicDTO = {
+            title: academic.title,
+            school: academic.institution,
+            from_date: academic.from_date,
+            to_date: academic.to_date,
+            focusList: academic.points
+        }
+        //TODO server call
+    }
+
     return (
         <div className={"flex flex-col"}>
             <p className={"text-5xl font-bold"}>Akademischer Werdegang.</p>
@@ -28,6 +40,7 @@ export default function Academic() {
             </span>
             <div className={"flex flex-wrap justify-start mt-8"}>{academic.map((exp, index) => <AcademicTab
                 key={`${exp.title}-${index}`} {...exp}/>)}</div>
+            <NewStepModal isEditVisible={isEditVisible} onSaveExp={onSaveAcademic} titleModal={"Schulischer hinzufügen"}/>
         </div>
     );
 }
