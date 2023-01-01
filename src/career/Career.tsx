@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import CareerTab, {TCareer, TCareerDTO} from "./CareerTab";
 import NewStepModal, {DTO} from "../shared/NewStepModal";
-import {deleteEntity, findAllEntities, saveEntity, updateEntity} from "../shared/RestCaller";
+import {deleteEntity, findAllEntities, findTextByType, saveEntity, updateEntity} from "../shared/RestCaller";
 import {GENERIC_DAO} from "../shared/EditStepModal";
 import EditTextModal, {TextType, TText, TTextDTO} from "../shared/EditTextModal";
 
@@ -20,9 +20,8 @@ export default function Career({isEditActive}: { isEditActive: boolean }) {
         getAllCareer();
 
         const getCoveringLetter = async () => {
-            let response: TText[] = await findAllEntities(COVERING_ENDPOINT);
-
-            setTextObj(response.filter(it => it.type === TextType.CAREER)[0]);
+            let response: TText = await findTextByType(TextType.CAREER);
+            setTextObj(response);
             setIsLoaded(true);
         }
         getCoveringLetter();

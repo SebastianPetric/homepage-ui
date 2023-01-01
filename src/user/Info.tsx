@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import InfoTab, {TUserInfo} from "./InfoTab";
-import {findAllEntities, updateEntity} from "../shared/RestCaller";
+import {findAllEntities, findTextByType, updateEntity} from "../shared/RestCaller";
 import EditTextModal, {TextType, TText, TTextDTO} from "../shared/EditTextModal";
 
 export default function Info({isEditActive}: { isEditActive: boolean }) {
@@ -17,9 +17,8 @@ export default function Info({isEditActive}: { isEditActive: boolean }) {
         getAllInfo();
 
         const getCoveringLetter = async () => {
-            let response: TText[] = await findAllEntities(COVERING_ENDPOINT);
-
-            setTextObj(response.filter(it => it.type === TextType.INFO)[0]);
+            let response: TText = await findTextByType(TextType.INFO);
+            setTextObj(response);
             setIsLoaded(true);
         }
         getCoveringLetter();

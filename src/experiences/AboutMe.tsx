@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import NewExperienceModal from "./NewExperienceModal";
-import {deleteEntity, findAllEntities, saveEntity, updateEntity} from "../shared/RestCaller";
+import {deleteEntity, findAllEntities, findTextByType, saveEntity, updateEntity} from "../shared/RestCaller";
 import EditTextModal, {TextType, TText, TTextDTO} from "../shared/EditTextModal";
 import ExperienceTab from "./ExperienceTab";
 
@@ -20,7 +20,6 @@ export default function AboutMe({isEditActive}: { isEditActive: boolean }) {
     const [experiences, setExperiences] = useState<TExperience[]>([]);
     const [textObj, setTextObj] = useState<TText>({id: "", text: "", type: ""});
     const [isLoadedCovering, setIsLoadedCovering] = useState<boolean>(false);
-    const COVERING_ENDPOINT = "covering-letter"
     const EXPERIENCE_ENDPOINT = "experiences";
 
     useEffect(() => {
@@ -31,9 +30,8 @@ export default function AboutMe({isEditActive}: { isEditActive: boolean }) {
         getAllExperiences();
 
         const getCoveringLetter = async () => {
-            let response: TText[] = await findAllEntities(COVERING_ENDPOINT);
-
-            setTextObj(response.filter(it => it.type === TextType.ABOUT_ME)[0]);
+            let response: TText = await findTextByType(TextType.ABOUT_ME);
+            setTextObj(response);
             setIsLoadedCovering(true);
         }
         getCoveringLetter();

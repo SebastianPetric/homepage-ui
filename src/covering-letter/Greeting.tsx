@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import EditTextModal, {TextType, TText, TTextDTO} from "../shared/EditTextModal";
-import {findAllEntities, updateEntity} from "../shared/RestCaller";
+import {findTextByType, updateEntity} from "../shared/RestCaller";
 
 export default function Greeting({isEditActive}: { isEditActive: boolean }) {
     const [textObj, setTextObj] = useState<TText>({id: "", text: "", type: ""});
@@ -9,9 +9,8 @@ export default function Greeting({isEditActive}: { isEditActive: boolean }) {
 
     useEffect(() => {
         const getCoveringLetter = async () => {
-            let response: TText[] = await findAllEntities(COVERING_ENDPOINT);
-
-            setTextObj(response.filter(it => it.type === TextType.COVERING)[0]);
+            let response: TText = await findTextByType(TextType.COVERING);
+            setTextObj(response);
             setIsLoaded(true);
         }
         getCoveringLetter();

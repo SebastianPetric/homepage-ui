@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import AcademicTab, {TAcademic, TAcademicDTO} from "./AcademicTab";
 import NewStepModal, {DTO} from "../shared/NewStepModal";
-import {deleteEntity, findAllEntities, updateEntity} from "../shared/RestCaller";
+import {deleteEntity, findAllEntities, findTextByType, updateEntity} from "../shared/RestCaller";
 import {GENERIC_DAO} from "../shared/EditStepModal";
 import EditTextModal, {TextType, TText, TTextDTO} from "../shared/EditTextModal";
 
@@ -21,9 +21,8 @@ export default function Academic({isEditActive}: { isEditActive: boolean }) {
         getAllAcademics();
 
         const getCoveringLetter = async () => {
-            let response: TText[] = await findAllEntities(COVERING_ENDPOINT);
-
-            setTextObj(response.filter(it => it.type === TextType.ACADEMIC)[0]);
+            let response: TText = await findTextByType(TextType.ACADEMIC);
+            setTextObj(response);
             setIsLoaded(true);
         }
         getCoveringLetter();

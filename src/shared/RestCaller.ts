@@ -1,4 +1,5 @@
 import {getCookie} from "react-use-cookie";
+import {TextType} from "./EditTextModal";
 
 
 export const findAllEntities = async (endpoint: string) => {
@@ -7,6 +8,19 @@ export const findAllEntities = async (endpoint: string) => {
             method: 'GET'
         };
         const response = (await fetch(`${import.meta.env.VITE_REQUEST_URL}/${endpoint}`, requestOptions));
+        return await response.json();
+
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export const findTextByType = async (type: TextType) => {
+    try {
+        const requestOptions = {
+            method: 'GET'
+        };
+        const response = (await fetch(`${import.meta.env.VITE_REQUEST_URL}/covering-letter/${type}`, requestOptions));
         return await response.json();
 
     } catch (err) {
