@@ -85,7 +85,7 @@ export default function AboutMe({isEditActive}: { isEditActive: boolean }) {
 
             <span className={"w-96 h-auto mt-8"}>
                 {isLoadedCovering && isEditActive &&
-                  <EditTextModal titleModal={"Bearbeiten"} onSaveText={onSaveText} editTextObj={textObj}/>}
+                  <EditTextModal onSaveText={onSaveText} editTextObj={textObj}/>}
                 <p dangerouslySetInnerHTML={{__html: textObj.text}}></p>
             </span>
             <div className={"flex flex-wrap justify-start mt-16"}>

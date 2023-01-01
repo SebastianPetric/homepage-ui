@@ -1,25 +1,33 @@
 import {FaGithub, FaLinkedin, FaXing} from "react-icons/all";
+import EditInfoModal from "./EditInfoModal";
 
 export type TUserInfo = {
     id: string,
     first_name: string,
-
     last_name: string,
-
     phone: string,
-
     email: string,
-
     github_link: string,
-
     linkedin_link: string,
-
     xing_link: string
-
 }
 
-export default function InfoTab(user: TUserInfo) {
+export type TUserInfoDTO = {
+    first_name: string,
+    last_name: string,
+    phone: string,
+    email: string,
+    github_link: string,
+    linkedin_link: string,
+    xing_link: string
+}
+
+export default function InfoTab({
+                                    user,
+                                    onSaveEditedModel
+                                }: { user: TUserInfo, onSaveEditedModel: (user: TUserInfo) => void }) {
     return <div className={"flex flex-col"}>
+        <EditInfoModal onSaveUserInfo={onSaveEditedModel} editUserInfoObj={user}/>
         <p className={"text-xl font-bold mb-2 text-green-600"}>{user ? user.first_name : ""} {user ? user.last_name : ""}</p>
         <p className={"text-sm font-bold"}>Mobil: {user ? user.phone : ""}</p>
         <p className={"text-sm font-bold"}>Email: {user ? user.email : ""}</p>

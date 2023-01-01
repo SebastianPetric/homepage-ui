@@ -22,10 +22,9 @@ export enum TextType {
 
 
 export default function EditTextModal({
-                                          titleModal,
                                           onSaveText,
                                           editTextObj,
-                                      }: { onSaveText: (obj: TText) => void, editTextObj: TText, titleModal: string }) {
+                                      }: { onSaveText: (obj: TText) => void, editTextObj: TText }) {
     const [showModal, setShowModal] = useState<boolean>(false);
     const [isActive, setIsActive] = useState<boolean>(false);
     const [text, setText] = useState<string>(editTextObj.text);
@@ -63,7 +62,7 @@ export default function EditTextModal({
                             <div className="mt-3 sm:flex">
                                 <div className="mt-2 text-center sm:ml-4 sm:text-left w-full">
                                     <h4 className="text-lg font-medium text-gray-800">
-                                        {titleModal}
+                                        Bearbeiten
                                     </h4>
                                     <div>
                                         <p className={"mt-5"}>Typ:</p>

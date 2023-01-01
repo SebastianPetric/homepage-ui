@@ -79,7 +79,7 @@ export default function Academic({isEditActive}: { isEditActive: boolean }) {
             <p className={"text-5xl font-bold"}>Akademischer Werdegang.</p>
             <span className={"w-96 h-auto mt-8"}>
                  {isLoaded && isEditActive &&
-                   <EditTextModal titleModal={"Bearbeiten"} onSaveText={onSaveText} editTextObj={textObj}/>}
+                   <EditTextModal onSaveText={onSaveText} editTextObj={textObj}/>}
                 <p dangerouslySetInnerHTML={{__html: textObj.text}}></p>
             </span>
             <div className={"flex flex-wrap justify-start mt-8"}>{academic.map((exp, index) => <AcademicTab
