@@ -16,17 +16,17 @@ export default function NewExperienceModal({
 }) {
   const [showModal, setShowModal] = useState<boolean>();
   const [title, setTitle] = useState<string>("");
-  const [isActive, setIsActive] = useState<boolean>(false);
+  const [isSavingPossible, setIsSavingPossible] = useState<boolean>(false);
   const [experiences, setExperiences] = useState<TExp[]>([]);
 
   useEffect(() => {
     let tmp = experiences.map((it) => it.value);
     if (title !== "" && tmp.length !== 0 && !tmp.includes(""))
-      setIsActive(true);
-    else setIsActive(false);
+      setIsSavingPossible(true);
+    else setIsSavingPossible(false);
   }, [title, experiences]);
 
-  const setExp = (cur: TExp) => {
+  const editSpecificExperiencePoint = (cur: TExp) => {
     let tmp = [...experiences];
     tmp.forEach((exp) => {
       if (exp.key === cur.key) {
@@ -36,7 +36,7 @@ export default function NewExperienceModal({
     setExperiences(tmp);
   };
 
-  const addExp = () => {
+  const addNewExperiencePoint = () => {
     let newExp: TExp = {
       key: `new-${Math.random() * 10}`,
       value: "",
@@ -45,7 +45,7 @@ export default function NewExperienceModal({
     setExperiences(tmp);
   };
 
-  const deleteExp = (cur: TExp) => {
+  const deleteSpecificExperiencePoint = (cur: TExp) => {
     let tmp = experiences.filter((it) => it !== cur);
     setExperiences(tmp);
   };
@@ -100,7 +100,7 @@ export default function NewExperienceModal({
                               className={
                                 "ml-5 hover:text-green-600 cursor-pointer"
                               }
-                              onClick={addExp}
+                              onClick={addNewExperiencePoint}
                             />
                           </div>
                           {experiences.map((exp, index) => (
@@ -111,7 +111,7 @@ export default function NewExperienceModal({
                               <input
                                 className={"border-2 w-full mt-2 mb-2"}
                                 onChange={(event) =>
-                                  setExp({
+                                  editSpecificExperiencePoint({
                                     key: exp.key,
                                     value: event.target.value,
                                   })
@@ -121,7 +121,9 @@ export default function NewExperienceModal({
                                 className={
                                   "ml-5 hover:text-green-600 cursor-pointer"
                                 }
-                                onClick={() => deleteExp(exp)}
+                                onClick={() =>
+                                  deleteSpecificExperiencePoint(exp)
+                                }
                               />
                             </div>
                           ))}
@@ -129,7 +131,7 @@ export default function NewExperienceModal({
                         <div className="items-center gap-2 mt-3 sm:flex mt-5">
                           <button
                             className="w-full mt-2 p-2.5 flex-1 text-white bg-green-600 rounded-md outline-none ring-offset-2 ring-green-600 focus:ring-2"
-                            disabled={!isActive}
+                            disabled={!isSavingPossible}
                             onClick={onSave}
                           >
                             Speichern

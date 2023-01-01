@@ -6,7 +6,7 @@ export type TExperienceKeyValue = {
   value: string;
 };
 
-export type DTO = {
+export type GENERIC_DTO = {
   title: string;
 
   institution: string;
@@ -24,11 +24,11 @@ export default function NewStepModal({
   titleModal,
 }: {
   isEditVisible: boolean;
-  onSaveExp: (obj: DTO) => void;
+  onSaveExp: (obj: GENERIC_DTO) => void;
   titleModal: string;
 }) {
   const [showModal, setShowModal] = useState<boolean>();
-  const [isActive, setIsActive] = useState<boolean>(false);
+  const [isSavingPossible, setIsSavingPossible] = useState<boolean>(false);
   const [title, setTitle] = useState<string>("");
   const [institution, setInstitution] = useState<string>("");
   const [fromDate, setFromDate] = useState<string>("");
@@ -45,11 +45,11 @@ export default function NewStepModal({
       tmp.length !== 0 &&
       !tmp.includes("")
     )
-      setIsActive(true);
-    else setIsActive(false);
+      setIsSavingPossible(true);
+    else setIsSavingPossible(false);
   }, [title, institution, fromDate, experiences]);
 
-  const setExp = (cur: TExperienceKeyValue) => {
+  const editExperiencePoint = (cur: TExperienceKeyValue) => {
     let tmp = [...experiences];
     tmp.forEach((exp) => {
       if (exp.key === cur.key) {
@@ -59,7 +59,7 @@ export default function NewStepModal({
     setExperiences(tmp);
   };
 
-  const addExp = () => {
+  const addNewExperiencePoint = () => {
     let newExp: TExperienceKeyValue = {
       key: `new-${Math.random() * 10}`,
       value: "",
@@ -68,19 +68,20 @@ export default function NewStepModal({
     setExperiences(tmp);
   };
 
-  const deleteExp = (cur: TExperienceKeyValue) => {
+  const deleteExperiencePoint = (cur: TExperienceKeyValue) => {
     let tmp = experiences.filter((it) => it !== cur);
     setExperiences(tmp);
   };
 
   const onSave = () => {
+    console.log("hallo");
     setShowModal(false);
     let tmp = [...experiences];
     let expArray: string[] = tmp
       .filter((exp) => exp.value !== "")
       .map((it) => it.value);
 
-    let newObj: DTO = {
+    let newObj: GENERIC_DTO = {
       title: title,
       institution: institution,
       from_date: fromDate,
@@ -162,7 +163,7 @@ export default function NewStepModal({
                               className={
                                 "ml-5 hover:text-green-600 cursor-pointer"
                               }
-                              onClick={addExp}
+                              onClick={addNewExperiencePoint}
                             />
                           </div>
                           {experiences.map((exp, index) => (
@@ -173,7 +174,7 @@ export default function NewStepModal({
                               <input
                                 className={"border-2 w-full mt-2 mb-2"}
                                 onChange={(event) =>
-                                  setExp({
+                                  editExperiencePoint({
                                     key: exp.key,
                                     value: event.target.value,
                                   })
@@ -183,7 +184,7 @@ export default function NewStepModal({
                                 className={
                                   "ml-5 hover:text-green-600 cursor-pointer"
                                 }
-                                onClick={() => deleteExp(exp)}
+                                onClick={() => deleteExperiencePoint(exp)}
                               />
                             </div>
                           ))}
@@ -191,7 +192,7 @@ export default function NewStepModal({
                         <div className="items-center gap-2 mt-3 sm:flex mt-5">
                           <button
                             className="w-full mt-2 p-2.5 flex-1 text-white bg-green-600 rounded-md outline-none ring-offset-2 ring-green-600 focus:ring-2"
-                            disabled={!isActive}
+                            disabled={!isSavingPossible}
                             onClick={onSave}
                           >
                             Speichern

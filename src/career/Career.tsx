@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import CareerTab, { TCareer, TCareerDTO } from "./CareerTab";
-import NewStepModal, { DTO } from "../shared/NewStepModal";
+import NewStepModal, { GENERIC_DTO } from "../shared/NewStepModal";
 import {
   deleteEntity,
   findAllEntities,
@@ -51,7 +51,7 @@ export default function Career({ isEditActive }: { isEditActive: boolean }) {
     setTextObj(saved);
   };
 
-  const onSaveCareer = async (car: DTO) => {
+  const onSaveCareer = async (car: GENERIC_DTO) => {
     let newObj: TCareerDTO = {
       title: car.title,
       company: car.institution,

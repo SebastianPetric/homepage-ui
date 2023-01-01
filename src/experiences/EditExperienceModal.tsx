@@ -14,8 +14,8 @@ export default function EditExperienceModal({
 }) {
   const [showModal, setShowModal] = useState<boolean>();
   const [title, setTitle] = useState<string>(experience.title);
-  const [isActive, setIsActive] = useState<boolean>(false);
-  const [experiences, setExperiences] = useState<TExp[]>([]);
+  const [isSavingPossible, setIsSavingPossible] = useState<boolean>(false);
+  const [experiencePoints, setExperiencePoints] = useState<TExp[]>([]);
 
   useEffect(() => {
     const tmp = experience.experiencePoints.map((it) => {
@@ -24,43 +24,43 @@ export default function EditExperienceModal({
         value: it,
       };
     });
-    setExperiences(tmp);
+    setExperiencePoints(tmp);
   }, []);
 
   useEffect(() => {
-    let tmp = experiences.map((it) => it.value);
+    let tmp = experiencePoints.map((it) => it.value);
     if (title !== "" && tmp.length !== 0 && !tmp.includes(""))
-      setIsActive(true);
-    else setIsActive(false);
-  }, [title, experiences]);
+      setIsSavingPossible(true);
+    else setIsSavingPossible(false);
+  }, [title, experiencePoints]);
 
-  const setExp = (cur: TExp) => {
-    let tmp = [...experiences];
+  const editSpecificExperiencePoint = (cur: TExp) => {
+    let tmp = [...experiencePoints];
     tmp.forEach((exp) => {
       if (exp.key === cur.key) {
         exp.value = cur.value;
       }
     });
-    setExperiences(tmp);
+    setExperiencePoints(tmp);
   };
 
-  const addExp = () => {
+  const addNewExperiencePoint = () => {
     let newExp: TExp = {
       key: `new-${Math.random() * 10}`,
       value: "",
     };
-    let tmp = [...experiences, newExp];
-    setExperiences(tmp);
+    let tmp = [...experiencePoints, newExp];
+    setExperiencePoints(tmp);
   };
 
-  const deleteExp = (cur: TExp) => {
-    let tmp = experiences.filter((it) => it !== cur);
-    setExperiences(tmp);
+  const deleteSpecificExperiencePoint = (cur: TExp) => {
+    let tmp = experiencePoints.filter((it) => it !== cur);
+    setExperiencePoints(tmp);
   };
 
   const onSave = (id: string) => {
     setShowModal(false);
-    let tmp = [...experiences];
+    let tmp = [...experiencePoints];
     let expArray: string[] = tmp
       .filter((exp) => exp.value !== "")
       .map((it) => it.value);
@@ -107,10 +107,10 @@ export default function EditExperienceModal({
                               className={
                                 "ml-5 hover:text-green-600 cursor-pointer"
                               }
-                              onClick={addExp}
+                              onClick={addNewExperiencePoint}
                             />
                           </div>
-                          {experiences.map((exp, index) => (
+                          {experiencePoints.map((exp, index) => (
                             <div
                               key={`${exp}-${index}`}
                               className={"flex flex-row items-center"}
@@ -118,7 +118,7 @@ export default function EditExperienceModal({
                               <input
                                 className={"border-2 w-full mt-2 mb-2"}
                                 onChange={(event) =>
-                                  setExp({
+                                  editSpecificExperiencePoint({
                                     key: exp.key,
                                     value: event.target.value,
                                   })
@@ -129,7 +129,9 @@ export default function EditExperienceModal({
                                 className={
                                   "ml-5 hover:text-green-600 cursor-pointer"
                                 }
-                                onClick={() => deleteExp(exp)}
+                                onClick={() =>
+                                  deleteSpecificExperiencePoint(exp)
+                                }
                               />
                             </div>
                           ))}
@@ -137,7 +139,7 @@ export default function EditExperienceModal({
                         <div className="items-center gap-2 mt-3 sm:flex mt-5">
                           <button
                             className="w-full mt-2 p-2.5 flex-1 text-white bg-green-600 rounded-md outline-none ring-offset-2 ring-green-600 focus:ring-2"
-                            disabled={!isActive}
+                            disabled={!isSavingPossible}
                             onClick={() => onSave(experience.id)}
                           >
                             Speichern

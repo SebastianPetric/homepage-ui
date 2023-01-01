@@ -4,25 +4,17 @@ import EditStepModal, { GENERIC_DAO } from "../shared/EditStepModal";
 export type TCareer = {
   id: string;
   title: string;
-
   company: string;
-
   from_date: string;
-
   to_date: string | undefined;
-
   toDos: string[];
 };
 
 export type TCareerDTO = {
   title: string;
-
   company: string;
-
   from_date: string;
-
   to_date: string | undefined;
-
   toDos: string[];
 };
 

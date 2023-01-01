@@ -18,11 +18,11 @@ export default function Info({ isEditActive }: { isEditActive: boolean }) {
   const COVERING_ENDPOINT = "covering-letter";
 
   useEffect(() => {
-    const getAllInfo = async () => {
+    const getAllUserInfo = async () => {
       let response: TUserInfo[] = await findAllEntities("users");
       setUser(response);
     };
-    getAllInfo();
+    getAllUserInfo();
 
     const getCoveringLetter = async () => {
       let response: TText = await findTextByType(TextType.INFO);
@@ -32,7 +32,7 @@ export default function Info({ isEditActive }: { isEditActive: boolean }) {
     getCoveringLetter();
   }, []);
 
-  const onSaveText = async (cur: TText) => {
+  const onSaveEditedText = async (cur: TText) => {
     const textDt: TTextDTO = {
       text: cur.text,
       type: cur.type,
@@ -46,7 +46,7 @@ export default function Info({ isEditActive }: { isEditActive: boolean }) {
     setTextObj(saved);
   };
 
-  const onSaveEditedModel = async (cur: TUserInfo) => {
+  const onSaveEditedUserInfo = async (cur: TUserInfo) => {
     const dto: TUserInfoDTO = {
       first_name: cur.first_name,
       last_name: cur.last_name,
@@ -72,7 +72,7 @@ export default function Info({ isEditActive }: { isEditActive: boolean }) {
       <p className={"text-5xl font-bold"}>Interesse geweckt?</p>
       <span className={"w-96 h-auto mt-8"}>
         {isLoaded && isEditActive && (
-          <EditTextModal onSaveText={onSaveText} editTextObj={textObj} />
+          <EditTextModal onSaveText={onSaveEditedText} editTextObj={textObj} />
         )}
         <p dangerouslySetInnerHTML={{ __html: textObj.text }}></p>
       </span>
@@ -81,7 +81,7 @@ export default function Info({ isEditActive }: { isEditActive: boolean }) {
           <InfoTab
             key={`${exp.id}-${index}`}
             user={{ ...exp }}
-            onSaveEditedModel={onSaveEditedModel}
+            onSaveEditedModel={onSaveEditedUserInfo}
             isEditActive={isEditActive}
           />
         ))}

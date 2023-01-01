@@ -90,7 +90,7 @@ export default function AboutMe({ isEditActive }: { isEditActive: boolean }) {
     setTextObj(saved);
   };
 
-  const onDelete = async (id: string) => {
+  const onDeleteExperienceById = async (id: string) => {
     await deleteEntity(EXPERIENCE_ENDPOINT, id);
     const tmp = experiences.filter((it) => it.id !== id);
     setExperiences(tmp);
@@ -113,7 +113,7 @@ export default function AboutMe({ isEditActive }: { isEditActive: boolean }) {
             exp={exp}
             isEditVisible={isEditActive}
             onSaveEdit={saveEditedExperience}
-            onDelete={onDelete}
+            onDelete={onDeleteExperienceById}
           />
         ))}
       </div>

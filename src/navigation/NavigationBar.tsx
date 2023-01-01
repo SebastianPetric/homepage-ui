@@ -14,20 +14,11 @@ export default function NavigationBar() {
         setCookie("token", token, {
           SameSite: "Strict",
           Secure: true,
-          /*HttpOnly: true*/
         });
       };
       setToken();
     } else setCookie("token", "0");
   }, [isAuthenticated]);
-
-  const onLogin = () => {
-    loginWithPopup();
-  };
-
-  const onLogout = () => {
-    logout();
-  };
 
   return (
     <div className="w-screen min-w-1200 h-20 fixed top-7 flex justify-center z-10">
@@ -56,11 +47,11 @@ export default function NavigationBar() {
               download cve
             </Link>
             {isAuthenticated ? (
-              <li className={"linkButton"} onClick={onLogout}>
+              <li className={"linkButton"} onClick={() => logout()}>
                 logout
               </li>
             ) : (
-              <li className={"linkButton"} onClick={onLogin}>
+              <li className={"linkButton"} onClick={loginWithPopup}>
                 login
               </li>
             )}

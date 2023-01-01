@@ -28,12 +28,12 @@ export default function EditTextModal({
   editTextObj: TText;
 }) {
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [isActive, setIsActive] = useState<boolean>(false);
+  const [isSavingPossible, setIsSavingPossible] = useState<boolean>(false);
   const [text, setText] = useState<string>(editTextObj.text);
 
   useEffect(() => {
-    if (text !== "") setIsActive(true);
-    else setIsActive(false);
+    if (text !== "") setIsSavingPossible(true);
+    else setIsSavingPossible(false);
   }, [text]);
 
   const onSave = () => {
@@ -80,7 +80,7 @@ export default function EditTextModal({
                     <div className="items-center gap-2 mt-3 sm:flex mt-5">
                       <button
                         className="w-full mt-2 p-2.5 flex-1 text-white bg-green-600 rounded-md outline-none ring-offset-2 ring-green-600 focus:ring-2"
-                        disabled={!isActive}
+                        disabled={!isSavingPossible}
                         onClick={onSave}
                       >
                         Speichern

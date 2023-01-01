@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import AcademicTab, { TAcademic, TAcademicDTO } from "./AcademicTab";
-import NewStepModal, { DTO } from "../shared/NewStepModal";
+import NewStepModal, { GENERIC_DTO } from "../shared/NewStepModal";
 import {
   deleteEntity,
   findAllEntities,
   findTextByType,
+  saveEntity,
   updateEntity,
 } from "../shared/RestCaller";
 import { GENERIC_DAO } from "../shared/EditStepModal";
@@ -50,15 +51,19 @@ export default function Academic({ isEditActive }: { isEditActive: boolean }) {
     setTextObj(saved);
   };
 
-  const onSaveAcademic = (academic: DTO) => {
+  const onSaveAcademic = async (ac: GENERIC_DTO) => {
     let newObj: TAcademicDTO = {
-      title: academic.title,
-      school: academic.institution,
-      from_date: academic.from_date,
-      to_date: academic.to_date,
-      focusList: academic.points,
+      title: ac.title,
+      school: ac.institution,
+      from_date: ac.from_date,
+      to_date: ac.to_date,
+      focusList: ac.points,
     };
-    //TODO server call
+    const saved: TAcademic = await saveEntity(
+      ACADEMIC_ENDPOINT,
+      JSON.stringify(newObj)
+    );
+    setAcademic([...academic, saved]);
   };
 
   const onSaveEditedAcademic = async (ac: GENERIC_DAO) => {
