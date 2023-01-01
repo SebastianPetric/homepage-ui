@@ -24,10 +24,11 @@ export type TUserInfoDTO = {
 
 export default function InfoTab({
                                     user,
-                                    onSaveEditedModel
-                                }: { user: TUserInfo, onSaveEditedModel: (user: TUserInfo) => void }) {
+                                    onSaveEditedModel,
+                                    isEditActive
+                                }: { user: TUserInfo, onSaveEditedModel: (user: TUserInfo) => void, isEditActive: boolean }) {
     return <div className={"flex flex-col"}>
-        <EditInfoModal onSaveUserInfo={onSaveEditedModel} editUserInfoObj={user}/>
+        {isEditActive && <EditInfoModal onSaveUserInfo={onSaveEditedModel} editUserInfoObj={user}/>}
         <p className={"text-xl font-bold mb-2 text-green-600"}>{user ? user.first_name : ""} {user ? user.last_name : ""}</p>
         <p className={"text-sm font-bold"}>Mobil: {user ? user.phone : ""}</p>
         <p className={"text-sm font-bold"}>Email: {user ? user.email : ""}</p>

@@ -60,7 +60,11 @@ export default function Info({isEditActive}: { isEditActive: boolean }) {
                 <p dangerouslySetInnerHTML={{__html: textObj.text}}></p>
             </span>
             <div className={"flex flex-wrap justify-start mt-8"}>{user.map((exp: TUserInfo, index: number) => <InfoTab
-                key={`${exp.id}-${index}`} user={{...exp}} onSaveEditedModel={onSaveEditedModel}/>)}</div>
+                key={`${exp.id}-${index}`}
+                user={{...exp}}
+                onSaveEditedModel={onSaveEditedModel}
+                isEditActive={isEditActive}/>)}
+            </div>
             <a href={""} target="_blank"
                className={"bg-green-500 w-auto h-20 rounded-br-3xl flex items-center justify-center text-xl font-bold hover:text-white cursor-pointer mt-10"}>Lebenslauf
                 herunterladen</a>
