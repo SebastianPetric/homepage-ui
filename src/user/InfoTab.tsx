@@ -33,12 +33,11 @@ export default function InfoTab({
 }) {
   return (
     <div className={"flex flex-col"}>
-      {isEditActive && (
-        <EditInfoModal
-          onSaveUserInfo={onSaveEditedModel}
-          editUserInfoObj={user}
-        />
-      )}
+      <EditInfoModal
+        isEditActive={isEditActive}
+        onSaveUserInfo={onSaveEditedModel}
+        editUserInfoObj={user}
+      />
       <p className={"text-xl font-bold mb-2 text-green-600"}>
         {user ? user.first_name : ""} {user ? user.last_name : ""}
       </p>

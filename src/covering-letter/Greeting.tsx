@@ -3,7 +3,7 @@ import EditTextModal, {
   TextType,
   TText,
   TTextDTO,
-} from "../shared/EditTextModal";
+} from "../shared/modals/EditTextModal";
 import { findTextByType, updateEntity } from "../shared/RestCaller";
 
 export default function Greeting({ isEditActive }: { isEditActive: boolean }) {

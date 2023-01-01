@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import CareerTab, { TCareer, TCareerDTO } from "./CareerTab";
-import NewStepModal, { GENERIC_DTO } from "../shared/NewStepModal";
+import NewStepModal, { GENERIC_DTO } from "../shared/modals/NewStepModal";
 import {
   deleteEntity,
   findAllEntities,
@@ -8,12 +8,12 @@ import {
   saveEntity,
   updateEntity,
 } from "../shared/RestCaller";
-import { GENERIC_DAO } from "../shared/EditStepModal";
+import { GENERIC_DAO } from "../shared/modals/EditStepModal";
 import EditTextModal, {
   TextType,
   TText,
   TTextDTO,
-} from "../shared/EditTextModal";
+} from "../shared/modals/EditTextModal";
 
 export default function Career({ isEditActive }: { isEditActive: boolean }) {
   const [career, setCareer] = useState<TCareer[]>([]);

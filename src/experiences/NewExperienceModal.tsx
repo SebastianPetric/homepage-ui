@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { FaMinus, FaPlus } from "react-icons/all";
 import { TExperienceDTO } from "./AboutMe";
+import ModalCreateButton from "../shared/modals/ModalCreateButton";
+import ModalExperienceItems from "../shared/modals/ModalExperienceItems";
+import SaveAndCancelButtons from "../shared/modals/SaveAndCancelButtons";
+import ModalItem from "../shared/modals/ModalItem";
+import Modal from "../shared/modals/Modal";
 
 export type TExp = {
   key: string;
@@ -14,7 +18,7 @@ export default function NewExperienceModal({
   onSaveExp: (exp: TExperienceDTO) => void;
   isEditVisible: boolean;
 }) {
-  const [showModal, setShowModal] = useState<boolean>();
+  const [showModal, setShowModal] = useState<boolean>(false);
   const [title, setTitle] = useState<string>("");
   const [isSavingPossible, setIsSavingPossible] = useState<boolean>(false);
   const [experiences, setExperiences] = useState<TExp[]>([]);
@@ -65,93 +69,31 @@ export default function NewExperienceModal({
 
   return (
     <>
-      {isEditVisible ? (
-        <>
-          <button
-            className="bg-green-500 w-auto h-20 rounded-br-3xl flex items-center justify-center text-xl font-bold hover:text-white cursor-pointer mt-10"
-            type="button"
-            onClick={() => setShowModal(true)}
-          >
-            Erstellen
-          </button>
-          {showModal ? (
-            <>
-              <div className="fixed inset-0 z-20 overflow-y-auto">
-                <div
-                  className="fixed inset-0 w-full h-full bg-black opacity-40"
-                  onClick={() => setShowModal(false)}
-                ></div>
-                <div className="flex items-center min-h-screen px-4 py-8">
-                  <div className="relative w-full max-w-lg p-4 mx-auto bg-white rounded-md shadow-lg">
-                    <div className="mt-3 sm:flex">
-                      <div className="mt-2 text-center sm:ml-4 sm:text-left w-full">
-                        <h4 className="text-lg font-medium text-gray-800">
-                          Erfahrungen hinzufügen
-                        </h4>
-                        <div>
-                          <p className={"mt-5"}>Titel</p>
-                          <input
-                            className={"border-2 w-full mt-2 mb-2"}
-                            onChange={(event) => setTitle(event.target.value)}
-                          ></input>
-                          <div className={"flex flex-row items-center mt-5"}>
-                            <p>Erfahrungen</p>
-                            <FaPlus
-                              className={
-                                "ml-5 hover:text-green-600 cursor-pointer"
-                              }
-                              onClick={addNewExperiencePoint}
-                            />
-                          </div>
-                          {experiences.map((exp, index) => (
-                            <div
-                              key={`${exp}-${index}`}
-                              className={"flex flex-row items-center"}
-                            >
-                              <input
-                                className={"border-2 w-full mt-2 mb-2"}
-                                onChange={(event) =>
-                                  editSpecificExperiencePoint({
-                                    key: exp.key,
-                                    value: event.target.value,
-                                  })
-                                }
-                              ></input>
-                              <FaMinus
-                                className={
-                                  "ml-5 hover:text-green-600 cursor-pointer"
-                                }
-                                onClick={() =>
-                                  deleteSpecificExperiencePoint(exp)
-                                }
-                              />
-                            </div>
-                          ))}
-                        </div>
-                        <div className="items-center gap-2 mt-3 sm:flex mt-5">
-                          <button
-                            className="w-full mt-2 p-2.5 flex-1 text-white bg-green-600 rounded-md outline-none ring-offset-2 ring-green-600 focus:ring-2"
-                            disabled={!isSavingPossible}
-                            onClick={onSave}
-                          >
-                            Speichern
-                          </button>
-                          <button
-                            className="w-full mt-2 p-2.5 flex-1 text-gray-800 rounded-md outline-none border ring-offset-2 ring-indigo-600 focus:ring-2"
-                            onClick={() => setShowModal(false)}
-                          >
-                            Abbrechen
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </>
-          ) : null}
-        </>
-      ) : null}
+      <>
+        <ModalCreateButton
+          setShowModal={setShowModal}
+          isEditVisible={isEditVisible}
+        />
+        <Modal
+          shouldShowModal={showModal}
+          setShowModal={setShowModal}
+          titleModal={"Erfahrungen hinzufügen"}
+        >
+          <ModalItem title={"Titel"} value={title} setValue={setTitle} />
+          <ModalExperienceItems
+            experiencePoints={experiences}
+            addNewExperiencePoint={addNewExperiencePoint}
+            editSingleExperiencePoint={editSpecificExperiencePoint}
+            deleteSpecificExperiencePoint={deleteSpecificExperiencePoint}
+          />
+
+          <SaveAndCancelButtons
+            isSavingPossible={isSavingPossible}
+            onSave={onSave}
+            setShowModal={setShowModal}
+          />
+        </Modal>
+      </>
     </>
   );
 }

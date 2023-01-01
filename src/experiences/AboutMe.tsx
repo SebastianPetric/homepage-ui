@@ -11,7 +11,7 @@ import EditTextModal, {
   TextType,
   TText,
   TTextDTO,
-} from "../shared/EditTextModal";
+} from "../shared/modals/EditTextModal";
 import ExperienceTab from "./ExperienceTab";
 
 export type TExperience = {

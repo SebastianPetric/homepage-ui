@@ -1,5 +1,5 @@
 import { getCookie } from "react-use-cookie";
-import { TextType } from "./EditTextModal";
+import { TextType } from "./modals/EditTextModal";
 
 export const findAllEntities = async (endpoint: string) => {
   try {

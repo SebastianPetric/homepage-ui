@@ -9,7 +9,7 @@ import EditTextModal, {
   TextType,
   TText,
   TTextDTO,
-} from "../shared/EditTextModal";
+} from "../shared/modals/EditTextModal";
 
 export default function Info({ isEditActive }: { isEditActive: boolean }) {
   const [user, setUser] = useState<TUserInfo[]>([]);
