@@ -1,5 +1,6 @@
 import { FaMinus } from "react-icons/all";
 import EditStepModal, { GENERIC_DAO } from "../shared/EditStepModal";
+import { formatMonthYear } from "../util/DateFormatter";
 
 export type TAcademic = {
   id: string;
@@ -37,8 +38,6 @@ export default function AcademicTab({
   onSaveEditedCareer: (academic: GENERIC_DAO) => void;
   onDelete: (id: string) => void;
 }) {
-  const formattedFromDate = new Date(academic.from_date);
-  const formattedToDate = new Date(academic.to_date);
   const academicDt: GENERIC_DAO = {
     id: academic.id,
     title: academic.title,
@@ -71,9 +70,8 @@ export default function AcademicTab({
           {academic.title}
         </p>
         <p className={"text-sm font-bold"}>
-          {academic.school} von {formattedFromDate.getMonth()}/
-          {formattedFromDate.getFullYear()} bis {formattedToDate.getMonth()}/
-          {formattedToDate.getFullYear()}
+          {academic.school} von {formatMonthYear(academic.from_date)} bis{" "}
+          {formatMonthYear(academic.to_date)}
         </p>
         <ul className={"flex flex-col items-start text-sm"}>
           {academic.focusList.map((focus, index) => (

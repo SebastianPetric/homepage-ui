@@ -116,7 +116,7 @@ export default function Academic({ isEditActive }: { isEditActive: boolean }) {
       <NewStepModal
         isEditVisible={isEditActive}
         onSaveExp={onSaveAcademic}
-        titleModal={"Schulischer hinzufügen"}
+        titleModal={"Akademischer Werdegangspunkt hinzufügen"}
       />
     </div>
   );

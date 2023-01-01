@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/all";
+import "react-datepicker/dist/react-datepicker.css";
+import CustomDatePicker, { format } from "../util/DateFormatter";
 
 export type TExperienceKeyValue = {
   key: string;
@@ -31,23 +33,33 @@ export default function NewStepModal({
   const [isSavingPossible, setIsSavingPossible] = useState<boolean>(false);
   const [title, setTitle] = useState<string>("");
   const [institution, setInstitution] = useState<string>("");
-  const [fromDate, setFromDate] = useState<string>("");
-  const [toDate, setToDate] = useState<string | undefined>(undefined);
+  const [formattedFromDate, setFormattedFromDate] = useState<string>("");
+  const [formattedToDate, setFormattedToDate] = useState<string | undefined>(
+    undefined
+  );
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
 
   const [experiences, setExperiences] = useState<TExperienceKeyValue[]>([]);
 
   useEffect(() => {
     let tmp = experiences.map((it) => it.value);
+
     if (
       title !== "" &&
       institution !== "" &&
-      fromDate !== "" &&
+      formattedFromDate !== "" &&
       tmp.length !== 0 &&
       !tmp.includes("")
     )
       setIsSavingPossible(true);
     else setIsSavingPossible(false);
-  }, [title, institution, fromDate, experiences]);
+  }, [title, institution, experiences]);
+
+  useEffect(() => {
+    if (startDate) setFormattedFromDate(format(startDate));
+    if (endDate) setFormattedToDate(format(endDate));
+  }, [startDate, endDate]);
 
   const editExperiencePoint = (cur: TExperienceKeyValue) => {
     let tmp = [...experiences];
@@ -74,7 +86,6 @@ export default function NewStepModal({
   };
 
   const onSave = () => {
-    console.log("hallo");
     setShowModal(false);
     let tmp = [...experiences];
     let expArray: string[] = tmp
@@ -84,8 +95,8 @@ export default function NewStepModal({
     let newObj: GENERIC_DTO = {
       title: title,
       institution: institution,
-      from_date: fromDate,
-      to_date: toDate,
+      from_date: formattedFromDate,
+      to_date: formattedToDate,
       points: expArray,
     };
     onSaveExp(newObj);
@@ -131,31 +142,12 @@ export default function NewStepModal({
                             }
                           ></input>
 
-                          <div className={"flex flex-row"}>
-                            <div className={"flex flex-col w-1/2 mr-2"}>
-                              <p className={"mt-5"}>Von</p>
-                              <input
-                                className={"border-2 w-full mt-2 mb-2"}
-                                onChange={(event) =>
-                                  setFromDate(event.target.value)
-                                }
-                                placeholder={"yyyy-mm-tt"}
-                                value={fromDate}
-                              ></input>
-                            </div>
-
-                            <div className={"flex flex-col  w-1/2"}>
-                              <p className={"mt-5"}>Bis</p>
-                              <input
-                                className={"border-2 w-full mt-2 mb-2"}
-                                onChange={(event) =>
-                                  setToDate(event.target.value)
-                                }
-                                placeholder={"yyyy-mm-tt"}
-                                value={toDate ? toDate : ""}
-                              ></input>
-                            </div>
-                          </div>
+                          <CustomDatePicker
+                            startDate={startDate}
+                            endDate={endDate}
+                            setStartDate={setStartDate}
+                            setEndDate={setEndDate}
+                          />
 
                           <div className={"flex flex-row items-center mt-5"}>
                             <p>Erfahrungen</p>

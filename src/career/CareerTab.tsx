@@ -1,5 +1,6 @@
 import { FaMinus } from "react-icons/all";
 import EditStepModal, { GENERIC_DAO } from "../shared/EditStepModal";
+import { formatMonthYear } from "../util/DateFormatter";
 
 export type TCareer = {
   id: string;
@@ -29,7 +30,6 @@ export default function CareerTab({
   onDelete: (id: string) => {};
   onSaveEditedCareer: (career: GENERIC_DAO) => void;
 }) {
-  const formattedFromDate = new Date(career.from_date);
   const careerDt: GENERIC_DAO = {
     id: career.id,
     title: career.title,
@@ -56,13 +56,8 @@ export default function CareerTab({
       )}
       <p className={"text-xl font-bold mb-2 text-green-600"}>{career.title}</p>
       <p className={"text-sm font-bold"}>
-        {career.company} von {formattedFromDate.getMonth()}/
-        {formattedFromDate.getFullYear()} bis{" "}
-        {career.to_date
-          ? `${new Date(career.to_date).getMonth()}/${new Date(
-              career.to_date
-            ).getFullYear()}`
-          : "Heute"}
+        {career.company} von {formatMonthYear(career.from_date)} bis{" "}
+        {formatMonthYear(career.to_date)}
       </p>
       <ul className={"flex flex-col items-start text-sm"}>
         {career.toDos.map((toDo, index) => (
