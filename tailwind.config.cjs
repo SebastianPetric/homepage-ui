@@ -1,4 +1,4 @@
-const defaultTheme = require("tailwindcss/defaultTheme")
+const defaultTheme = require("tailwindcss/defaultTheme");
 
 // tailwind.config.cjs
 module.exports = {
@@ -7,12 +7,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "imageColor": "#101115",
+        imageColor: "#101115",
       },
       fontFamily: {
-        "sans": ["Poppins", ...defaultTheme.fontFamily.sans],
-        "serif": [...defaultTheme.fontFamily.serif],
-        "mono": [...defaultTheme.fontFamily.mono]
+        sans: ["Poppins", ...defaultTheme.fontFamily.sans],
+        serif: [...defaultTheme.fontFamily.serif],
+        mono: [...defaultTheme.fontFamily.mono],
       },
     },
   },
@@ -20,4 +20,4 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-}
+};

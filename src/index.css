@@ -1,45 +1,46 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer components {
-    .linkButton {
-        @apply mr-2 ml-2 cursor-pointer hover:text-green-600;
-    }
+  .linkButton {
+    @apply mr-2 ml-2 cursor-pointer hover:text-green-600;
+  }
 
-    .tile {
-        @apply flex items-center justify-start pl-20 h-screen w-full border-b-2;
-    }
+  .tile {
+    @apply flex items-center justify-start pl-20 h-screen w-full border-b-2;
+  }
 }
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 .min-w-1200 {
-    min-width: 1200px;
+  min-width: 1200px;
 }
 
 .min-w-600 {
-    min-width: 1000px;
+  min-width: 1000px;
 }
 
 .careerTileWidth {
-    width: 400px;
+  width: 400px;
 }
 
 .font-sans {
-    font-family: Poppins, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
-    Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: Poppins, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 .font-serif {
-    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
 .font-mono {
-    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+    monospace;
 }
