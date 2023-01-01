@@ -71,8 +71,12 @@ export default function Info({ isEditActive }: { isEditActive: boolean }) {
     <div className={"flex flex-col"}>
       <p className={"text-5xl font-bold"}>Interesse geweckt?</p>
       <span className={"w-96 h-auto mt-8"}>
-        {isLoaded && isEditActive && (
-          <EditTextModal onSaveText={onSaveEditedText} editTextObj={textObj} />
+        {isLoaded && (
+          <EditTextModal
+            onSaveText={onSaveEditedText}
+            editTextObj={textObj}
+            isEditActive={isEditActive}
+          />
         )}
         <p dangerouslySetInnerHTML={{ __html: textObj.text }}></p>
       </span>

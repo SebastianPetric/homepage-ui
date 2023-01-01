@@ -1,6 +1,5 @@
 import { TExperience } from "./AboutMe";
 import EditExperienceModal from "./EditExperienceModal";
-import { FaMinus } from "react-icons/all";
 
 export default function ExperienceTab({
   exp,
@@ -23,15 +22,11 @@ export default function ExperienceTab({
         <div className={"flex flex-row"}>
           <EditExperienceModal
             onSaveExp={onSaveEditedExperience}
+            onDelete={onDelete}
+            id={exp.id}
             isEditVisible={isEditVisible}
             experience={exp}
           />
-          {isEditVisible && (
-            <FaMinus
-              className={"hover:text-green-600 cursor-pointer ml-2 mb-2"}
-              onClick={() => onDelete(exp.id)}
-            />
-          )}
         </div>
         <p className={"text-green-600 text-xl font-bold mb-2"}>{exp.title}</p>
         <ul>

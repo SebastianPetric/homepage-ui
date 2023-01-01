@@ -11,7 +11,7 @@ export default function ModalItem({
 }) {
   return (
     <>
-      <p className={"mt-5"}>{title}:</p>
+      <p className={"mt-5 font-bold"}>{title}:</p>
       <input
         className={"border-2 w-full mt-2 mb-2"}
         onChange={(event) => setValue(event.target.value)}

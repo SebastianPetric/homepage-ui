@@ -97,8 +97,12 @@ export default function Academic({ isEditActive }: { isEditActive: boolean }) {
     <div className={"flex flex-col"}>
       <p className={"text-5xl font-bold"}>Akademischer Werdegang.</p>
       <span className={"w-96 h-auto mt-8"}>
-        {isLoaded && isEditActive && (
-          <EditTextModal onSaveText={onSaveText} editTextObj={textObj} />
+        {isLoaded && (
+          <EditTextModal
+            onSaveText={onSaveText}
+            editTextObj={textObj}
+            isEditActive={isEditActive}
+          />
         )}
         <p dangerouslySetInnerHTML={{ __html: textObj.text }}></p>
       </span>

@@ -32,7 +32,7 @@ export default function CustomDatePicker({
   return (
     <div className={"flex flex-row"}>
       <div className={"flex flex-col w-1/2 mr-2"}>
-        <p className={"mt-5"}>Von:</p>
+        <p className={"mt-5 font-bold"}>Von:</p>
         <DatePicker
           className={"border-2 pl-2 mt-2"}
           selected={startDate}
@@ -42,7 +42,7 @@ export default function CustomDatePicker({
       </div>
 
       <div className={"flex flex-col  w-1/2"}>
-        <p className={"mt-5"}>Bis:</p>
+        <p className={"mt-5 font-bold"}>Bis:</p>
         <DatePicker
           className={"border-2 pl-2 mt-2"}
           selected={endDate}

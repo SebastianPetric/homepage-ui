@@ -1,4 +1,3 @@
-import { FaMinus } from "react-icons/all";
 import EditStepModal, { GENERIC_DAO } from "../shared/modals/EditStepModal";
 import { formatMonthYear } from "../util/DateFormatter";
 
@@ -41,19 +40,16 @@ export default function CareerTab({
 
   return (
     <div className={"flex flex-col careerTileWidth mt-5 mr-5"}>
-      {isEditVisible && (
-        <div className={"flex flex-row"}>
-          <EditStepModal
-            onSaveExp={onSaveEditedCareer}
-            editExpObj={careerDt}
-            titleModal={"Bearbeiten"}
-          />
-          <FaMinus
-            className={"hover:text-green-600 cursor-pointer ml-2 mb-2"}
-            onClick={() => onDelete(career.id)}
-          />
-        </div>
-      )}
+      <div className={"flex flex-row"}>
+        <EditStepModal
+          onSaveExp={onSaveEditedCareer}
+          onDelete={onDelete}
+          isEditVisible={isEditVisible}
+          id={career.id}
+          editExpObj={careerDt}
+          titleModal={"Bearbeiten"}
+        />
+      </div>
       <p className={"text-xl font-bold mb-2 text-green-600"}>{career.title}</p>
       <p className={"text-sm font-bold"}>
         {career.company} von {formatMonthYear(career.from_date)} bis{" "}

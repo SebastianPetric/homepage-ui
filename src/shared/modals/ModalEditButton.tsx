@@ -1,5 +1,5 @@
-import { FaEdit } from "react-icons/all";
 import React from "react";
+import { FaEdit } from "react-icons/all";
 
 export default function ModalEditButton({
   setShowModal,

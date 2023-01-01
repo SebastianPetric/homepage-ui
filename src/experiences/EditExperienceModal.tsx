@@ -6,13 +6,18 @@ import ModalExperienceItems from "../shared/modals/ModalExperienceItems";
 import Modal from "../shared/modals/Modal";
 import SaveAndCancelButtonsEditExperience from "../shared/modals/SaveAndCancelButtonsEditExperience";
 import ModalEditButton from "../shared/modals/ModalEditButton";
+import { FaMinus } from "react-icons/all";
 
 export default function EditExperienceModal({
   onSaveExp,
+  onDelete,
+  id,
   isEditVisible,
   experience,
 }: {
   onSaveExp: (exp: TExperience) => void;
+  onDelete: (id: string) => void;
+  id: string;
   isEditVisible: boolean;
   experience: TExperience;
 }) {
@@ -82,6 +87,9 @@ export default function EditExperienceModal({
         setShowModal={setShowModal}
         isEditVisible={isEditVisible}
       />
+      {isEditVisible && (
+        <FaMinus className={"deleteButton"} onClick={() => onDelete(id)} />
+      )}
       <Modal
         shouldShowModal={showModal}
         setShowModal={setShowModal}

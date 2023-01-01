@@ -15,8 +15,8 @@ export default function ModalExperienceItems({
 }) {
   return (
     <>
-      <div className={"flex flex-row items-center mt-5"}>
-        <p>Erfahrungen</p>
+      <div className={"flex flex-row items-center mt-5 font-bold"}>
+        <p>Erfahrungen:</p>
         <FaPlus
           className={"ml-5 hover:text-green-600 cursor-pointer"}
           onClick={addNewExperiencePoint}
@@ -35,7 +35,7 @@ export default function ModalExperienceItems({
             }
           ></input>
           <FaMinus
-            className={"ml-5 hover:text-green-600 cursor-pointer"}
+            className={"deleteButton"}
             onClick={() => deleteSpecificExperiencePoint(exp)}
           />
         </div>

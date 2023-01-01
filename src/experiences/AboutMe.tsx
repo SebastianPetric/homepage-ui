@@ -101,8 +101,12 @@ export default function AboutMe({ isEditActive }: { isEditActive: boolean }) {
       <p className={"text-5xl font-bold"}>Über mich.</p>
 
       <span className={"w-96 h-auto mt-8"}>
-        {isLoadedCovering && isEditActive && (
-          <EditTextModal onSaveText={onSaveText} editTextObj={textObj} />
+        {isLoadedCovering && (
+          <EditTextModal
+            onSaveText={onSaveText}
+            editTextObj={textObj}
+            isEditActive={isEditActive}
+          />
         )}
         <p dangerouslySetInnerHTML={{ __html: textObj.text }}></p>
       </span>

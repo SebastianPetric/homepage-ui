@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { FaEdit } from "react-icons/all";
+import { FaMinus } from "react-icons/all";
 import SaveAndCancelButtons from "./SaveAndCancelButtons";
 import ModalItem from "./ModalItem";
 import CustomDatePicker, { format } from "../../util/DateFormatter";
 import ModalExperienceItems from "./ModalExperienceItems";
 import Modal from "./Modal";
+import ModalEditButton from "./ModalEditButton";
 
 export type TKeyValue = {
   key: string;
@@ -22,10 +23,16 @@ export type GENERIC_DAO = {
 
 export default function EditStepModal({
   titleModal,
+  isEditVisible,
   onSaveExp,
+  onDelete,
+  id,
   editExpObj,
 }: {
   onSaveExp: (obj: GENERIC_DAO) => void;
+  onDelete: (id: string) => void;
+  id: string;
+  isEditVisible: boolean;
   editExpObj: GENERIC_DAO;
   titleModal: string;
 }) {
@@ -120,10 +127,13 @@ export default function EditStepModal({
 
   return (
     <>
-      <FaEdit
-        className={"hover:text-green-600 cursor-pointer mb-2"}
-        onClick={() => setShowModal(true)}
+      <ModalEditButton
+        isEditVisible={isEditVisible}
+        setShowModal={setShowModal}
       />
+      {isEditVisible && (
+        <FaMinus className={"deleteButton"} onClick={() => onDelete(id)} />
+      )}
       {showModal ? (
         <Modal
           shouldShowModal={showModal}

@@ -1,4 +1,3 @@
-import { FaMinus } from "react-icons/all";
 import EditStepModal, { GENERIC_DAO } from "../shared/modals/EditStepModal";
 import { formatMonthYear } from "../util/DateFormatter";
 
@@ -53,19 +52,16 @@ export default function AcademicTab({
         key={`${academic.id}`}
         className={"flex flex-col items-start careerTileWidth h-auto mt-5 mr-5"}
       >
-        {isEditVisible && (
-          <div className={"flex flex-row"}>
-            <EditStepModal
-              onSaveExp={onSaveEditedCareer}
-              editExpObj={academicDt}
-              titleModal={"Bearbeiten"}
-            />
-            <FaMinus
-              className={"hover:text-green-600 cursor-pointer ml-2 mb-2"}
-              onClick={() => onDelete(academic.id)}
-            />
-          </div>
-        )}
+        <div className={"flex flex-row"}>
+          <EditStepModal
+            onSaveExp={onSaveEditedCareer}
+            onDelete={onDelete}
+            isEditVisible={isEditVisible}
+            id={academic.id}
+            editExpObj={academicDt}
+            titleModal={"Bearbeiten"}
+          />
+        </div>
         <p className={"text-xl font-bold mb-2 text-green-600"}>
           {academic.title}
         </p>
