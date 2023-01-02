@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 import CareerTab, { TCareer, TCareerDTO } from "./CareerTab";
 import NewStepModal, { GENERIC_DTO } from "../shared/modals/NewStepModal";
 import {
@@ -19,6 +20,10 @@ export default function Career({ isEditActive }: { isEditActive: boolean }) {
   const [career, setCareer] = useState<TCareer[]>([]);
   const [textObj, setTextObj] = useState<TText>({ id: "", text: "", type: "" });
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const { ref, inView } = useInView({
+    threshold: 0,
+    triggerOnce: true,
+  });
   const COVERING_ENDPOINT = "covering-letter";
   const CAREER_ENDPOINT = "career";
 
@@ -27,15 +32,18 @@ export default function Career({ isEditActive }: { isEditActive: boolean }) {
       let response: TCareer[] = await findAllEntities(CAREER_ENDPOINT);
       setCareer(response);
     };
-    getAllCareer();
 
     const getCoveringLetter = async () => {
       let response: TText = await findTextByType(TextType.CAREER);
       setTextObj(response);
       setIsLoaded(true);
     };
-    getCoveringLetter();
-  }, []);
+
+    if (!!inView) {
+      getAllCareer();
+      getCoveringLetter();
+    }
+  }, [inView]);
 
   const onSaveText = async (cur: TText) => {
     const textDt: TTextDTO = {
@@ -94,7 +102,7 @@ export default function Career({ isEditActive }: { isEditActive: boolean }) {
   };
 
   return (
-    <div className={"flex flex-col"}>
+    <div ref={ref} className={"flex flex-col"}>
       <p className={"text-5xl font-bold"}>Beruflicher Werdegang.</p>
       <span className={"w-96 h-auto mt-8"}>
         {isLoaded && (

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 import NewExperienceModal from "./NewExperienceModal";
 import {
   deleteEntity,
@@ -29,6 +30,11 @@ export default function AboutMe({ isEditActive }: { isEditActive: boolean }) {
   const [experiences, setExperiences] = useState<TExperience[]>([]);
   const [textObj, setTextObj] = useState<TText>({ id: "", text: "", type: "" });
   const [isLoadedCovering, setIsLoadedCovering] = useState<boolean>(false);
+  const { ref, inView } = useInView({
+    threshold: 0,
+    triggerOnce: true,
+  });
+
   const EXPERIENCE_ENDPOINT = "experiences";
 
   useEffect(() => {
@@ -36,15 +42,18 @@ export default function AboutMe({ isEditActive }: { isEditActive: boolean }) {
       let response: TExperience[] = await findAllEntities(EXPERIENCE_ENDPOINT);
       setExperiences(response);
     };
-    getAllExperiences();
 
     const getCoveringLetter = async () => {
       let response: TText = await findTextByType(TextType.ABOUT_ME);
       setTextObj(response);
       setIsLoadedCovering(true);
     };
-    getCoveringLetter();
-  }, []);
+
+    if (!!inView) {
+      getAllExperiences();
+      getCoveringLetter();
+    }
+  }, [inView]);
 
   const saveNewExperience = async (exp: TExperienceDTO) => {
     const experienceDTO: TExperienceDTO = {
@@ -97,7 +106,7 @@ export default function AboutMe({ isEditActive }: { isEditActive: boolean }) {
   };
 
   return (
-    <div className={"flex flex-col"}>
+    <div ref={ref} className={"flex flex-col"}>
       <p className={"text-5xl font-bold"}>Über mich.</p>
 
       <span className={"w-96 h-auto mt-8"}>

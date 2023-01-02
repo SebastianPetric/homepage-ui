@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 import AcademicTab, { TAcademic, TAcademicDTO } from "./AcademicTab";
 import NewStepModal, { GENERIC_DTO } from "../shared/modals/NewStepModal";
 import {
@@ -19,6 +20,10 @@ export default function Academic({ isEditActive }: { isEditActive: boolean }) {
   const [academic, setAcademic] = useState<TAcademic[]>([]);
   const [textObj, setTextObj] = useState<TText>({ id: "", text: "", type: "" });
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const { ref, inView } = useInView({
+    threshold: 0,
+    triggerOnce: true,
+  });
   const COVERING_ENDPOINT = "covering-letter";
   const ACADEMIC_ENDPOINT = "academic";
 
@@ -27,15 +32,18 @@ export default function Academic({ isEditActive }: { isEditActive: boolean }) {
       let response: TAcademic[] = await findAllEntities(ACADEMIC_ENDPOINT);
       setAcademic(response);
     };
-    getAllAcademics();
 
     const getCoveringLetter = async () => {
       let response: TText = await findTextByType(TextType.ACADEMIC);
       setTextObj(response);
       setIsLoaded(true);
     };
-    getCoveringLetter();
-  }, []);
+
+    if (!!inView) {
+      getAllAcademics();
+      getCoveringLetter();
+    }
+  }, [inView]);
 
   const onSaveText = async (cur: TText) => {
     const textDt: TTextDTO = {
@@ -94,7 +102,7 @@ export default function Academic({ isEditActive }: { isEditActive: boolean }) {
   };
 
   return (
-    <div className={"flex flex-col"}>
+    <div ref={ref} className={"flex flex-col"}>
       <p className={"text-5xl font-bold"}>Akademischer Werdegang.</p>
       <span className={"w-96 h-auto mt-8"}>
         {isLoaded && (

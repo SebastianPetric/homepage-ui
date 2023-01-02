@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 import InfoTab, { TUserInfo, TUserInfoDTO } from "./InfoTab";
 import {
   findAllEntities,
@@ -15,6 +16,10 @@ export default function Info({ isEditActive }: { isEditActive: boolean }) {
   const [user, setUser] = useState<TUserInfo[]>([]);
   const [textObj, setTextObj] = useState<TText>({ id: "", text: "", type: "" });
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const { ref, inView } = useInView({
+    threshold: 0,
+    triggerOnce: true,
+  });
   const COVERING_ENDPOINT = "covering-letter";
 
   useEffect(() => {
@@ -22,15 +27,18 @@ export default function Info({ isEditActive }: { isEditActive: boolean }) {
       let response: TUserInfo[] = await findAllEntities("users");
       setUser(response);
     };
-    getAllUserInfo();
 
     const getCoveringLetter = async () => {
       let response: TText = await findTextByType(TextType.INFO);
       setTextObj(response);
       setIsLoaded(true);
     };
-    getCoveringLetter();
-  }, []);
+
+    if (!!inView) {
+      getAllUserInfo();
+      getCoveringLetter();
+    }
+  }, [inView]);
 
   const onSaveEditedText = async (cur: TText) => {
     const textDt: TTextDTO = {
@@ -68,7 +76,7 @@ export default function Info({ isEditActive }: { isEditActive: boolean }) {
   };
 
   return (
-    <div className={"flex flex-col"}>
+    <div ref={ref} className={"flex flex-col"}>
       <p className={"text-5xl font-bold"}>Interesse geweckt?</p>
       <span className={"w-96 h-auto mt-8"}>
         {isLoaded && (
