@@ -98,14 +98,14 @@ export default function NavigationBar() {
         "flex justify-center items-center w-screen fixed top-7 z-10 px-10"
       }
     >
-      <Navbar className="text-imageColor bg-gray-50 bg-opacity-90 rounded-2xl shadow-none border-none">
+      <Navbar className="text-imageColor bg-white bg-opacity-70 rounded-2xl shadow-none border-none">
         <div className="container flex items-center justify-between">
           <Typography
             as="a"
             href="#"
             className="mr-4 cursor-pointer py-1.5 font-bold text-xl"
           >
-            <span>Sebastian Petöcz</span>
+            <span className={"font-pacifico text-3xl"}>Sebastian Petöcz</span>
           </Typography>
           <div className="hidden lg:block">{navList}</div>
           <IconButton

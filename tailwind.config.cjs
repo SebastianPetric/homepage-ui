@@ -10,6 +10,7 @@ module.exports = {
         imageColor: "#101115",
       },
       fontFamily: {
+        pacifico: ['pacifico', 'sans-serif'],
         sans: ["Poppins", ...defaultTheme.fontFamily.sans],
         serif: [...defaultTheme.fontFamily.serif],
         mono: [...defaultTheme.fontFamily.mono],
