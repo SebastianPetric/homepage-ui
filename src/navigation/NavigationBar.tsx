@@ -47,44 +47,44 @@ export default function NavigationBar() {
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 text-imageColor">
       <NavigationButton
-        title={"hello"}
+        title={"Hey"}
         linkTo={"greeting-scroll"}
         onClick={() => setOpenNav(false)}
       />
       <NavigationButton
-        title={"about me"}
+        title={"Über mich"}
         linkTo={"aboutme-scroll"}
         onClick={() => setOpenNav(false)}
       />
       <NavigationButton
-        title={"career"}
+        title={"Beruf"}
         linkTo={"career-scroll"}
         onClick={() => setOpenNav(false)}
       />
       <NavigationButton
-        title={"academic"}
+        title={"Schule"}
         linkTo={"academic-scroll"}
         onClick={() => setOpenNav(false)}
       />
       <NavigationButton
-        title={"contact"}
+        title={"Kontakt"}
         linkTo={"info-scroll"}
         onClick={() => setOpenNav(false)}
       />
       <NavigationButton
-        title={"download cve"}
+        title={"Lebenslauf anfragen"}
         linkTo={"info-scroll"}
         onClick={() => setOpenNav(false)}
       />
       {isAuthenticated ? (
         <NavigationButton
-          title={"logout"}
+          title={"Logout"}
           linkTo={"greeting-scroll"}
           onClick={onLogout}
         />
       ) : (
         <NavigationButton
-          title={"login"}
+          title={"Login"}
           linkTo={"greeting-scroll"}
           onClick={onLogin}
         />

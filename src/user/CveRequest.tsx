@@ -34,7 +34,7 @@ export default function CveRequest() {
                 : "bg-gray-500 text-gray-800"
             } w-full h-20 rounded-br-3xl flex items-center justify-center text-xl font-bold  cursor-pointer`}
           >
-            Lebenslauf herunterladen
+            Lebenslauf anfragen
           </button>
         </div>
       ) : (
