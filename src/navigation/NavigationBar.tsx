@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
-  Navbar,
-  MobileNav,
-  Typography,
   IconButton,
+  MobileNav,
+  Navbar,
+  Typography,
 } from "@material-tailwind/react";
 import NavigationButton from "./NavigationButton";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -34,18 +34,60 @@ export default function NavigationBar() {
     );
   }, []);
 
+  const onLogin = () => {
+    setOpenNav(false);
+    loginWithPopup();
+  };
+
+  const onLogout = () => {
+    setOpenNav(false);
+    logout();
+  };
+
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 text-imageColor">
-      <NavigationButton title={"hello"} linkTo={"greeting-scroll"} />
-      <NavigationButton title={"about me"} linkTo={"aboutme-scroll"} />
-      <NavigationButton title={"career"} linkTo={"career-scroll"} />
-      <NavigationButton title={"academic"} linkTo={"academic-scroll"} />
-      <NavigationButton title={"contact"} linkTo={"info-scroll"} />
-      <NavigationButton title={"download cve"} linkTo={"info-scroll"} />
+      <NavigationButton
+        title={"hello"}
+        linkTo={"greeting-scroll"}
+        onClick={() => setOpenNav(false)}
+      />
+      <NavigationButton
+        title={"about me"}
+        linkTo={"aboutme-scroll"}
+        onClick={() => setOpenNav(false)}
+      />
+      <NavigationButton
+        title={"career"}
+        linkTo={"career-scroll"}
+        onClick={() => setOpenNav(false)}
+      />
+      <NavigationButton
+        title={"academic"}
+        linkTo={"academic-scroll"}
+        onClick={() => setOpenNav(false)}
+      />
+      <NavigationButton
+        title={"contact"}
+        linkTo={"info-scroll"}
+        onClick={() => setOpenNav(false)}
+      />
+      <NavigationButton
+        title={"download cve"}
+        linkTo={"info-scroll"}
+        onClick={() => setOpenNav(false)}
+      />
       {isAuthenticated ? (
-        <NavigationButton title={"logout"} onClick={() => logout()} />
+        <NavigationButton
+          title={"logout"}
+          linkTo={"greeting-scroll"}
+          onClick={onLogout}
+        />
       ) : (
-        <NavigationButton title={"login"} onClick={loginWithPopup} />
+        <NavigationButton
+          title={"login"}
+          linkTo={"greeting-scroll"}
+          onClick={onLogin}
+        />
       )}
     </ul>
   );

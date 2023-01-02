@@ -8,19 +8,17 @@ export default function NavigationButton({
   onClick,
 }: {
   title: string;
-  linkTo?: string;
-  onClick?: () => void;
+  linkTo: string;
+  onClick: () => void;
 }) {
   return (
     <Typography
       as="li"
       className="p-1 font-normal font-bold hover:text-green-600 cursor-pointer"
     >
-      {linkTo ? (
-        <Link to={linkTo}>{title}</Link>
-      ) : (
-        <p onClick={onClick}>{title}</p>
-      )}
+      <Link to={linkTo} onClick={onClick}>
+        {title}
+      </Link>
     </Typography>
   );
 }
