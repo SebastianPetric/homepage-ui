@@ -94,7 +94,7 @@ export default function NavigationBar() {
 
   return (
     <Navbar className="text-imageColor bg-opacity-90 rounded-2xl ml-10 mr-6">
-      <div className="flex items-center justify-between">
+      <div className="container flex items-center justify-between">
         <Typography
           as="a"
           href="#"
