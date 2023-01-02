@@ -5,6 +5,7 @@ import EditTextModal, {
   TTextDTO,
 } from "../shared/modals/EditTextModal";
 import { findTextByType, updateEntity } from "../shared/RestCaller";
+import DescriptionText from "../shared/DescriptionText";
 
 export default function Greeting({ isEditActive }: { isEditActive: boolean }) {
   const [textObj, setTextObj] = useState<TText>({ id: "", text: "", type: "" });
@@ -37,7 +38,7 @@ export default function Greeting({ isEditActive }: { isEditActive: boolean }) {
   return (
     <div className={"flex flex-col"}>
       <p className={"title"}>Sebastian Petöcz.</p>
-      <span className={"w-96 h-auto mt-8"}>
+      <div className={"mt-8"}>
         {isLoaded && (
           <EditTextModal
             onSaveText={onSaveText}
@@ -45,8 +46,8 @@ export default function Greeting({ isEditActive }: { isEditActive: boolean }) {
             isEditActive={isEditActive}
           />
         )}
-        <p dangerouslySetInnerHTML={{ __html: textObj.text }}></p>
-      </span>
+      </div>
+      <DescriptionText text={textObj.text} />
     </div>
   );
 }

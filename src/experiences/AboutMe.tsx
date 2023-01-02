@@ -14,6 +14,7 @@ import EditTextModal, {
   TTextDTO,
 } from "../shared/modals/EditTextModal";
 import ExperienceTab from "./ExperienceTab";
+import DescriptionText from "../shared/DescriptionText";
 
 export type TExperience = {
   id: string;
@@ -109,7 +110,7 @@ export default function AboutMe({ isEditActive }: { isEditActive: boolean }) {
     <div ref={ref} className={"flex flex-col"}>
       <p className={"title"}>Über mich.</p>
 
-      <span className={"w-96 h-auto mt-8"}>
+      <div className={"mt-8"}>
         {isLoadedCovering && (
           <EditTextModal
             onSaveText={onSaveText}
@@ -117,9 +118,9 @@ export default function AboutMe({ isEditActive }: { isEditActive: boolean }) {
             isEditActive={isEditActive}
           />
         )}
-        <p dangerouslySetInnerHTML={{ __html: textObj.text }}></p>
-      </span>
-      <div className={"flex flex-wrap justify-start mt-16"}>
+      </div>
+      <DescriptionText text={textObj.text} />
+      <div className={"tile-group"}>
         {experiences.map((exp, index) => (
           <ExperienceTab
             key={`${exp.id}-${index}`}

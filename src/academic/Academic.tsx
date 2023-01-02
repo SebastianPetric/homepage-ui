@@ -15,6 +15,7 @@ import EditTextModal, {
   TText,
   TTextDTO,
 } from "../shared/modals/EditTextModal";
+import DescriptionText from "../shared/DescriptionText";
 
 export default function Academic({ isEditActive }: { isEditActive: boolean }) {
   const [academic, setAcademic] = useState<TAcademic[]>([]);
@@ -104,7 +105,7 @@ export default function Academic({ isEditActive }: { isEditActive: boolean }) {
   return (
     <div ref={ref} className={"flex flex-col"}>
       <p className={"title"}>Akademischer Werdegang.</p>
-      <span className={"w-96 h-auto mt-8"}>
+      <div className={"mt-8"}>
         {isLoaded && (
           <EditTextModal
             onSaveText={onSaveText}
@@ -112,9 +113,9 @@ export default function Academic({ isEditActive }: { isEditActive: boolean }) {
             isEditActive={isEditActive}
           />
         )}
-        <p dangerouslySetInnerHTML={{ __html: textObj.text }}></p>
-      </span>
-      <div className={"flex flex-wrap justify-start mt-8"}>
+      </div>
+      <DescriptionText text={textObj.text} />
+      <div className={"tile-group"}>
         {academic.map((exp, index) => (
           <AcademicTab
             key={`${exp.title}-${index}`}

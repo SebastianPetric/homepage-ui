@@ -15,6 +15,7 @@ import EditTextModal, {
   TText,
   TTextDTO,
 } from "../shared/modals/EditTextModal";
+import DescriptionText from "../shared/DescriptionText";
 
 export default function Career({ isEditActive }: { isEditActive: boolean }) {
   const [career, setCareer] = useState<TCareer[]>([]);
@@ -104,7 +105,7 @@ export default function Career({ isEditActive }: { isEditActive: boolean }) {
   return (
     <div ref={ref} className={"flex flex-col"}>
       <p className={"title"}>Beruflicher Werdegang.</p>
-      <span className={"w-96 h-auto mt-8"}>
+      <div className={"mt-8"}>
         {isLoaded && (
           <EditTextModal
             onSaveText={onSaveText}
@@ -112,9 +113,9 @@ export default function Career({ isEditActive }: { isEditActive: boolean }) {
             isEditActive={isEditActive}
           />
         )}
-        <p dangerouslySetInnerHTML={{ __html: textObj.text }}></p>
-      </span>
-      <div className={"flex flex-wrap justify-start mt-8"}>
+      </div>
+      <DescriptionText text={textObj.text} />
+      <div className={"tile-group"}>
         {career.map((exp, index) => (
           <CareerTab
             key={`${exp.id}-${index}`}

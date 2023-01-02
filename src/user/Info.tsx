@@ -11,6 +11,7 @@ import EditTextModal, {
   TText,
   TTextDTO,
 } from "../shared/modals/EditTextModal";
+import DescriptionText from "../shared/DescriptionText";
 
 export default function Info({ isEditActive }: { isEditActive: boolean }) {
   const [user, setUser] = useState<TUserInfo[]>([]);
@@ -78,7 +79,7 @@ export default function Info({ isEditActive }: { isEditActive: boolean }) {
   return (
     <div ref={ref} className={"flex flex-col"}>
       <p className={"title"}>Interesse geweckt?</p>
-      <span className={"w-96 h-auto mt-8"}>
+      <div className={"mt-8"}>
         {isLoaded && (
           <EditTextModal
             onSaveText={onSaveEditedText}
@@ -86,9 +87,9 @@ export default function Info({ isEditActive }: { isEditActive: boolean }) {
             isEditActive={isEditActive}
           />
         )}
-        <p dangerouslySetInnerHTML={{ __html: textObj.text }}></p>
-      </span>
-      <div className={"flex flex-wrap justify-start mt-8"}>
+      </div>
+      <DescriptionText text={textObj.text} />
+      <div className={"tile-group"}>
         {user.map((exp: TUserInfo, index: number) => (
           <InfoTab
             key={`${exp.id}-${index}`}

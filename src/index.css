@@ -21,6 +21,10 @@
     @apply flex items-center justify-start px-10 xl:px-20 min-h-screen h-auto py-32 w-full border-b-2;
   }
 
+  .tile-group{
+    @apply flex flex-wrap justify-start mt-16;
+  }
+
   .title {
     @apply text-5xl font-bold;
   }
@@ -40,10 +44,6 @@ html {
 
 .min-w-640 {
   min-width: 640px;
-}
-
-.careerTileWidth {
-  width: 400px;
 }
 
 .font-sans {

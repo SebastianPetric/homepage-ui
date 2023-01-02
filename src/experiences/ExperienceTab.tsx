@@ -18,7 +18,7 @@ export default function ExperienceTab({
 
   return (
     <>
-      <div className={"flex flex-col w-72 mt-10"}>
+      <div className={"flex flex-col w-80 mt-10"}>
         <div className={"flex flex-row"}>
           <EditExperienceModal
             onSaveExp={onSaveEditedExperience}

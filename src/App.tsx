@@ -31,7 +31,7 @@ function App() {
           <Sidebar />
         </aside>
 
-        <main className={"xl:w-1/2 flex-grow"}>
+        <main className={"w-screen xl:w-1/2 flex-grow"}>
           <Element name={"greeting-scroll"} className={"first-tile"}>
             <Greeting isEditActive={isEditActive} />
           </Element>
