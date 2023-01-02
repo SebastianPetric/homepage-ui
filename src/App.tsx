@@ -21,10 +21,12 @@ function App() {
   }, [isAuthenticated]);
 
   return (
-    <div className={"min-w-1200 font-sans text-imageColor"}>
-      <NavigationBar />
+    <div className={"font-sans text-imageColor w-full"}>
+      <div className={"flex justify-center"}>
+        <NavigationBar />
+      </div>
       <div className="flex">
-        <aside className="h-screen w-1/2 sticky top-0 bg-imageColor">
+        <aside className="h-screen w-1/2 sticky top-0 bg-imageColor h-1/3">
           <Sidebar />
         </aside>
 
