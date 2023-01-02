@@ -22,10 +22,7 @@ function App() {
 
   return (
     <div className={"font-sans text-imageColor min-w-650"}>
-      <div className={"flex justify-center w-full fixed top-7 z-10"}>
-        <NavigationBar />
-      </div>
-
+      <NavigationBar />
       <div className="flex flex-col xl:flex-row w-screen">
         <aside className="xl:h-screen xl:w-1/2 mt-32 xl:mt-0 xl:sticky xl:top-0 xl:bg-imageColor">
           <Sidebar />
