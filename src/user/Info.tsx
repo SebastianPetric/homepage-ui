@@ -12,6 +12,7 @@ import EditTextModal, {
   TTextDTO,
 } from "../shared/modals/EditTextModal";
 import DescriptionText from "../shared/DescriptionText";
+import CveRequest from "./CveRequest";
 
 export default function Info({ isEditActive }: { isEditActive: boolean }) {
   const [user, setUser] = useState<TUserInfo[]>([]);
@@ -99,15 +100,7 @@ export default function Info({ isEditActive }: { isEditActive: boolean }) {
           />
         ))}
       </div>
-      <a
-        href={""}
-        target="_blank"
-        className={
-          "bg-green-500 w-auto h-20 rounded-br-3xl flex items-center justify-center text-xl font-bold hover:text-white cursor-pointer mt-10"
-        }
-      >
-        Lebenslauf herunterladen
-      </a>
+      <CveRequest />
     </div>
   );
 }

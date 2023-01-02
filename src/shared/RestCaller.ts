@@ -91,3 +91,18 @@ export const deleteEntity = async (endpoint: string, id: string) => {
     console.log(err);
   }
 };
+
+export const sendEmail = async (email: string) => {
+  try {
+    const requestOptions = {
+      method: "GET",
+    };
+    const response = await fetch(
+      `${import.meta.env.VITE_REQUEST_URL}/send/${email}`,
+      requestOptions
+    );
+    return await response.json();
+  } catch (err) {
+    console.log(err);
+  }
+};
