@@ -9,8 +9,20 @@
     @apply mr-2 ml-2 cursor-pointer hover:text-green-600;
   }
 
+  .first-tile {
+    @apply xl:h-screen tile;
+  }
+
+  .normal-tile {
+    @apply xl:h-auto tile;
+  }
+
   .tile {
-    @apply flex items-center justify-start pl-20 h-screen w-full border-b-2;
+    @apply flex items-center justify-start pl-10 xl:pl-20 min-h-screen h-auto py-32 w-full border-b-2;
+  }
+
+  .title {
+    @apply text-5xl font-bold;
   }
 
   .deleteButton {
@@ -26,8 +38,8 @@ html {
   min-width: 1200px;
 }
 
-.min-w-600 {
-  min-width: 1000px;
+.min-w-640 {
+  min-width: 640px;
 }
 
 .careerTileWidth {

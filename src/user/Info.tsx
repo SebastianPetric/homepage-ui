@@ -77,7 +77,7 @@ export default function Info({ isEditActive }: { isEditActive: boolean }) {
 
   return (
     <div ref={ref} className={"flex flex-col"}>
-      <p className={"text-5xl font-bold"}>Interesse geweckt?</p>
+      <p className={"title"}>Interesse geweckt?</p>
       <span className={"w-96 h-auto mt-8"}>
         {isLoaded && (
           <EditTextModal

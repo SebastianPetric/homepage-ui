@@ -107,7 +107,7 @@ export default function AboutMe({ isEditActive }: { isEditActive: boolean }) {
 
   return (
     <div ref={ref} className={"flex flex-col"}>
-      <p className={"text-5xl font-bold"}>Über mich.</p>
+      <p className={"title"}>Über mich.</p>
 
       <span className={"w-96 h-auto mt-8"}>
         {isLoadedCovering && (

@@ -36,7 +36,7 @@ export default function Greeting({ isEditActive }: { isEditActive: boolean }) {
 
   return (
     <div className={"flex flex-col"}>
-      <p className={"text-5xl font-bold"}>Sebastian Petöcz.</p>
+      <p className={"title"}>Sebastian Petöcz.</p>
       <span className={"w-96 h-auto mt-8"}>
         {isLoaded && (
           <EditTextModal

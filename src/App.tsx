@@ -21,29 +21,30 @@ function App() {
   }, [isAuthenticated]);
 
   return (
-    <div className={"font-sans text-imageColor w-full"}>
-      <div className={"flex justify-center"}>
+    <div className={"font-sans text-imageColor min-w-650"}>
+      <div className={"flex justify-center w-full fixed top-7 z-10"}>
         <NavigationBar />
       </div>
-      <div className="flex">
-        <aside className="h-screen w-1/2 sticky top-0 bg-imageColor h-1/3">
+
+      <div className="flex flex-col xl:flex-row w-screen">
+        <aside className="xl:h-screen xl:w-1/2 mt-32 xl:mt-0 xl:sticky xl:top-0 xl:bg-imageColor">
           <Sidebar />
         </aside>
 
-        <main className={"w-1/2 flex-grow"}>
-          <Element name={"greeting-scroll"} className={"tile"}>
+        <main className={"xl:w-1/2 flex-grow"}>
+          <Element name={"greeting-scroll"} className={"first-tile"}>
             <Greeting isEditActive={isEditActive} />
           </Element>
-          <Element name={"aboutme-scroll"} className={"tile"}>
+          <Element name={"aboutme-scroll"} className={"normal-tile"}>
             <AboutMe isEditActive={isEditActive} />
           </Element>
-          <Element name={"career-scroll"} className={"tile"}>
+          <Element name={"career-scroll"} className={"normal-tile"}>
             <Career isEditActive={isEditActive} />
           </Element>
-          <Element name={"academic-scroll"} className={"tile"}>
+          <Element name={"academic-scroll"} className={"normal-tile"}>
             <Academic isEditActive={isEditActive} />
           </Element>
-          <Element name={"info-scroll"} className={"tile"}>
+          <Element name={"info-scroll"} className={"normal-tile"}>
             <Info isEditActive={isEditActive} />
           </Element>
         </main>

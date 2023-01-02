@@ -103,7 +103,7 @@ export default function Academic({ isEditActive }: { isEditActive: boolean }) {
 
   return (
     <div ref={ref} className={"flex flex-col"}>
-      <p className={"text-5xl font-bold"}>Akademischer Werdegang.</p>
+      <p className={"title"}>Akademischer Werdegang.</p>
       <span className={"w-96 h-auto mt-8"}>
         {isLoaded && (
           <EditTextModal
