@@ -98,7 +98,7 @@ export default function NavigationBar() {
         "flex justify-center items-center w-screen fixed top-7 z-10 px-10"
       }
     >
-      <Navbar className="text-imageColor bg-opacity-90 rounded-2xl">
+      <Navbar className="text-imageColor bg-gray-50 bg-opacity-90 rounded-2xl shadow-none border-none">
         <div className="container flex items-center justify-between">
           <Typography
             as="a"
