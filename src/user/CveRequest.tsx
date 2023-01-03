@@ -58,7 +58,11 @@ export default function CveRequest() {
   };
 
   const errorCallback = () => {
-    console.log("There was an error when trying to solve the Captcha.");
+    setError({
+      description: "captcha error",
+      message: "There was an error when trying to solve the Captcha.",
+      timestamp: new Date().toDateString(),
+    });
     setCaptchaPassed(false);
   };
 
