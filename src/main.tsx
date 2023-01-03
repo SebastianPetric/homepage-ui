@@ -6,6 +6,7 @@ import "./index.css";
 
 import { Auth0Provider } from "@auth0/auth0-react";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
 const queryClient = new QueryClient();
 
@@ -21,7 +22,11 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       cacheLocation="localstorage"
     >
       <QueryClientProvider client={queryClient}>
-        <App />
+        <GoogleReCaptchaProvider
+          reCaptchaKey={`${import.meta.env.VITE_CAPTCHA_SITE_KEY}`}
+        >
+          <App />
+        </GoogleReCaptchaProvider>
         <ReactQueryDevtools />
       </QueryClientProvider>
     </Auth0Provider>

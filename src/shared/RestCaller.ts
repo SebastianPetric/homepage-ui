@@ -109,3 +109,21 @@ export const sendEmail = async (email: string) => {
     console.log(err);
   }
 };
+
+export const validateCaptcha = async (token: string) => {
+  try {
+    const secret = import.meta.env.VITE_CAPTCHA_PRIVATE_KEY;
+    const requestOptions = {
+      method: "POST",
+    };
+    const response = await fetch(
+      `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${token}`,
+      requestOptions
+    );
+
+    const data = await response.json();
+    return data.success;
+  } catch (err) {
+    console.log(err);
+  }
+};
