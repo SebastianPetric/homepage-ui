@@ -30,21 +30,21 @@ export default function CustomDatePicker({
   setEndDate: (date: Date | null) => void;
 }) {
   return (
-    <div className={"flex flex-row"}>
-      <div className={"flex flex-col w-1/2 mr-2"}>
+    <div className={"flex flex-row gap-4 w-full"}>
+      <div className={"flex flex-col w-1/2"}>
         <p className={"mt-5 font-bold"}>Von:</p>
         <DatePicker
-          className={"border-2 pl-2 mt-2"}
+          className={"border-2 mt-2 w-full"}
           selected={startDate}
           dateFormat={"yyyy-MM-dd"}
           onChange={(date) => setStartDate(date)}
         />
       </div>
 
-      <div className={"flex flex-col  w-1/2"}>
+      <div className={"flex flex-col w-1/2"}>
         <p className={"mt-5 font-bold"}>Bis:</p>
         <DatePicker
-          className={"border-2 pl-2 mt-2"}
+          className={"border-2 mt-2 w-full"}
           selected={endDate}
           dateFormat={"yyyy-MM-dd"}
           onChange={(date) => setEndDate(date)}
