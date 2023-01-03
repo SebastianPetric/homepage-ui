@@ -115,13 +115,19 @@ export const validateCaptcha = async (token: string) => {
     const secret = import.meta.env.VITE_CAPTCHA_PRIVATE_KEY;
     const requestOptions = {
       method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+      },
+      body: `secret=${secret}&response=${token}`,
     };
     const response = await fetch(
-      `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${token}`,
+      "https://www.google.com/recaptcha/api/siteverify",
       requestOptions
     );
 
     const data = await response.json();
+    console.log(data);
     return data.success;
   } catch (err) {
     console.log(err);

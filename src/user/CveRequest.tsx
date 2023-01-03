@@ -24,7 +24,7 @@ export default function CveRequest() {
       return;
     }
 
-    const token = await executeRecaptcha("homepage");
+    const token = await executeRecaptcha();
 
     setIsLoading(true);
     const isHuman = await validateCaptcha(token);
