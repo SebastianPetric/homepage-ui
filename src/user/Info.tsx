@@ -12,7 +12,7 @@ import EditTextModal, {
   TTextDTO,
 } from "../shared/modals/EditTextModal";
 import DescriptionText from "../shared/DescriptionText";
-import CveRequest from "./CveRequest.jsx";
+import CveRequest from "./CveRequest";
 
 export default function Info({ isEditActive }: { isEditActive: boolean }) {
   const [user, setUser] = useState<TUserInfo[]>([]);
