@@ -101,7 +101,10 @@ export const sendEmail = async (email: string) => {
       `${import.meta.env.VITE_REQUEST_URL}/send/${email}`,
       requestOptions
     );
-    return await response.json();
+
+    const res = await response;
+    if (res.status === 400) return await response.json();
+    else return undefined;
   } catch (err) {
     console.log(err);
   }
