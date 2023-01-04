@@ -1,6 +1,6 @@
 import { FaMinus, FaPlus } from "react-icons/all";
 import React from "react";
-import { TKeyValue } from "./EditAcademicCareerStepModal";
+import { TKeyValue } from "./CreateAndEditAcademicCareerStepModal";
 
 export default function ModalExperienceItems({
   experiencePoints,

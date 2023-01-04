@@ -1,4 +1,4 @@
-import { TKeyValue } from "./EditAcademicCareerStepModal";
+import { TKeyValue } from "./CreateAndEditAcademicCareerStepModal";
 
 export const validateAcademicCareerModalFieldsNotEmpty = (
   experiences: TKeyValue[],

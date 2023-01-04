@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import NewExperienceModal from "./NewExperienceModal";
 import {
   deleteEntity,
   findAllEntities,
@@ -16,6 +15,7 @@ import ExperienceTab from "./ExperienceTab";
 import DescriptionText, {
   onSaveDescriptionText,
 } from "../shared/description/DescriptionText";
+import CreateAndEditExperienceModal from "./CreateAndEditExperienceModal";
 
 export type TExperience = {
   id: string;
@@ -122,7 +122,7 @@ export default function AboutMe({ isEditActive }: { isEditActive: boolean }) {
           />
         ))}
       </div>
-      <NewExperienceModal
+      <CreateAndEditExperienceModal
         isEditVisible={isEditActive}
         onSaveExp={saveNewExperience}
       />

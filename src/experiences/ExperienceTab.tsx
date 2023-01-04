@@ -1,5 +1,5 @@
 import { TExperience } from "./AboutMe";
-import EditExperienceModal from "./EditExperienceModal";
+import CreateAndEditExperienceModal from "./CreateAndEditExperienceModal";
 
 export default function ExperienceTab({
   exp,
@@ -20,7 +20,7 @@ export default function ExperienceTab({
     <>
       <div className={"flex flex-col w-80 mt-10"}>
         <div className={"flex flex-row"}>
-          <EditExperienceModal
+          <CreateAndEditExperienceModal
             onSaveExp={onSaveEditedExperience}
             onDelete={onDelete}
             id={exp.id}

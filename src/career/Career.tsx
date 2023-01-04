@@ -8,10 +8,10 @@ import {
   saveEntity,
   updateEntity,
 } from "../shared/RestCaller";
-import EditAcademicCareerStepModal, {
+import CreateAndEditAcademicCareerStepModal, {
   GENERIC_DAO,
   GENERIC_DTO,
-} from "../shared/modals/EditAcademicCareerStepModal";
+} from "../shared/modals/CreateAndEditAcademicCareerStepModal";
 import EditDescriptionTextModal, {
   TextType,
   TText,
@@ -119,7 +119,7 @@ export default function Career({ isEditActive }: { isEditActive: boolean }) {
           />
         ))}
       </div>
-      <EditAcademicCareerStepModal
+      <CreateAndEditAcademicCareerStepModal
         isEditVisible={isEditActive}
         onSaveExp={onSaveCareer}
         titleModal={"Karriereschritt hinzufügen"}

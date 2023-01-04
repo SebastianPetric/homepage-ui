@@ -40,7 +40,7 @@ export type GENERIC_DTO = {
   points: string[];
 };
 
-export default function EditAcademicCareerStepModal({
+export default function CreateAndEditAcademicCareerStepModal({
   isEditVisible,
   onSaveExp,
   titleModal,

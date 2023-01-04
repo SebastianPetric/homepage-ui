@@ -1,6 +1,6 @@
-import EditAcademicCareerStepModal, {
+import CreateAndEditAcademicCareerStepModal, {
   GENERIC_DAO,
-} from "../shared/modals/EditAcademicCareerStepModal";
+} from "../shared/modals/CreateAndEditAcademicCareerStepModal";
 import { formatMonthYear } from "../util/DateFormatter";
 
 export type TCareer = {
@@ -43,7 +43,7 @@ export default function CareerTab({
   return (
     <div className={"flex flex-col mt-5 mr-5 w-80"}>
       <div className={"flex flex-row"}>
-        <EditAcademicCareerStepModal
+        <CreateAndEditAcademicCareerStepModal
           onSaveExp={onSaveEditedCareer}
           onDelete={onDelete}
           isEditVisible={isEditVisible}
