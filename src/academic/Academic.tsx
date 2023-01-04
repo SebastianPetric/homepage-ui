@@ -10,12 +10,13 @@ import {
   updateEntity,
 } from "../shared/RestCaller";
 import { GENERIC_DAO, GENERIC_DTO } from "../shared/modals/EditStepModal";
-import EditTextModal, {
+import EditDescriptionTextModal, {
   TextType,
   TText,
-  TTextDTO,
-} from "../shared/modals/EditTextModal";
-import DescriptionText from "../shared/DescriptionText";
+} from "../shared/modals/EditDescriptionTextModal";
+import DescriptionText, {
+  onSaveDescriptionText,
+} from "../shared/description/DescriptionText";
 
 export default function Academic({ isEditActive }: { isEditActive: boolean }) {
   const [academic, setAcademic] = useState<TAcademic[]>([]);
@@ -47,17 +48,7 @@ export default function Academic({ isEditActive }: { isEditActive: boolean }) {
   }, [inView]);
 
   const onSaveText = async (cur: TText) => {
-    const textDt: TTextDTO = {
-      text: cur.text,
-      type: cur.type,
-    };
-
-    const saved: TText = await updateEntity(
-      COVERING_ENDPOINT,
-      cur.id,
-      JSON.stringify(textDt)
-    );
-    setTextObj(saved);
+    await onSaveDescriptionText(cur, ACADEMIC_ENDPOINT, setTextObj);
   };
 
   const onSaveAcademic = async (ac: GENERIC_DTO) => {
@@ -107,7 +98,7 @@ export default function Academic({ isEditActive }: { isEditActive: boolean }) {
       <p className={"title"}>Akademischer Werdegang.</p>
       <div className={"mt-8"}>
         {isLoaded && (
-          <EditTextModal
+          <EditDescriptionTextModal
             onSaveText={onSaveText}
             editTextObj={textObj}
             isEditActive={isEditActive}

@@ -6,6 +6,12 @@ import CustomDatePicker, { format } from "../../util/DateFormatter";
 import ModalExperienceItems from "./ModalExperienceItems";
 import Modal from "./Modal";
 import ModalEditButton from "./ModalEditButton";
+import {
+  addExperiencePoint,
+  deleteExperiencePoint,
+  editAndSetExperiencePoint,
+} from "./ExperiencePointsInModalEditor";
+import { validateAcademicCareerModalFieldsNotEmpty } from "./ModalFieldValidator";
 
 export type TKeyValue = {
   key: string;
@@ -79,16 +85,13 @@ export default function EditStepModal({
   }, []);
 
   useEffect(() => {
-    let tmp = experiencePoints.map((it) => it.value);
-    if (
-      title !== "" &&
-      institution !== "" &&
-      formattedFromDate !== "" &&
-      tmp.length !== 0 &&
-      !tmp.includes("")
-    )
-      setIsSavingPossible(true);
-    else setIsSavingPossible(false);
+    validateAcademicCareerModalFieldsNotEmpty(
+      experiencePoints,
+      title,
+      institution,
+      formattedFromDate,
+      setIsSavingPossible
+    );
   }, [title, institution, formattedFromDate, experiencePoints]);
 
   useEffect(() => {
@@ -97,27 +100,15 @@ export default function EditStepModal({
   }, [startDate, endDate]);
 
   const editSingleExperiencePoint = (cur: TKeyValue) => {
-    let tmp = [...experiencePoints];
-    tmp.forEach((exp) => {
-      if (exp.key === cur.key) {
-        exp.value = cur.value;
-      }
-    });
-    setExperiencePoints(tmp);
+    editAndSetExperiencePoint(cur, experiencePoints, setExperiencePoints);
   };
 
   const addNewExperiencePoint = () => {
-    let newExp: TKeyValue = {
-      key: `new-${Math.random() * 10}`,
-      value: "",
-    };
-    let tmp = [...experiencePoints, newExp];
-    setExperiencePoints(tmp);
+    addExperiencePoint(experiencePoints, setExperiencePoints);
   };
 
   const deleteSpecificExperiencePoint = (cur: TKeyValue) => {
-    let tmp = experiencePoints.filter((it) => it !== cur);
-    setExperiencePoints(tmp);
+    deleteExperiencePoint(cur, experiencePoints, setExperiencePoints);
   };
 
   const onSave = () => {

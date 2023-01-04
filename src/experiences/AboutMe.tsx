@@ -8,13 +8,14 @@ import {
   saveEntity,
   updateEntity,
 } from "../shared/RestCaller";
-import EditTextModal, {
+import EditDescriptionTextModal, {
   TextType,
   TText,
-  TTextDTO,
-} from "../shared/modals/EditTextModal";
+} from "../shared/modals/EditDescriptionTextModal";
 import ExperienceTab from "./ExperienceTab";
-import DescriptionText from "../shared/DescriptionText";
+import DescriptionText, {
+  onSaveDescriptionText,
+} from "../shared/description/DescriptionText";
 
 export type TExperience = {
   id: string;
@@ -87,17 +88,7 @@ export default function AboutMe({ isEditActive }: { isEditActive: boolean }) {
   };
 
   const onSaveText = async (cur: TText) => {
-    const textDt: TTextDTO = {
-      text: cur.text,
-      type: cur.type,
-    };
-
-    const saved: TText = await updateEntity(
-      EXPERIENCE_ENDPOINT,
-      cur.id,
-      JSON.stringify(textDt)
-    );
-    setTextObj(saved);
+    await onSaveDescriptionText(cur, EXPERIENCE_ENDPOINT, setTextObj);
   };
 
   const onDeleteExperienceById = async (id: string) => {
@@ -112,7 +103,7 @@ export default function AboutMe({ isEditActive }: { isEditActive: boolean }) {
 
       <div className={"mt-8"}>
         {isLoadedCovering && (
-          <EditTextModal
+          <EditDescriptionTextModal
             onSaveText={onSaveText}
             editTextObj={textObj}
             isEditActive={isEditActive}

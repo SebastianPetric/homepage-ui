@@ -5,11 +5,13 @@ import ModalExperienceItems from "../shared/modals/ModalExperienceItems";
 import SaveAndCancelButtons from "../shared/modals/SaveAndCancelButtons";
 import ModalItem from "../shared/modals/ModalItem";
 import Modal from "../shared/modals/Modal";
-
-export type TExp = {
-  key: string;
-  value: string;
-};
+import { TKeyValue } from "../shared/modals/EditStepModal";
+import {
+  addExperiencePoint,
+  deleteExperiencePoint,
+  editAndSetExperiencePoint,
+} from "../shared/modals/ExperiencePointsInModalEditor";
+import { validateExperienceModalFieldsNotEmpty } from "../shared/modals/ModalFieldValidator";
 
 export default function NewExperienceModal({
   onSaveExp,
@@ -21,37 +23,26 @@ export default function NewExperienceModal({
   const [showModal, setShowModal] = useState<boolean>(false);
   const [title, setTitle] = useState<string>("");
   const [isSavingPossible, setIsSavingPossible] = useState<boolean>(false);
-  const [experiences, setExperiences] = useState<TExp[]>([]);
+  const [experiences, setExperiences] = useState<TKeyValue[]>([]);
 
   useEffect(() => {
-    let tmp = experiences.map((it) => it.value);
-    if (title !== "" && tmp.length !== 0 && !tmp.includes(""))
-      setIsSavingPossible(true);
-    else setIsSavingPossible(false);
+    validateExperienceModalFieldsNotEmpty(
+      experiences,
+      title,
+      setIsSavingPossible
+    );
   }, [title, experiences]);
 
-  const editSpecificExperiencePoint = (cur: TExp) => {
-    let tmp = [...experiences];
-    tmp.forEach((exp) => {
-      if (exp.key === cur.key) {
-        exp.value = cur.value;
-      }
-    });
-    setExperiences(tmp);
+  const editSpecificExperiencePoint = (cur: TKeyValue) => {
+    editAndSetExperiencePoint(cur, experiences, setExperiences);
   };
 
   const addNewExperiencePoint = () => {
-    let newExp: TExp = {
-      key: `new-${Math.random() * 10}`,
-      value: "",
-    };
-    let tmp = [...experiences, newExp];
-    setExperiences(tmp);
+    addExperiencePoint(experiences, setExperiences);
   };
 
-  const deleteSpecificExperiencePoint = (cur: TExp) => {
-    let tmp = experiences.filter((it) => it !== cur);
-    setExperiences(tmp);
+  const deleteSpecificExperiencePoint = (cur: TKeyValue) => {
+    deleteExperiencePoint(cur, experiences, setExperiences);
   };
 
   const onSave = () => {

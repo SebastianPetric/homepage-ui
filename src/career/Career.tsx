@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import CareerTab, { TCareer, TCareerDTO } from "./CareerTab";
-import NewStepModal, { GENERIC_DTO } from "../shared/modals/NewStepModal";
+import NewStepModal from "../shared/modals/NewStepModal";
 import {
   deleteEntity,
   findAllEntities,
@@ -9,13 +9,14 @@ import {
   saveEntity,
   updateEntity,
 } from "../shared/RestCaller";
-import { GENERIC_DAO } from "../shared/modals/EditStepModal";
-import EditTextModal, {
+import { GENERIC_DAO, GENERIC_DTO } from "../shared/modals/EditStepModal";
+import EditDescriptionTextModal, {
   TextType,
   TText,
-  TTextDTO,
-} from "../shared/modals/EditTextModal";
-import DescriptionText from "../shared/DescriptionText";
+} from "../shared/modals/EditDescriptionTextModal";
+import DescriptionText, {
+  onSaveDescriptionText,
+} from "../shared/description/DescriptionText";
 
 export default function Career({ isEditActive }: { isEditActive: boolean }) {
   const [career, setCareer] = useState<TCareer[]>([]);
@@ -25,7 +26,7 @@ export default function Career({ isEditActive }: { isEditActive: boolean }) {
     threshold: 0,
     triggerOnce: true,
   });
-  const COVERING_ENDPOINT = "covering-letter";
+
   const CAREER_ENDPOINT = "career";
 
   useEffect(() => {
@@ -47,17 +48,7 @@ export default function Career({ isEditActive }: { isEditActive: boolean }) {
   }, [inView]);
 
   const onSaveText = async (cur: TText) => {
-    const textDt: TTextDTO = {
-      text: cur.text,
-      type: cur.type,
-    };
-
-    const saved: TText = await updateEntity(
-      COVERING_ENDPOINT,
-      cur.id,
-      JSON.stringify(textDt)
-    );
-    setTextObj(saved);
+    await onSaveDescriptionText(cur, CAREER_ENDPOINT, setTextObj);
   };
 
   const onSaveCareer = async (car: GENERIC_DTO) => {
@@ -107,7 +98,7 @@ export default function Career({ isEditActive }: { isEditActive: boolean }) {
       <p className={"title"}>Beruflicher Werdegang.</p>
       <div className={"mt-8"}>
         {isLoaded && (
-          <EditTextModal
+          <EditDescriptionTextModal
             onSaveText={onSaveText}
             editTextObj={textObj}
             isEditActive={isEditActive}

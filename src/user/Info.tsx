@@ -6,12 +6,13 @@ import {
   findTextByType,
   updateEntity,
 } from "../shared/RestCaller";
-import EditTextModal, {
+import EditDescriptionTextModal, {
   TextType,
   TText,
-  TTextDTO,
-} from "../shared/modals/EditTextModal";
-import DescriptionText from "../shared/DescriptionText";
+} from "../shared/modals/EditDescriptionTextModal";
+import DescriptionText, {
+  onSaveDescriptionText,
+} from "../shared/description/DescriptionText";
 import CveRequest from "./CveRequest";
 
 export default function Info({ isEditActive }: { isEditActive: boolean }) {
@@ -43,17 +44,7 @@ export default function Info({ isEditActive }: { isEditActive: boolean }) {
   }, [inView]);
 
   const onSaveEditedText = async (cur: TText) => {
-    const textDt: TTextDTO = {
-      text: cur.text,
-      type: cur.type,
-    };
-
-    const saved: TText = await updateEntity(
-      COVERING_ENDPOINT,
-      cur.id,
-      JSON.stringify(textDt)
-    );
-    setTextObj(saved);
+    await onSaveDescriptionText(cur, COVERING_ENDPOINT, setTextObj);
   };
 
   const onSaveEditedUserInfo = async (cur: TUserInfo) => {
@@ -82,7 +73,7 @@ export default function Info({ isEditActive }: { isEditActive: boolean }) {
       <p className={"title"}>Interesse geweckt?</p>
       <div className={"mt-8"}>
         {isLoaded && (
-          <EditTextModal
+          <EditDescriptionTextModal
             onSaveText={onSaveEditedText}
             editTextObj={textObj}
             isEditActive={isEditActive}

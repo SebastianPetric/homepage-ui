@@ -7,6 +7,12 @@ import ModalExperienceItems from "./ModalExperienceItems";
 import Modal from "./Modal";
 import ModalCreateButton from "./ModalCreateButton";
 import { GENERIC_DTO, TKeyValue } from "./EditStepModal";
+import {
+  addExperiencePoint,
+  deleteExperiencePoint,
+  editAndSetExperiencePoint,
+} from "./ExperiencePointsInModalEditor";
+import { validateAcademicCareerModalFieldsNotEmpty } from "./ModalFieldValidator";
 
 export default function NewStepModal({
   isEditVisible,
@@ -31,17 +37,13 @@ export default function NewStepModal({
   const [experiences, setExperiences] = useState<TKeyValue[]>([]);
 
   useEffect(() => {
-    let tmp = experiences.map((it) => it.value);
-
-    if (
-      title !== "" &&
-      institution !== "" &&
-      formattedFromDate !== "" &&
-      tmp.length !== 0 &&
-      !tmp.includes("")
-    )
-      setIsSavingPossible(true);
-    else setIsSavingPossible(false);
+    validateAcademicCareerModalFieldsNotEmpty(
+      experiences,
+      title,
+      institution,
+      formattedFromDate,
+      setIsSavingPossible
+    );
   }, [title, institution, experiences]);
 
   useEffect(() => {
@@ -50,27 +52,15 @@ export default function NewStepModal({
   }, [startDate, endDate]);
 
   const editExperiencePoint = (cur: TKeyValue) => {
-    let tmp = [...experiences];
-    tmp.forEach((exp) => {
-      if (exp.key === cur.key) {
-        exp.value = cur.value;
-      }
-    });
-    setExperiences(tmp);
+    editAndSetExperiencePoint(cur, experiences, setExperiences);
   };
 
   const addNewExperiencePoint = () => {
-    let newExp: TKeyValue = {
-      key: `new-${Math.random() * 10}`,
-      value: "",
-    };
-    let tmp = [...experiences, newExp];
-    setExperiences(tmp);
+    addExperiencePoint(experiences, setExperiences);
   };
 
-  const deleteExperiencePoint = (cur: TKeyValue) => {
-    let tmp = experiences.filter((it) => it !== cur);
-    setExperiences(tmp);
+  const onDeleteExperiencePoint = (cur: TKeyValue) => {
+    deleteExperiencePoint(cur, experiences, setExperiences);
   };
 
   const onSave = () => {
@@ -120,7 +110,7 @@ export default function NewStepModal({
           experiencePoints={experiences}
           addNewExperiencePoint={addNewExperiencePoint}
           editSingleExperiencePoint={editExperiencePoint}
-          deleteSpecificExperiencePoint={deleteExperiencePoint}
+          deleteSpecificExperiencePoint={onDeleteExperiencePoint}
         />
         <SaveAndCancelButtons
           isSavingPossible={isSavingPossible}

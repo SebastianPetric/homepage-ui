@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import EditTextModal, {
+import EditDescriptionTextModal, {
   TextType,
   TText,
-  TTextDTO,
-} from "../shared/modals/EditTextModal";
-import { findTextByType, updateEntity } from "../shared/RestCaller";
-import DescriptionText from "../shared/DescriptionText";
+} from "../shared/modals/EditDescriptionTextModal";
+import { findTextByType } from "../shared/RestCaller";
+import DescriptionText, {
+  onSaveDescriptionText,
+} from "../shared/description/DescriptionText";
 
 export default function Greeting({ isEditActive }: { isEditActive: boolean }) {
   const [textObj, setTextObj] = useState<TText>({ id: "", text: "", type: "" });
@@ -22,17 +23,7 @@ export default function Greeting({ isEditActive }: { isEditActive: boolean }) {
   }, []);
 
   const onSaveText = async (cur: TText) => {
-    const textDt: TTextDTO = {
-      text: cur.text,
-      type: cur.type,
-    };
-
-    const saved: TText = await updateEntity(
-      COVERING_ENDPOINT,
-      cur.id,
-      JSON.stringify(textDt)
-    );
-    setTextObj(saved);
+    await onSaveDescriptionText(cur, COVERING_ENDPOINT, setTextObj);
   };
 
   return (
@@ -40,7 +31,7 @@ export default function Greeting({ isEditActive }: { isEditActive: boolean }) {
       <p className={"title"}>Sebastian Petöcz.</p>
       <div className={"mt-8"}>
         {isLoaded && (
-          <EditTextModal
+          <EditDescriptionTextModal
             onSaveText={onSaveText}
             editTextObj={textObj}
             isEditActive={isEditActive}

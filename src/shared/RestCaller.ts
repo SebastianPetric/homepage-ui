@@ -1,16 +1,12 @@
 import { getCookie } from "react-use-cookie";
-import { TextType } from "./modals/EditTextModal";
+import { TextType } from "./modals/EditDescriptionTextModal";
 
 export const findAllEntities = async (endpoint: string) => {
   try {
     const requestOptions = {
       method: "GET",
     };
-    const response = await fetch(
-      `${import.meta.env.VITE_REQUEST_URL}/${endpoint}`,
-      requestOptions
-    );
-    return await response.json();
+    return await fetchWithoutParameter(endpoint, requestOptions);
   } catch (err) {
     console.log(err);
   }
@@ -21,11 +17,7 @@ export const findTextByType = async (type: TextType) => {
     const requestOptions = {
       method: "GET",
     };
-    const response = await fetch(
-      `${import.meta.env.VITE_REQUEST_URL}/covering-letter/${type}`,
-      requestOptions
-    );
-    return await response.json();
+    return await fetchWithParameter("covering-letter", type, requestOptions);
   } catch (err) {
     console.log(err);
   }
@@ -41,11 +33,7 @@ export const saveEntity = async (endpoint: string, body: string) => {
       },
       body: body,
     };
-    const response = await fetch(
-      `${import.meta.env.VITE_REQUEST_URL}/${endpoint}`,
-      requestOptions
-    );
-    return await response.json();
+    return await fetchWithoutParameter(endpoint, requestOptions);
   } catch (err) {
     console.log(err);
   }
@@ -65,11 +53,7 @@ export const updateEntity = async (
       },
       body: body,
     };
-    const response = await fetch(
-      `${import.meta.env.VITE_REQUEST_URL}/${endpoint}/${id}`,
-      requestOptions
-    );
-    return await response.json();
+    return await fetchWithParameter(endpoint, id, requestOptions);
   } catch (err) {
     console.log(err);
   }
@@ -108,4 +92,24 @@ export const sendEmail = async (email: string) => {
   } catch (err) {
     console.log(err);
   }
+};
+
+const fetchWithoutParameter = async (endpoint: string, requestOptions: {}) => {
+  const response = await fetch(
+    `${import.meta.env.VITE_REQUEST_URL}/${endpoint}`,
+    requestOptions
+  );
+  return response.json();
+};
+
+const fetchWithParameter = async (
+  endpoint: string,
+  parameter: string,
+  requestOptions: {}
+) => {
+  const response = await fetch(
+    `${import.meta.env.VITE_REQUEST_URL}/${endpoint}/${parameter}`,
+    requestOptions
+  );
+  return response.json();
 };

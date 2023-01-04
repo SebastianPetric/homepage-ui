@@ -22,7 +22,7 @@ export enum TextType {
   INFO = "INFO",
 }
 
-export default function EditTextModal({
+export default function EditDescriptionTextModal({
   onSaveText,
   editTextObj,
   isEditActive,
