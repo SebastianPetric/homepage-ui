@@ -69,7 +69,11 @@ export default function AcademicTab({
           {academic.school} von {formatMonthYear(academic.from_date)} bis{" "}
           {formatMonthYear(academic.to_date)}
         </p>
-        <ul className={"flex flex-col items-start text-sm"}>
+        <ul
+          className={`flex flex-col items-start text-sm ${
+            academic.focusList.length > 1 ? "pl-5 list-disc list-outside" : ""
+          }`}
+        >
           {academic.focusList.map((focus, index) => (
             <li key={`${focus}-${index}`}>{focus}</li>
           ))}

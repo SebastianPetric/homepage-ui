@@ -55,7 +55,11 @@ export default function CareerTab({
         {career.company} von {formatMonthYear(career.from_date)} bis{" "}
         {formatMonthYear(career.to_date)}
       </p>
-      <ul className={"flex flex-col items-start text-sm"}>
+      <ul
+        className={`flex flex-col items-start text-sm ${
+          career.toDos.length > 1 ? "pl-5 list-disc list-outside" : ""
+        }`}
+      >
         {career.toDos.map((toDo, index) => (
           <li key={`${toDo}-${index}`}>{toDo}</li>
         ))}

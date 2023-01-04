@@ -31,7 +31,7 @@
     }
 
     .deleteButton {
-        @apply hover:text-green-600 cursor-pointer ml-2 mb-2;
+        @apply hover:text-green-600 cursor-pointer ml-2;
     }
 }
 
