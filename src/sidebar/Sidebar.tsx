@@ -1,4 +1,4 @@
-import { ProfileImage } from "../profile/ProfileImage";
+import { ProfileImage } from "./ProfileImage";
 
 export default function Sidebar() {
   return (
