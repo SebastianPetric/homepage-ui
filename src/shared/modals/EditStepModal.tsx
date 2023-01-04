@@ -21,6 +21,18 @@ export type GENERIC_DAO = {
   points: string[];
 };
 
+export type GENERIC_DTO = {
+  title: string;
+
+  institution: string;
+
+  from_date: string;
+
+  to_date: string | undefined;
+
+  points: string[];
+};
+
 export default function EditStepModal({
   titleModal,
   isEditVisible,

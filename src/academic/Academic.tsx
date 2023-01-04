@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import AcademicTab, { TAcademic, TAcademicDTO } from "./AcademicTab";
-import NewStepModal, { GENERIC_DTO } from "../shared/modals/NewStepModal";
+import NewStepModal from "../shared/modals/NewStepModal";
 import {
   deleteEntity,
   findAllEntities,
@@ -9,7 +9,7 @@ import {
   saveEntity,
   updateEntity,
 } from "../shared/RestCaller";
-import { GENERIC_DAO } from "../shared/modals/EditStepModal";
+import { GENERIC_DAO, GENERIC_DTO } from "../shared/modals/EditStepModal";
 import EditTextModal, {
   TextType,
   TText,

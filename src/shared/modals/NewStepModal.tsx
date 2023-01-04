@@ -6,23 +6,7 @@ import ModalItem from "./ModalItem";
 import ModalExperienceItems from "./ModalExperienceItems";
 import Modal from "./Modal";
 import ModalCreateButton from "./ModalCreateButton";
-
-export type TExperienceKeyValue = {
-  key: string;
-  value: string;
-};
-
-export type GENERIC_DTO = {
-  title: string;
-
-  institution: string;
-
-  from_date: string;
-
-  to_date: string | undefined;
-
-  points: string[];
-};
+import { GENERIC_DTO, TKeyValue } from "./EditStepModal";
 
 export default function NewStepModal({
   isEditVisible,
@@ -44,7 +28,7 @@ export default function NewStepModal({
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
 
-  const [experiences, setExperiences] = useState<TExperienceKeyValue[]>([]);
+  const [experiences, setExperiences] = useState<TKeyValue[]>([]);
 
   useEffect(() => {
     let tmp = experiences.map((it) => it.value);
@@ -65,7 +49,7 @@ export default function NewStepModal({
     if (endDate) setFormattedToDate(format(endDate));
   }, [startDate, endDate]);
 
-  const editExperiencePoint = (cur: TExperienceKeyValue) => {
+  const editExperiencePoint = (cur: TKeyValue) => {
     let tmp = [...experiences];
     tmp.forEach((exp) => {
       if (exp.key === cur.key) {
@@ -76,7 +60,7 @@ export default function NewStepModal({
   };
 
   const addNewExperiencePoint = () => {
-    let newExp: TExperienceKeyValue = {
+    let newExp: TKeyValue = {
       key: `new-${Math.random() * 10}`,
       value: "",
     };
@@ -84,7 +68,7 @@ export default function NewStepModal({
     setExperiences(tmp);
   };
 
-  const deleteExperiencePoint = (cur: TExperienceKeyValue) => {
+  const deleteExperiencePoint = (cur: TKeyValue) => {
     let tmp = experiences.filter((it) => it !== cur);
     setExperiences(tmp);
   };
