@@ -28,7 +28,6 @@ export default function Academic({ isEditActive }: { isEditActive: boolean }) {
     threshold: 0,
     triggerOnce: true,
   });
-  const COVERING_ENDPOINT = "covering-letter";
   const ACADEMIC_ENDPOINT = "academic";
 
   useEffect(() => {
