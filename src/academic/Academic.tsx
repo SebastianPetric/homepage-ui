@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import AcademicTab, { TAcademic, TAcademicDTO } from "./AcademicTab";
-import NewStepModal from "../shared/modals/NewStepModal";
 import {
   deleteEntity,
   findAllEntities,
@@ -9,11 +8,14 @@ import {
   saveEntity,
   updateEntity,
 } from "../shared/RestCaller";
-import { GENERIC_DAO, GENERIC_DTO } from "../shared/modals/EditStepModal";
+import EditAcademicCareerStepModal, {
+  GENERIC_DAO,
+  GENERIC_DTO,
+} from "../shared/modals/EditAcademicCareerStepModal";
 import EditDescriptionTextModal, {
   TextType,
   TText,
-} from "../shared/modals/EditDescriptionTextModal";
+} from "../shared/description/EditDescriptionTextModal";
 import DescriptionText, {
   onSaveDescriptionText,
 } from "../shared/description/DescriptionText";
@@ -117,7 +119,7 @@ export default function Academic({ isEditActive }: { isEditActive: boolean }) {
           />
         ))}
       </div>
-      <NewStepModal
+      <EditAcademicCareerStepModal
         isEditVisible={isEditActive}
         onSaveExp={onSaveAcademic}
         titleModal={"Akademischer Werdegangspunkt hinzufügen"}

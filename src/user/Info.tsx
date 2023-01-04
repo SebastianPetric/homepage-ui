@@ -9,7 +9,7 @@ import {
 import EditDescriptionTextModal, {
   TextType,
   TText,
-} from "../shared/modals/EditDescriptionTextModal";
+} from "../shared/description/EditDescriptionTextModal";
 import DescriptionText, {
   onSaveDescriptionText,
 } from "../shared/description/DescriptionText";

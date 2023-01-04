@@ -6,7 +6,7 @@ import Modal from "../shared/modals/Modal";
 import SaveAndCancelButtonsEditExperience from "../shared/modals/SaveAndCancelButtonsEditExperience";
 import ModalEditButton from "../shared/modals/ModalEditButton";
 import { FaMinus } from "react-icons/all";
-import { TKeyValue } from "../shared/modals/EditStepModal";
+import { TKeyValue } from "../shared/modals/EditAcademicCareerStepModal";
 import {
   addExperiencePoint,
   deleteExperiencePoint,

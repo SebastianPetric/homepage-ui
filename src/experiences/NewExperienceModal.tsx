@@ -5,7 +5,7 @@ import ModalExperienceItems from "../shared/modals/ModalExperienceItems";
 import SaveAndCancelButtons from "../shared/modals/SaveAndCancelButtons";
 import ModalItem from "../shared/modals/ModalItem";
 import Modal from "../shared/modals/Modal";
-import { TKeyValue } from "../shared/modals/EditStepModal";
+import { TKeyValue } from "../shared/modals/EditAcademicCareerStepModal";
 import {
   addExperiencePoint,
   deleteExperiencePoint,

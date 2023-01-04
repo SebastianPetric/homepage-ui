@@ -11,7 +11,7 @@ import {
 import EditDescriptionTextModal, {
   TextType,
   TText,
-} from "../shared/modals/EditDescriptionTextModal";
+} from "../shared/description/EditDescriptionTextModal";
 import ExperienceTab from "./ExperienceTab";
 import DescriptionText, {
   onSaveDescriptionText,

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import SaveAndCancelButtons from "./SaveAndCancelButtons";
-import Modal from "./Modal";
-import ModalEditButton from "./ModalEditButton";
+import SaveAndCancelButtons from "../modals/SaveAndCancelButtons";
+import Modal from "../modals/Modal";
+import ModalEditButton from "../modals/ModalEditButton";
 
 export type TText = {
   id: string;

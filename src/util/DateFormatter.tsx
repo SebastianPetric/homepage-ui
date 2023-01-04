@@ -1,5 +1,6 @@
 import DatePicker from "react-datepicker";
 import React from "react";
+import "react-datepicker/dist/react-datepicker.css";
 
 export const format = (date: Date | null) => {
   if (date === null) return "";

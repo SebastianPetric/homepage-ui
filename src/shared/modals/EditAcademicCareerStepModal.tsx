@@ -12,6 +12,7 @@ import {
   editAndSetExperiencePoint,
 } from "./ExperiencePointsInModalEditor";
 import { validateAcademicCareerModalFieldsNotEmpty } from "./ModalFieldValidator";
+import ModalCreateButton from "./ModalCreateButton";
 
 export type TKeyValue = {
   key: string;
@@ -39,49 +40,53 @@ export type GENERIC_DTO = {
   points: string[];
 };
 
-export default function EditStepModal({
-  titleModal,
+export default function EditAcademicCareerStepModal({
   isEditVisible,
   onSaveExp,
+  titleModal,
   onDelete,
   id,
   editExpObj,
 }: {
   onSaveExp: (obj: GENERIC_DAO) => void;
-  onDelete: (id: string) => void;
-  id: string;
+  onDelete?: (id: string) => void;
+  id?: string;
   isEditVisible: boolean;
-  editExpObj: GENERIC_DAO;
+  editExpObj?: GENERIC_DAO;
   titleModal: string;
 }) {
   const [showModal, setShowModal] = useState<boolean>();
   const [isSavingPossible, setIsSavingPossible] = useState<boolean>(false);
-  const [title, setTitle] = useState<string>(editExpObj.title);
+  const [title, setTitle] = useState<string>(
+    editExpObj ? editExpObj.title : ""
+  );
   const [institution, setInstitution] = useState<string>(
-    editExpObj.institution
+    editExpObj ? editExpObj.institution : ""
   );
   const [formattedFromDate, setFormattedFromDate] = useState<string>(
-    editExpObj.from_date
+    editExpObj ? editExpObj.from_date : ""
   );
   const [formattedToDate, setFormattedToDate] = useState<string | undefined>(
-    editExpObj.to_date
+    editExpObj ? editExpObj.to_date : ""
   );
 
   const [startDate, setStartDate] = useState<Date | null>(
-    new Date(editExpObj.from_date)
+    editExpObj ? new Date(editExpObj.from_date) : null
   );
   const [endDate, setEndDate] = useState<Date | null>(
-    editExpObj.to_date ? new Date(editExpObj.to_date) : null
+    editExpObj && editExpObj.to_date ? new Date(editExpObj.to_date) : null
   );
 
   const [experiencePoints, setExperiencePoints] = useState<TKeyValue[]>([]);
 
   useEffect(() => {
-    const tmp = editExpObj.points.map((it) => ({
-      key: `new-${Math.random() * 10}`,
-      value: it,
-    }));
-    setExperiencePoints(tmp);
+    if (editExpObj) {
+      const tmp = editExpObj.points.map((it) => ({
+        key: `new-${Math.random() * 10}`,
+        value: it,
+      }));
+      setExperiencePoints(tmp);
+    }
   }, []);
 
   useEffect(() => {
@@ -118,7 +123,7 @@ export default function EditStepModal({
       .filter((exp) => exp.value !== "")
       .map((it) => it.value);
     let newObj: GENERIC_DAO = {
-      id: editExpObj.id,
+      id: editExpObj ? editExpObj?.id : "",
       title: title,
       institution: institution,
       from_date: formattedFromDate,
@@ -130,13 +135,28 @@ export default function EditStepModal({
 
   return (
     <>
-      <ModalEditButton
-        isEditVisible={isEditVisible}
-        setShowModal={setShowModal}
-      />
-      {isEditVisible && (
-        <FaMinus className={"deleteButton"} onClick={() => onDelete(id)} />
+      {editExpObj ? (
+        <>
+          <ModalEditButton
+            isEditVisible={isEditVisible}
+            setShowModal={setShowModal}
+          />
+          {isEditVisible && (
+            <FaMinus
+              className={"deleteButton"}
+              onClick={() => {
+                if (onDelete && id) onDelete(id);
+              }}
+            />
+          )}
+        </>
+      ) : (
+        <ModalCreateButton
+          setShowModal={setShowModal}
+          isEditVisible={isEditVisible}
+        />
       )}
+
       {showModal ? (
         <Modal
           shouldShowModal={showModal}

@@ -1,4 +1,4 @@
-import { TKeyValue } from "./EditStepModal";
+import { TKeyValue } from "./EditAcademicCareerStepModal";
 
 export const editAndSetExperiencePoint = (
   cur: TKeyValue,

@@ -1,4 +1,4 @@
-import { TText, TTextDTO } from "../modals/EditDescriptionTextModal";
+import { TText, TTextDTO } from "./EditDescriptionTextModal";
 import { updateEntity } from "../RestCaller";
 
 export default function DescriptionText({ text }: { text: string }) {

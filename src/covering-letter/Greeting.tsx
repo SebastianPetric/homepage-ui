@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import EditDescriptionTextModal, {
   TextType,
   TText,
-} from "../shared/modals/EditDescriptionTextModal";
+} from "../shared/description/EditDescriptionTextModal";
 import { findTextByType } from "../shared/RestCaller";
 import DescriptionText, {
   onSaveDescriptionText,
