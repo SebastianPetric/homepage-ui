@@ -84,7 +84,7 @@ export default function CreateAndEditExperienceModal({
 
   return (
     <>
-      {onDelete && id ? (
+      {onDelete && id && isEditVisible ? (
         <>
           <ModalEditButton
             setShowModal={setShowModal}
