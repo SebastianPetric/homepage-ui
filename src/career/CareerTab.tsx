@@ -50,8 +50,8 @@ export default function CareerTab({
           titleModal={"Bearbeiten"}
         />
       </div>
-      <p className={"text-xl font-bold mb-2 text-green-600"}>{career.title}</p>
-      <p className={"text-sm font-bold"}>
+      <p className={"text-xl font-bold text-green-600"}>{career.title}</p>
+      <p className={"text-sm font-bold mb-2"}>
         {career.company} von {formatMonthYear(career.from_date)} bis{" "}
         {formatMonthYear(career.to_date)}
       </p>
