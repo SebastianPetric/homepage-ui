@@ -52,7 +52,7 @@ export default function AcademicTab({
     <>
       <div
         key={`${academic.id}`}
-        className={"flex flex-col items-start w-80 h-auto mt-5 mr-5"}
+        className={"flex flex-col items-start w-80 h-auto mt-10 mr-5"}
       >
         <div className={"flex flex-row"}>
           <CreateAndEditAcademicCareerStepModal

@@ -41,7 +41,7 @@ export default function CareerTab({
   };
 
   return (
-    <div className={"flex flex-col mt-5 mr-5 w-80"}>
+    <div className={"flex flex-col mt-10 mr-5 w-80"}>
       <div className={"flex flex-row"}>
         <CreateAndEditAcademicCareerStepModal
           onSaveExp={onSaveEditedCareer}
