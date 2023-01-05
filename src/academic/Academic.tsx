@@ -19,6 +19,7 @@ import EditDescriptionTextModal, {
 import DescriptionText, {
   onSaveDescriptionText,
 } from "../shared/description/DescriptionText";
+import { ENDPOINT } from "../App";
 
 export default function Academic({ isEditActive }: { isEditActive: boolean }) {
   const [academic, setAcademic] = useState<TAcademic[]>([]);
@@ -28,11 +29,12 @@ export default function Academic({ isEditActive }: { isEditActive: boolean }) {
     threshold: 0,
     triggerOnce: true,
   });
-  const ACADEMIC_ENDPOINT = "academic";
 
   useEffect(() => {
     const getAllAcademics = async () => {
-      let response: TAcademic[] = await findAllEntities(ACADEMIC_ENDPOINT);
+      let response: TAcademic[] = await findAllEntities(
+        ENDPOINT.ACADEMIC.valueOf()
+      );
       setAcademic(response);
     };
 
@@ -49,7 +51,11 @@ export default function Academic({ isEditActive }: { isEditActive: boolean }) {
   }, [inView]);
 
   const onSaveText = async (cur: TText) => {
-    await onSaveDescriptionText(cur, ACADEMIC_ENDPOINT, setTextObj);
+    await onSaveDescriptionText(
+      cur,
+      ENDPOINT.COVERING_LETTER.valueOf(),
+      setTextObj
+    );
   };
 
   const onSaveAcademic = async (ac: GENERIC_DTO) => {
@@ -61,7 +67,7 @@ export default function Academic({ isEditActive }: { isEditActive: boolean }) {
       focusList: ac.points,
     };
     const saved: TAcademic = await saveEntity(
-      ACADEMIC_ENDPOINT,
+      ENDPOINT.ACADEMIC.valueOf(),
       JSON.stringify(newObj)
     );
     setAcademic([...academic, saved]);
@@ -77,7 +83,7 @@ export default function Academic({ isEditActive }: { isEditActive: boolean }) {
     };
 
     const saved: TAcademic = await updateEntity(
-      ACADEMIC_ENDPOINT,
+      ENDPOINT.ACADEMIC.valueOf(),
       ac.id,
       JSON.stringify(careerDt)
     );
@@ -88,7 +94,7 @@ export default function Academic({ isEditActive }: { isEditActive: boolean }) {
   };
 
   const onDeleteAcademic = async (id: string) => {
-    await deleteEntity(ACADEMIC_ENDPOINT, id);
+    await deleteEntity(ENDPOINT.ACADEMIC.valueOf(), id);
     let tmp = [...academic];
     tmp = tmp.filter((it) => it.id !== id);
     setAcademic(tmp);

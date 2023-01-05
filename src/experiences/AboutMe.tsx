@@ -16,6 +16,7 @@ import DescriptionText, {
   onSaveDescriptionText,
 } from "../shared/description/DescriptionText";
 import CreateAndEditExperienceModal from "./CreateAndEditExperienceModal";
+import { ENDPOINT } from "../App";
 
 export type TExperience = {
   id: string;
@@ -37,11 +38,11 @@ export default function AboutMe({ isEditActive }: { isEditActive: boolean }) {
     triggerOnce: true,
   });
 
-  const EXPERIENCE_ENDPOINT = "experiences";
-
   useEffect(() => {
     const getAllExperiences = async () => {
-      let response: TExperience[] = await findAllEntities(EXPERIENCE_ENDPOINT);
+      let response: TExperience[] = await findAllEntities(
+        ENDPOINT.EXPERIENCES.valueOf()
+      );
       setExperiences(response);
     };
 
@@ -64,7 +65,7 @@ export default function AboutMe({ isEditActive }: { isEditActive: boolean }) {
     };
 
     const saved: TExperience = await saveEntity(
-      EXPERIENCE_ENDPOINT,
+      ENDPOINT.EXPERIENCES.valueOf(),
       JSON.stringify(experienceDTO)
     );
     setExperiences([...experiences, saved]);
@@ -77,7 +78,7 @@ export default function AboutMe({ isEditActive }: { isEditActive: boolean }) {
     };
 
     const saved: TExperience = await updateEntity(
-      EXPERIENCE_ENDPOINT,
+      ENDPOINT.EXPERIENCES.valueOf(),
       exp.id,
       JSON.stringify(experienceDTO)
     );
@@ -88,11 +89,11 @@ export default function AboutMe({ isEditActive }: { isEditActive: boolean }) {
   };
 
   const onSaveText = async (cur: TText) => {
-    await onSaveDescriptionText(cur, EXPERIENCE_ENDPOINT, setTextObj);
+    await onSaveDescriptionText(cur, ENDPOINT.CAREER.valueOf(), setTextObj);
   };
 
   const onDeleteExperienceById = async (id: string) => {
-    await deleteEntity(EXPERIENCE_ENDPOINT, id);
+    await deleteEntity(ENDPOINT.EXPERIENCES.valueOf(), id);
     const tmp = experiences.filter((it) => it.id !== id);
     setExperiences(tmp);
   };

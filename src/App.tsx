@@ -10,6 +10,15 @@ import { Element } from "react-scroll";
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
+export enum ENDPOINT {
+  COVERING_LETTER = "covering-letter",
+  ACADEMIC = "academic",
+  CAREER = "career",
+  EXPERIENCES = "experiences",
+  SEND = "send",
+  USERS = "users",
+}
+
 function App() {
   const { isAuthenticated } = useAuth0();
   const [isEditActive, setIsEditActive] = useState<boolean>(false);

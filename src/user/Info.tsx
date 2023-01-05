@@ -14,6 +14,7 @@ import DescriptionText, {
   onSaveDescriptionText,
 } from "../shared/description/DescriptionText";
 import CveRequest from "./CveRequest";
+import { ENDPOINT } from "../App";
 
 export default function Info({
   isEditActive,
@@ -29,11 +30,12 @@ export default function Info({
     threshold: 0,
     triggerOnce: true,
   });
-  const COVERING_ENDPOINT = "covering-letter";
 
   useEffect(() => {
     const getAllUserInfo = async () => {
-      let response: TUserInfo[] = await findAllEntities("users");
+      let response: TUserInfo[] = await findAllEntities(
+        ENDPOINT.USERS.valueOf()
+      );
       setUser(response);
     };
 
@@ -50,7 +52,11 @@ export default function Info({
   }, [inView]);
 
   const onSaveEditedText = async (cur: TText) => {
-    await onSaveDescriptionText(cur, COVERING_ENDPOINT, setTextObj);
+    await onSaveDescriptionText(
+      cur,
+      ENDPOINT.COVERING_LETTER.valueOf(),
+      setTextObj
+    );
   };
 
   const onSaveEditedUserInfo = async (cur: TUserInfo) => {

@@ -19,6 +19,7 @@ import EditDescriptionTextModal, {
 import DescriptionText, {
   onSaveDescriptionText,
 } from "../shared/description/DescriptionText";
+import { ENDPOINT } from "../App";
 
 export default function Career({ isEditActive }: { isEditActive: boolean }) {
   const [career, setCareer] = useState<TCareer[]>([]);
@@ -29,11 +30,11 @@ export default function Career({ isEditActive }: { isEditActive: boolean }) {
     triggerOnce: true,
   });
 
-  const CAREER_ENDPOINT = "career";
-
   useEffect(() => {
     const getAllCareer = async () => {
-      let response: TCareer[] = await findAllEntities(CAREER_ENDPOINT);
+      let response: TCareer[] = await findAllEntities(
+        ENDPOINT.CAREER.valueOf()
+      );
       setCareer(response);
     };
 
@@ -50,7 +51,11 @@ export default function Career({ isEditActive }: { isEditActive: boolean }) {
   }, [inView]);
 
   const onSaveText = async (cur: TText) => {
-    await onSaveDescriptionText(cur, CAREER_ENDPOINT, setTextObj);
+    await onSaveDescriptionText(
+      cur,
+      ENDPOINT.COVERING_LETTER.valueOf(),
+      setTextObj
+    );
   };
 
   const onSaveCareer = async (car: GENERIC_DTO) => {
@@ -62,7 +67,7 @@ export default function Career({ isEditActive }: { isEditActive: boolean }) {
       toDos: car.points,
     };
     const saved: TCareer = await saveEntity(
-      CAREER_ENDPOINT,
+      ENDPOINT.CAREER.valueOf(),
       JSON.stringify(newObj)
     );
     setCareer([...career, saved]);
@@ -78,7 +83,7 @@ export default function Career({ isEditActive }: { isEditActive: boolean }) {
     };
 
     const saved: TCareer = await updateEntity(
-      CAREER_ENDPOINT,
+      ENDPOINT.CAREER.valueOf(),
       car.id,
       JSON.stringify(careerDt)
     );
@@ -89,7 +94,7 @@ export default function Career({ isEditActive }: { isEditActive: boolean }) {
   };
 
   const onDeleteCareer = async (id: string) => {
-    await deleteEntity(CAREER_ENDPOINT, id);
+    await deleteEntity(ENDPOINT.CAREER.valueOf(), id);
     let tmp = [...career];
     tmp = tmp.filter((it) => it.id !== id);
     setCareer(tmp);

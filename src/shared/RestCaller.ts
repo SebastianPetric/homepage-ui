@@ -1,5 +1,6 @@
 import { getCookie } from "react-use-cookie";
 import { TextType } from "./description/EditDescriptionTextModal";
+import { ENDPOINT } from "../App";
 
 export const findAllEntities = async (endpoint: string) => {
   try {
@@ -17,7 +18,11 @@ export const findTextByType = async (type: TextType) => {
     const requestOptions = {
       method: "GET",
     };
-    return await fetchWithParameter("covering-letter", type, requestOptions);
+    return await fetchWithParameter(
+      ENDPOINT.COVERING_LETTER.valueOf(),
+      type,
+      requestOptions
+    );
   } catch (err) {
     console.log(err);
   }
@@ -82,7 +87,7 @@ export const sendEmail = async (email: string) => {
       method: "GET",
     };
     const response = await fetch(
-      `${import.meta.env.VITE_REQUEST_URL}/send/${email}`,
+      `${import.meta.env.VITE_REQUEST_URL}/${ENDPOINT.SEND.valueOf()}/${email}`,
       requestOptions
     );
 

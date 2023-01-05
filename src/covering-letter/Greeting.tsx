@@ -7,11 +7,11 @@ import { findTextByType } from "../shared/RestCaller";
 import DescriptionText, {
   onSaveDescriptionText,
 } from "../shared/description/DescriptionText";
+import { ENDPOINT } from "../App";
 
 export default function Greeting({ isEditActive }: { isEditActive: boolean }) {
   const [textObj, setTextObj] = useState<TText>({ id: "", text: "", type: "" });
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  const COVERING_ENDPOINT = "covering-letter";
 
   useEffect(() => {
     const getCoveringLetter = async () => {
@@ -23,7 +23,11 @@ export default function Greeting({ isEditActive }: { isEditActive: boolean }) {
   }, []);
 
   const onSaveText = async (cur: TText) => {
-    await onSaveDescriptionText(cur, COVERING_ENDPOINT, setTextObj);
+    await onSaveDescriptionText(
+      cur,
+      ENDPOINT.COVERING_LETTER.valueOf(),
+      setTextObj
+    );
   };
 
   return (
