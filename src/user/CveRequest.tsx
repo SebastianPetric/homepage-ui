@@ -36,7 +36,12 @@ export default function CveRequest({
     }
 
     const res = await sendEmail(email, optionalText);
-    if (res) setError(res);
+    if (res)
+      setError({
+        description: res.message,
+        message: res.errors[0].defaultMessage,
+        timestamp: res.timeStamp,
+      });
     else {
       setIsEmailSent(true);
       setError(undefined);
