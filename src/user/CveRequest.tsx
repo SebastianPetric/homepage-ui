@@ -3,6 +3,7 @@ import Spinner from "./Spinner";
 import React, { MutableRefObject, useEffect, useRef, useState } from "react";
 import { sendEmail } from "../shared/RestCaller";
 import { WidgetInstance } from "friendly-challenge";
+import { Tooltip } from "@material-tailwind/react";
 
 export default function CveRequest({
   shouldHighlightCveInput,
@@ -80,12 +81,19 @@ export default function CveRequest({
         {!isEmailSent ? (
           <div className={"w-full mt-10"}>
             <ErrorField error={error} />
-            <input
-              contentEditable={false}
-              className={`border-2 w-full mb-2 h-20 text-center transition-all duration-700 ${transitionColorsForHighlighting()}`}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder={"Email"}
-            />
+            <Tooltip
+              open={shouldHighlightCveInput}
+              content={"Hier anfragen"}
+              placement={"top"}
+              className={"bg-green-400 w-40 flex justify-center"}
+            >
+              <input
+                contentEditable={false}
+                className={`border-2 w-full mb-2 h-20 text-center transition-all duration-700 ${transitionColorsForHighlighting()}`}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder={"Email"}
+              />
+            </Tooltip>
             <button
               disabled={!isButtonEnabled}
               onClick={send}
