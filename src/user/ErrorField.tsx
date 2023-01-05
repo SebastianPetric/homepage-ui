@@ -1,5 +1,6 @@
 export type Exception = {
-  description: string;
+  rejectedField: string;
+  rejectedValue: string;
   message: string;
   timestamp: string;
 };

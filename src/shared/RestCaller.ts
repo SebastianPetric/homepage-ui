@@ -86,7 +86,6 @@ export const sendEmail = async (email: string, optionalText?: string) => {
     const requestOptions = {
       method: "PUT",
       headers: {
-        authorization: `Bearer ${getCookie("token")}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ email, optionalText }),

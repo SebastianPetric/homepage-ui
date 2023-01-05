@@ -36,12 +36,7 @@ export default function CveRequest({
     }
 
     const res = await sendEmail(email, optionalText);
-    if (res)
-      setError({
-        description: res.message,
-        message: res.errors[0].defaultMessage,
-        timestamp: res.timeStamp,
-      });
+    if (res) setError(res);
     else {
       setIsEmailSent(true);
       setError(undefined);
@@ -74,7 +69,8 @@ export default function CveRequest({
 
   const errorCallback = () => {
     setError({
-      description: "captcha error",
+      rejectedField: "",
+      rejectedValue: "",
       message: "There was an error when trying to solve the Captcha.",
       timestamp: new Date().toDateString(),
     });
