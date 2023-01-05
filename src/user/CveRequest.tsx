@@ -85,7 +85,7 @@ export default function CveRequest({
               open={shouldHighlightCveInput}
               content={"Hier anfragen"}
               placement={"top"}
-              className={"bg-green-400 w-40 flex justify-center"}
+              className={"bg-green-400"}
             >
               <input
                 contentEditable={false}
