@@ -89,7 +89,7 @@ export default function CveRequest({
             >
               <input
                 contentEditable={false}
-                className={`border-2 w-full mb-2 h-20 text-center transition-all duration-700 ${transitionColorsForHighlighting()}`}
+                className={`border-2 rounded w-full mb-2 h-20 text-center transition-all duration-700 ${transitionColorsForHighlighting()}`}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder={"Email"}
               />
@@ -101,7 +101,7 @@ export default function CveRequest({
                 isButtonEnabled
                   ? "bg-green-500 hover:text-white text-imageColor"
                   : "bg-gray-500 text-gray-800"
-              } w-full h-20 rounded-br-3xl flex items-center justify-center text-xl font-bold  cursor-pointer`}
+              } w-full h-20 rounded rounded-br-3xl flex items-center justify-center text-xl font-bold  cursor-pointer`}
             >
               {isLoading ? "Anfrage wird gesendet..." : "Lebenslauf anfragen"}{" "}
               {<Spinner shouldBeDisplayed={isLoading} />}
