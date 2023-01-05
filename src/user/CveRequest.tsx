@@ -45,7 +45,9 @@ export default function CveRequest({
   };
 
   const transitionColorsForHighlighting = () => {
-    return shouldHighlightCveInput ? "border-green-600" : "border-gray-900";
+    return shouldHighlightCveInput
+      ? "border-green-600"
+      : `${error ? "border-red-500" : "border-gray-900"}`;
   };
 
   const validateCaptcha = () => {
