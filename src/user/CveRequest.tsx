@@ -11,6 +11,7 @@ export default function CveRequest({
   shouldHighlightCveInput: boolean;
 }) {
   const [email, setEmail] = useState<string>("");
+  const [optionalText, setOptionalText] = useState<string>("");
   const [isButtonEnabled, setIsButtonEnabled] = useState<boolean>();
   const [isEmailSent, setIsEmailSent] = useState<boolean>(false);
   const [error, setError] = useState<Exception | undefined>(undefined);
@@ -34,7 +35,7 @@ export default function CveRequest({
       return;
     }
 
-    const res = await sendEmail(email);
+    const res = await sendEmail(email, optionalText);
     if (res) setError(res);
     else {
       setIsEmailSent(true);
@@ -94,6 +95,14 @@ export default function CveRequest({
                 placeholder={"Email"}
               />
             </Tooltip>
+            <textarea
+              className={
+                "w-full h-auto border-gray-900 border-2 rounded text-center pt-7"
+              }
+              placeholder={"Optionale Nachricht"}
+              onChange={(e) => setOptionalText(e.target.value)}
+              value={optionalText}
+            ></textarea>
             <button
               disabled={!isButtonEnabled}
               onClick={send}

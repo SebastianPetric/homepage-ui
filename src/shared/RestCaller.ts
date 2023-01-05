@@ -81,13 +81,18 @@ export const deleteEntity = async (endpoint: string, id: string) => {
   }
 };
 
-export const sendEmail = async (email: string) => {
+export const sendEmail = async (email: string, optionalText?: string) => {
   try {
     const requestOptions = {
-      method: "GET",
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${getCookie("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, optionalText }),
     };
     const response = await fetch(
-      `${import.meta.env.VITE_REQUEST_URL}/${ENDPOINT.SEND.valueOf()}/${email}`,
+      `${import.meta.env.VITE_REQUEST_URL}/${ENDPOINT.SEND.valueOf()}`,
       requestOptions
     );
 
