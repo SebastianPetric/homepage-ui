@@ -84,7 +84,7 @@ export const deleteEntity = async (endpoint: string, id: string) => {
 export const sendEmail = async (email: string, optionalText?: string) => {
   try {
     const requestOptions = {
-      method: "POST",
+      method: "PUT",
       headers: {
         authorization: `Bearer ${getCookie("token")}`,
         "Content-Type": "application/json",
