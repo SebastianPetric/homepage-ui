@@ -13,6 +13,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 function App() {
   const { isAuthenticated } = useAuth0();
   const [isEditActive, setIsEditActive] = useState<boolean>(false);
+  const [shouldHighlightCveInput, setShouldHighlightCveInput] =
+    useState<boolean>(false);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -20,9 +22,16 @@ function App() {
     } else setIsEditActive(false);
   }, [isAuthenticated]);
 
+  useEffect(() => {
+    if (shouldHighlightCveInput)
+      setTimeout(() => {
+        setShouldHighlightCveInput(false);
+      }, 2000);
+  }, [shouldHighlightCveInput]);
+
   return (
     <div className={"font-sans text-imageColor min-w-650"}>
-      <NavigationBar />
+      <NavigationBar onClickHighlightCveInput={setShouldHighlightCveInput} />
       <div className="flex flex-col xl:flex-row w-screen">
         <aside className="h-screen xl:w-1/2 xl:mt-0 xl:sticky xl:top-0 bg-imageColor">
           <Sidebar />
@@ -42,7 +51,10 @@ function App() {
             <Academic isEditActive={isEditActive} />
           </Element>
           <Element name={"info-scroll"} className={"normal-tile"}>
-            <Info isEditActive={isEditActive} />
+            <Info
+              isEditActive={isEditActive}
+              shouldHighlightCveInput={shouldHighlightCveInput}
+            />
           </Element>
         </main>
       </div>

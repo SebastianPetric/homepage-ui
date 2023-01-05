@@ -4,7 +4,11 @@ import React, { MutableRefObject, useEffect, useRef, useState } from "react";
 import { sendEmail } from "../shared/RestCaller";
 import { WidgetInstance } from "friendly-challenge";
 
-export default function CveRequest() {
+export default function CveRequest({
+  shouldHighlightCveInput,
+}: {
+  shouldHighlightCveInput: boolean;
+}) {
   const [email, setEmail] = useState<string>("");
   const [isButtonEnabled, setIsButtonEnabled] = useState<boolean>();
   const [isEmailSent, setIsEmailSent] = useState<boolean>(false);
@@ -36,6 +40,10 @@ export default function CveRequest() {
       setError(undefined);
     }
     setIsLoading(false);
+  };
+
+  const transitionColorsForHighlighting = () => {
+    return shouldHighlightCveInput ? "border-green-600" : "border-gray-900";
   };
 
   const validateCaptcha = () => {
@@ -74,7 +82,7 @@ export default function CveRequest() {
             <ErrorField error={error} />
             <input
               contentEditable={false}
-              className={"border-2 w-full mb-2 h-20 text-center"}
+              className={`border-2 w-full mb-2 h-20 text-center transition-all duration-700 ${transitionColorsForHighlighting()}`}
               onChange={(e) => setEmail(e.target.value)}
               placeholder={"Email"}
             />

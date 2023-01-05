@@ -9,7 +9,11 @@ import NavigationButton from "./NavigationButton";
 import { useAuth0 } from "@auth0/auth0-react";
 import { setCookie } from "react-use-cookie";
 
-export default function NavigationBar() {
+export default function NavigationBar({
+  onClickHighlightCveInput,
+}: {
+  onClickHighlightCveInput: (shouldHighlight: boolean) => void;
+}) {
   const { isAuthenticated, getAccessTokenSilently, logout, loginWithPopup } =
     useAuth0();
   const [openNav, setOpenNav] = useState<boolean>(false);
@@ -44,6 +48,11 @@ export default function NavigationBar() {
     logout();
   };
 
+  const highlightCVERequestInput = () => {
+    setOpenNav(false);
+    onClickHighlightCveInput(true);
+  };
+
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 text-imageColor">
       <NavigationButton
@@ -74,7 +83,7 @@ export default function NavigationBar() {
       <NavigationButton
         title={"Lebenslauf anfragen"}
         linkTo={"info-scroll"}
-        onClick={() => setOpenNav(false)}
+        onClick={highlightCVERequestInput}
       />
       {isAuthenticated ? (
         <NavigationButton

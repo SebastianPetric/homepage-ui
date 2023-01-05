@@ -15,7 +15,13 @@ import DescriptionText, {
 } from "../shared/description/DescriptionText";
 import CveRequest from "./CveRequest";
 
-export default function Info({ isEditActive }: { isEditActive: boolean }) {
+export default function Info({
+  isEditActive,
+  shouldHighlightCveInput,
+}: {
+  isEditActive: boolean;
+  shouldHighlightCveInput: boolean;
+}) {
   const [user, setUser] = useState<TUserInfo[]>([]);
   const [textObj, setTextObj] = useState<TText>({ id: "", text: "", type: "" });
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
@@ -91,7 +97,7 @@ export default function Info({ isEditActive }: { isEditActive: boolean }) {
           />
         ))}
       </div>
-      <CveRequest />
+      <CveRequest shouldHighlightCveInput={shouldHighlightCveInput} />
     </div>
   );
 }
