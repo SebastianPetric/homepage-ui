@@ -1,4 +1,10 @@
-import { FaGithub, FaLinkedin, FaXing } from "react-icons/all";
+import {
+  FaEnvelope,
+  FaGithub,
+  FaLinkedin,
+  FaMobile,
+  FaXing,
+} from "react-icons/all";
 import EditInfoModal from "./EditInfoModal";
 
 export type TUserInfo = {
@@ -41,8 +47,16 @@ export default function InfoTab({
       <p className={"text-xl font-bold mb-2 text-green-600"}>
         {user ? user.first_name : ""} {user ? user.last_name : ""}
       </p>
-      <p className={"text-sm font-bold"}>Mobil: {user ? user.phone : ""}</p>
-      <p className={"text-sm font-bold"}>Email: {user ? user.email : ""}</p>
+      <div className={"flex flex-row items-center"}>
+        <FaMobile className={"mr-2"} />
+        <p className={"text-sm font-bold"}>{user ? user.phone : ""}</p>
+      </div>
+
+      <div className={"flex flex-row items-center mt-2"}>
+        <FaEnvelope className={"mr-2"} />
+        <p className={"text-sm font-bold"}>{user ? user.email : ""}</p>
+      </div>
+
       <div className={"flex flex-row mt-5"}>
         <div className={"mr-4"}>
           <a href={user.github_link} target="_blank">
