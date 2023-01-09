@@ -1,6 +1,7 @@
 import { getCookie } from "react-use-cookie";
 import { TextType } from "./description/EditDescriptionTextModal";
 import { ENDPOINT } from "../App";
+import { FriendlyCaptchaResponse } from "../user/CveRequest";
 
 export const findAllEntities = async (endpoint: string) => {
   try {
@@ -81,23 +82,29 @@ export const deleteEntity = async (endpoint: string, id: string) => {
   }
 };
 
-export const sendEmail = async (email: string, optionalText?: string) => {
+export const sendEmail = async (
+  email: string,
+  clientCaptchaSolution: string,
+  optionalText?: string
+) => {
   try {
     const requestOptions = {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, optionalText }),
+      body: JSON.stringify({
+        email,
+        optionalText,
+        solution: clientCaptchaSolution,
+        sitekey: `${import.meta.env.VITE_CAPTCHA_SITE_KEY}`,
+      }),
     };
     const response = await fetch(
       `${import.meta.env.VITE_REQUEST_URL}/${ENDPOINT.SEND.valueOf()}`,
       requestOptions
     );
-
-    const res = await response;
-    if (res.status === 400) return await response.json();
-    else return undefined;
+    return await response.json();
   } catch (err) {
     console.log(err);
   }

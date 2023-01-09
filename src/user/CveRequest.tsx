@@ -5,6 +5,11 @@ import { sendEmail } from "../shared/RestCaller";
 import { WidgetInstance } from "friendly-challenge";
 import { Tooltip } from "@material-tailwind/react";
 
+export type FriendlyCaptchaResponse = {
+  success: boolean;
+  errors: string[];
+};
+
 export default function CveRequest({
   shouldHighlightCveInput,
 }: {
@@ -14,9 +19,15 @@ export default function CveRequest({
   const [optionalText, setOptionalText] = useState<string>("");
   const [isButtonEnabled, setIsButtonEnabled] = useState<boolean>();
   const [isEmailSent, setIsEmailSent] = useState<boolean>(false);
-  const [error, setError] = useState<Exception | undefined>(undefined);
+  const [clientCaptchaError, setClientCaptchaError] = useState<
+    Exception | undefined
+  >(undefined);
+  const [serverCaptchaValidationErrors, setServerCaptchaValidationErrors] =
+    useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [captchaPassed, setCaptchaPassed] = useState<boolean>(true);
+  const [clientCaptchaPassed, setClientCaptchaPassed] = useState<boolean>(true);
+  const [clientCaptchaSolution, setClientCaptchaSolution] =
+    useState<string>("");
 
   const container = useRef() as MutableRefObject<HTMLInputElement>;
   const widget = useRef<WidgetInstance>();
@@ -26,20 +37,27 @@ export default function CveRequest({
     else setIsButtonEnabled(true);
   }, [email]);
 
+  useEffect(() => {
+    validateCaptcha();
+  }, []);
+
   const send = async () => {
     setIsLoading(true);
-    validateCaptcha();
 
-    if (!captchaPassed) {
+    if (!clientCaptchaPassed) {
       setIsLoading(false);
       return;
     }
 
-    const res = await sendEmail(email, optionalText);
-    if (res) setError(res);
+    const res: FriendlyCaptchaResponse = await sendEmail(
+      email,
+      clientCaptchaSolution,
+      optionalText
+    );
+    if (!res.success) setServerCaptchaValidationErrors(res.errors);
     else {
       setIsEmailSent(true);
-      setError(undefined);
+      setClientCaptchaError(undefined);
     }
     setIsLoading(false);
   };
@@ -47,7 +65,7 @@ export default function CveRequest({
   const transitionColorsForHighlighting = () => {
     return shouldHighlightCveInput
       ? "border-green-600"
-      : `${error ? "border-red-500" : "border-gray-900"}`;
+      : `${clientCaptchaError ? "border-red-500" : "border-gray-900"}`;
   };
 
   const validateCaptcha = () => {
@@ -64,19 +82,20 @@ export default function CveRequest({
     };
   };
 
-  const doneCallback = () => {
+  const doneCallback = (solution: string) => {
     console.log("Captcha was solved. The form can be submitted.");
-    setCaptchaPassed(true);
+    setClientCaptchaSolution(solution);
+    setClientCaptchaPassed(true);
   };
 
-  const errorCallback = () => {
-    setError({
+  const errorCallback = (err: any) => {
+    setClientCaptchaError({
       rejectedField: "",
       rejectedValue: "",
-      message: "There was an error when trying to solve the Captcha.",
+      message: `There was an error while trying to solve the Captcha. ${err.rawError}`,
       timestamp: new Date().toDateString(),
     });
-    setCaptchaPassed(false);
+    setClientCaptchaPassed(false);
   };
 
   return (
@@ -84,7 +103,7 @@ export default function CveRequest({
       <>
         {!isEmailSent ? (
           <div className={"w-full mt-10"}>
-            <ErrorField error={error} />
+            <ErrorField error={clientCaptchaError} />
             <Tooltip
               open={shouldHighlightCveInput}
               content={"Hier anfragen"}
