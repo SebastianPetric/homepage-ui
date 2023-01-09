@@ -49,15 +49,23 @@ export default function CveRequest({
       return;
     }
 
-    const res: FriendlyCaptchaResponse = await sendEmail(
-      email,
-      clientCaptchaSolution,
-      optionalText
-    );
-    if (!res.success) setServerCaptchaValidationErrors(res.errors);
-    else {
+    const res = await sendEmail(email, clientCaptchaSolution, optionalText);
+
+    if (res && res.status === 503) {
+      const serverError: Exception = await res.json();
+      setClientCaptchaError({
+        rejectedField: `${serverError.rejectedField}`,
+        rejectedValue: `${serverError.rejectedValue}`,
+        message: `${serverError.message}`,
+        timestamp: `${serverError.timestamp}`,
+      });
+    } else {
+      if (res) {
+        const serverResponse: FriendlyCaptchaResponse = await res.json();
+        if (!serverResponse.success)
+          setServerCaptchaValidationErrors(serverResponse.errors);
+      }
       setIsEmailSent(true);
-      setClientCaptchaError(undefined);
     }
     setIsLoading(false);
   };
@@ -137,11 +145,13 @@ export default function CveRequest({
               {isLoading ? "Anfrage wird gesendet..." : "Lebenslauf anfragen"}{" "}
               {<Spinner shouldBeDisplayed={isLoading} />}
             </button>
-            <div
-              ref={container ? container : undefined}
-              className="border-none flex justify-center items-center"
-              data-sitekey={import.meta.env.VITE_CAPTCHA_SITE_KEY}
-            />
+            <div className="flex flex-col">
+              <div
+                ref={container ? container : undefined}
+                className="border-none flex justify-center items-center"
+                data-sitekey={import.meta.env.VITE_CAPTCHA_SITE_KEY}
+              />
+            </div>
           </div>
         ) : (
           <>

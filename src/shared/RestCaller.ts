@@ -1,7 +1,6 @@
 import { getCookie } from "react-use-cookie";
 import { TextType } from "./description/EditDescriptionTextModal";
 import { ENDPOINT } from "../App";
-import { FriendlyCaptchaResponse } from "../user/CveRequest";
 
 export const findAllEntities = async (endpoint: string) => {
   try {
@@ -100,11 +99,10 @@ export const sendEmail = async (
         sitekey: `${import.meta.env.VITE_CAPTCHA_SITE_KEY}`,
       }),
     };
-    const response = await fetch(
+    return await fetch(
       `${import.meta.env.VITE_REQUEST_URL}/${ENDPOINT.SEND.valueOf()}`,
       requestOptions
     );
-    return await response.json();
   } catch (err) {
     console.log(err);
   }
