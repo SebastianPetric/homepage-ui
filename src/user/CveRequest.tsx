@@ -33,9 +33,10 @@ export default function CveRequest({
   const widget = useRef<WidgetInstance>();
 
   useEffect(() => {
-    if (email === undefined || email === "") setIsButtonEnabled(false);
+    if (email === undefined || email === "" || clientCaptchaSolution === "")
+      setIsButtonEnabled(false);
     else setIsButtonEnabled(true);
-  }, [email]);
+  }, [email, clientCaptchaSolution]);
 
   useEffect(() => {
     validateCaptcha();
