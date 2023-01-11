@@ -54,7 +54,7 @@ export default function NavigationBar({
   };
 
   const navList = (
-    <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 text-imageColor">
+    <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 text-textColor">
       <NavigationButton
         title={"Hey"}
         linkTo={"greeting-scroll"}
@@ -108,7 +108,7 @@ export default function NavigationBar({
           "flex justify-center items-center w-screen fixed top-7 z-10 px-10"
         }
       >
-        <Navbar className="text-imageColor bg-white bg-opacity-70 rounded-2xl shadow-none border-none">
+        <Navbar className="text-textColor bg-white bg-opacity-70 rounded-2xl shadow-none border-none">
           <div className="container flex items-center justify-between">
             <Typography
               as="a"

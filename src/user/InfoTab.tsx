@@ -44,7 +44,7 @@ export default function InfoTab({
         onSaveUserInfo={onSaveEditedModel}
         editUserInfoObj={user}
       />
-      <p className={"text-xl font-bold mb-2 text-green-600"}>
+      <p className={"text-xl font-bold mb-2 text-accentColor"}>
         {user ? user.first_name : ""} {user ? user.last_name : ""}
       </p>
       <div className={"flex flex-row items-center"}>
@@ -60,17 +60,17 @@ export default function InfoTab({
       <div className={"flex flex-row mt-5"}>
         <div className={"mr-4"}>
           <a href={user.github_link} target="_blank">
-            <FaGithub className={"hover:text-green-600 text-2xl"} />
+            <FaGithub className={"hover:text-accentColor text-2xl"} />
           </a>
         </div>
         <div className={"mr-4"}>
           <a href={user.linkedin_link} target="_blank">
-            <FaLinkedin className={"hover:text-green-600 text-2xl"} />
+            <FaLinkedin className={"hover:text-accentColor text-2xl"} />
           </a>
         </div>
         <div className={"mr-4"}>
           <a href={user.xing_link} target="_blank">
-            <FaXing className={"hover:text-green-600 text-2xl"} />
+            <FaXing className={"hover:text-accentColor text-2xl"} />
           </a>
         </div>
       </div>

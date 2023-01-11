@@ -12,7 +12,7 @@ export default function ModalEditButton({
     <>
       {isEditVisible ? (
         <FaEdit
-          className={"hover:text-green-600 cursor-pointer mb-2"}
+          className={"hover:text-accentColor cursor-pointer mb-2"}
           onClick={() => setShowModal(true)}
         />
       ) : undefined}

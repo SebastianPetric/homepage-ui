@@ -7,7 +7,7 @@ export default function Spinner({
     <>
       {shouldBeDisplayed && (
         <svg
-          className="mx-3 h-6 w-6 animate-spin text-imageColor"
+          className="mx-3 h-6 w-6 animate-spin text-textColor"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"

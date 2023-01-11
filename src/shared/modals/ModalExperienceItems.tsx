@@ -18,7 +18,7 @@ export default function ModalExperienceItems({
       <div className={"flex flex-row items-center mt-5 font-bold"}>
         <p>Erfahrungen:</p>
         <FaPlus
-          className={"ml-5 hover:text-green-600 cursor-pointer"}
+          className={"ml-5 hover:text-textColor cursor-pointer"}
           onClick={addNewExperiencePoint}
         />
       </div>

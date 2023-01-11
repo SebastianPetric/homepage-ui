@@ -7,7 +7,7 @@
 
 @layer components {
     .linkButton {
-        @apply mr-2 ml-2 cursor-pointer hover:text-green-600;
+        @apply mr-2 ml-2 cursor-pointer hover:text-accentColor;
     }
 
     .first-tile {
@@ -31,7 +31,7 @@
     }
 
     .deleteButton {
-        @apply hover:text-green-600 cursor-pointer ml-2;
+        @apply hover:text-accentColor cursor-pointer ml-2;
     }
 }
 

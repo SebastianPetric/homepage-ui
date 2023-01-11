@@ -28,7 +28,7 @@ export default function ExperienceTab({
             experience={exp}
           />
         </div>
-        <p className={"text-green-600 text-xl font-bold mb-2"}>{exp.title}</p>
+        <p className={"text-accentColor text-xl font-bold mb-2"}>{exp.title}</p>
         <ul>
           {exp.experiencePoints.map((ex, idx) => (
             <li key={`${ex}-${idx}`} className={"font-bold"}>

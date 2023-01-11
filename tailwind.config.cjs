@@ -8,6 +8,8 @@ module.exports = {
     extend: {
       colors: {
         imageColor: "#101115",
+        textColor: "#101115",
+        accentColor: "#129776"
       },
       fontFamily: {
         pacifico: ['pacifico', 'sans-serif'],

@@ -64,7 +64,7 @@ export default function AcademicTab({
             titleModal={"Bearbeiten"}
           />
         </div>
-        <p className={"text-xl font-bold text-green-600"}>{academic.title}</p>
+        <p className={"text-xl font-bold text-accentColor"}>{academic.title}</p>
         <p className={"text-sm font-bold mb-2"}>
           {academic.school} von {formatMonthYear(academic.from_date)} bis{" "}
           {formatMonthYear(academic.to_date)}

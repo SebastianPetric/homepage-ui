@@ -14,7 +14,7 @@ export default function SaveAndCancelButtonsEditExperience({
   return (
     <div className="items-center gap-2 mt-3 sm:flex mt-5">
       <button
-        className="w-full mt-2 p-2.5 flex-1 text-white bg-green-600 rounded-md outline-none ring-offset-2 ring-green-600 focus:ring-2"
+        className="w-full mt-2 p-2.5 flex-1 text-white bg-accentColor rounded-md outline-none ring-offset-2 ring-green-600 focus:ring-2"
         disabled={!isSavingPossible}
         onClick={() => onSave(id)}
       >

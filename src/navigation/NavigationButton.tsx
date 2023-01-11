@@ -14,9 +14,9 @@ export default function NavigationButton({
   return (
     <Typography
       as="li"
-      className="p-1 font-normal font-bold hover:text-green-600 cursor-pointer"
+      className="p-1 font-normal font-bold hover:text-accentColor cursor-pointer"
     >
-      <Link to={linkTo} onClick={onClick}>
+      <Link to={linkTo} onClick={onClick} duration={100000}>
         {title}
       </Link>
     </Typography>

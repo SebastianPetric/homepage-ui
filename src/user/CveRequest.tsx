@@ -139,7 +139,7 @@ export default function CveRequest({
               onClick={send}
               className={`${
                 isButtonEnabled
-                  ? "bg-green-500 hover:text-white text-imageColor"
+                  ? "bg-accentColor hover:text-white text-textColor"
                   : "bg-gray-500 text-gray-800"
               } w-full h-20 rounded rounded-br-3xl flex items-center justify-center text-xl font-bold  cursor-pointer`}
             >
