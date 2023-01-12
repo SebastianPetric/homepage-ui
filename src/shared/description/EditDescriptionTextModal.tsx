@@ -25,11 +25,9 @@ export enum TextType {
 export default function EditDescriptionTextModal({
   onSaveText,
   editTextObj,
-  isEditActive,
 }: {
   onSaveText: (obj: TText) => void;
   editTextObj: TText;
-  isEditActive: boolean;
 }) {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [isSavingPossible, setIsSavingPossible] = useState<boolean>(false);
@@ -52,10 +50,7 @@ export default function EditDescriptionTextModal({
 
   return (
     <>
-      <ModalEditButton
-        setShowModal={setShowModal}
-        isEditVisible={isEditActive}
-      />
+      <ModalEditButton setShowModal={setShowModal} />
       <Modal
         shouldShowModal={showModal}
         setShowModal={setShowModal}

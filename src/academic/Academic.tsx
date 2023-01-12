@@ -21,7 +21,7 @@ import DescriptionText, {
 } from "../shared/description/DescriptionText";
 import { ENDPOINT } from "../App";
 
-export default function Academic({ isEditActive }: { isEditActive: boolean }) {
+export default function Academic() {
   const [academic, setAcademic] = useState<TAcademic[]>([]);
   const [textObj, setTextObj] = useState<TText>({ id: "", text: "", type: "" });
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
@@ -108,7 +108,6 @@ export default function Academic({ isEditActive }: { isEditActive: boolean }) {
           <EditDescriptionTextModal
             onSaveText={onSaveText}
             editTextObj={textObj}
-            isEditActive={isEditActive}
           />
         )}
       </div>
@@ -120,12 +119,10 @@ export default function Academic({ isEditActive }: { isEditActive: boolean }) {
             academic={{ ...exp }}
             onDelete={onDeleteAcademic}
             onSaveEditedCareer={onSaveEditedAcademic}
-            isEditVisible={isEditActive}
           />
         ))}
       </div>
       <CreateAndEditAcademicCareerStepModal
-        isEditVisible={isEditActive}
         onSaveExp={onSaveAcademic}
         titleModal={"Akademischer Werdegangspunkt hinzufügen"}
       />

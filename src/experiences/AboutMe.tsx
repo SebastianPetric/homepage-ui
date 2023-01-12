@@ -29,7 +29,7 @@ export type TExperienceDTO = {
   experiencePoints: string[];
 };
 
-export default function AboutMe({ isEditActive }: { isEditActive: boolean }) {
+export default function AboutMe() {
   const [experiences, setExperiences] = useState<TExperience[]>([]);
   const [textObj, setTextObj] = useState<TText>({ id: "", text: "", type: "" });
   const [isLoadedCovering, setIsLoadedCovering] = useState<boolean>(false);
@@ -107,7 +107,6 @@ export default function AboutMe({ isEditActive }: { isEditActive: boolean }) {
           <EditDescriptionTextModal
             onSaveText={onSaveText}
             editTextObj={textObj}
-            isEditActive={isEditActive}
           />
         )}
       </div>
@@ -117,16 +116,12 @@ export default function AboutMe({ isEditActive }: { isEditActive: boolean }) {
           <ExperienceTab
             key={`${exp.id}-${index}`}
             exp={exp}
-            isEditVisible={isEditActive}
             onSaveEdit={saveEditedExperience}
             onDelete={onDeleteExperienceById}
           />
         ))}
       </div>
-      <CreateAndEditExperienceModal
-        isEditVisible={isEditActive}
-        onSaveExp={saveNewExperience}
-      />
+      <CreateAndEditExperienceModal onSaveExp={saveNewExperience} />
     </div>
   );
 }

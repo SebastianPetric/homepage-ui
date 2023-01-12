@@ -30,12 +30,10 @@ export type TAcademicDTO = {
 
 export default function AcademicTab({
   academic,
-  isEditVisible,
   onSaveEditedCareer,
   onDelete,
 }: {
   academic: TAcademic;
-  isEditVisible: boolean;
   onSaveEditedCareer: (academic: GENERIC_DAO) => void;
   onDelete: (id: string) => void;
 }) {
@@ -58,7 +56,6 @@ export default function AcademicTab({
           <CreateAndEditAcademicCareerStepModal
             onSaveExp={onSaveEditedCareer}
             onDelete={onDelete}
-            isEditVisible={isEditVisible}
             id={academic.id}
             editExpObj={academicDt}
             titleModal={"Bearbeiten"}

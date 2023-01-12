@@ -29,14 +29,14 @@ export type TUserInfoDTO = {
   xing_link: string;
 };
 
-export default function InfoTab({ isEditActive }: { isEditActive: boolean }) {
+export default function InfoTab() {
   const { info }: { info: TUserInfo } = useSelector((state: any) => {
     return state.user;
   });
 
   return (
     <div className={"flex flex-col"}>
-      <EditInfoModal isEditActive={isEditActive} />
+      <EditInfoModal />
       <p className={"text-xl font-bold mb-2 text-accentColor"}>
         {info ? info.first_name : ""} {info ? info.last_name : ""}
       </p>

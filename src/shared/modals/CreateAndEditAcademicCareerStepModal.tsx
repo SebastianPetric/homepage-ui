@@ -13,6 +13,7 @@ import {
 } from "./ExperiencePointsInModalEditor";
 import { validateAcademicCareerModalFieldsNotEmpty } from "./ModalFieldValidator";
 import ModalCreateButton from "./ModalCreateButton";
+import { useSelector } from "react-redux";
 
 export type TKeyValue = {
   key: string;
@@ -41,7 +42,6 @@ export type GENERIC_DTO = {
 };
 
 export default function CreateAndEditAcademicCareerStepModal({
-  isEditVisible,
   onSaveExp,
   titleModal,
   onDelete,
@@ -51,7 +51,6 @@ export default function CreateAndEditAcademicCareerStepModal({
   onSaveExp: (obj: GENERIC_DAO) => void;
   onDelete?: (id: string) => void;
   id?: string;
-  isEditVisible: boolean;
   editExpObj?: GENERIC_DAO;
   titleModal: string;
 }) {
@@ -78,6 +77,10 @@ export default function CreateAndEditAcademicCareerStepModal({
   );
 
   const [experiencePoints, setExperiencePoints] = useState<TKeyValue[]>([]);
+
+  const isLoggedIn: boolean = useSelector((state: any) => {
+    return state.authentication.isAuthenticated;
+  });
 
   useEffect(() => {
     if (editExpObj) {
@@ -137,11 +140,8 @@ export default function CreateAndEditAcademicCareerStepModal({
     <>
       {editExpObj ? (
         <>
-          <ModalEditButton
-            isEditVisible={isEditVisible}
-            setShowModal={setShowModal}
-          />
-          {isEditVisible && (
+          <ModalEditButton setShowModal={setShowModal} />
+          {isLoggedIn && (
             <FaMinus
               className={"deleteButton"}
               onClick={() => {
@@ -151,10 +151,7 @@ export default function CreateAndEditAcademicCareerStepModal({
           )}
         </>
       ) : (
-        <ModalCreateButton
-          setShowModal={setShowModal}
-          isEditVisible={isEditVisible}
-        />
+        <ModalCreateButton setShowModal={setShowModal} />
       )}
 
       {showModal ? (
@@ -163,12 +160,14 @@ export default function CreateAndEditAcademicCareerStepModal({
           setShowModal={setShowModal}
           titleModal={titleModal}
         >
-          <ModalItem title={"Titel"} value={title} setValue={setTitle} />
+          <ModalItem
+            title={"Titel"}
+            keyValue={{ key: "title", value: title }}
+          />
 
           <ModalItem
             title={"Institution"}
-            value={institution}
-            setValue={setInstitution}
+            keyValue={{ key: "institution", value: institution }}
           />
 
           <CustomDatePicker

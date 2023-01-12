@@ -13,10 +13,8 @@ import CveRequest from "./CveRequest";
 import { ENDPOINT } from "../App";
 
 export default function Info({
-  isEditActive,
   shouldHighlightCveInput,
 }: {
-  isEditActive: boolean;
   shouldHighlightCveInput: boolean;
 }) {
   const [textObj, setTextObj] = useState<TText>({ id: "", text: "", type: "" });
@@ -54,13 +52,12 @@ export default function Info({
           <EditDescriptionTextModal
             onSaveText={onSaveEditedText}
             editTextObj={textObj}
-            isEditActive={isEditActive}
           />
         )}
       </div>
       <DescriptionText text={textObj.text} />
       <div className={"tile-group"}>
-        <InfoTab isEditActive={isEditActive} />
+        <InfoTab />
       </div>
       <CveRequest shouldHighlightCveInput={shouldHighlightCveInput} />
     </div>

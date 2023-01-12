@@ -15,10 +15,10 @@ import {
 import { validateExperienceModalFieldsNotEmpty } from "../shared/modals/ModalFieldValidator";
 import ModalCreateButton from "../shared/modals/ModalCreateButton";
 import SaveAndCancelButtons from "../shared/modals/SaveAndCancelButtons";
+import { useSelector } from "react-redux";
 
 export default function CreateAndEditExperienceModal({
   onSaveExp,
-  isEditVisible,
   onDelete,
   id,
   experience,
@@ -26,7 +26,6 @@ export default function CreateAndEditExperienceModal({
   onSaveExp: (exp: TExperience) => void;
   onDelete?: (id: string) => void;
   id?: string;
-  isEditVisible: boolean;
   experience?: TExperience;
 }) {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -35,6 +34,10 @@ export default function CreateAndEditExperienceModal({
   );
   const [isSavingPossible, setIsSavingPossible] = useState<boolean>(false);
   const [experiencePoints, setExperiencePoints] = useState<TKeyValue[]>([]);
+
+  const isLoggedIn: boolean = useSelector((state: any) => {
+    return state.authentication.isAuthenticated;
+  });
 
   useEffect(() => {
     if (experience) {
@@ -84,27 +87,21 @@ export default function CreateAndEditExperienceModal({
 
   return (
     <>
-      {onDelete && id && isEditVisible ? (
+      {onDelete && id && isLoggedIn ? (
         <>
-          <ModalEditButton
-            setShowModal={setShowModal}
-            isEditVisible={isEditVisible}
-          />
+          <ModalEditButton setShowModal={setShowModal} />
 
           <FaMinus className={"deleteButton"} onClick={() => onDelete(id)} />
         </>
       ) : (
-        <ModalCreateButton
-          setShowModal={setShowModal}
-          isEditVisible={isEditVisible}
-        />
+        <ModalCreateButton setShowModal={setShowModal} />
       )}
       <Modal
         shouldShowModal={showModal}
         setShowModal={setShowModal}
         titleModal={"Erfahrungen hinzufügen"}
       >
-        <ModalItem title={"Titel"} value={title} setValue={setTitle} />
+        <ModalItem title={"Titel"} keyValue={{ key: "title", value: title }} />
 
         <ModalExperienceItems
           experiencePoints={experiencePoints}

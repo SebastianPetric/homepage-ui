@@ -21,7 +21,7 @@ import DescriptionText, {
 } from "../shared/description/DescriptionText";
 import { ENDPOINT } from "../App";
 
-export default function Career({ isEditActive }: { isEditActive: boolean }) {
+export default function Career() {
   const [career, setCareer] = useState<TCareer[]>([]);
   const [textObj, setTextObj] = useState<TText>({ id: "", text: "", type: "" });
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
@@ -108,7 +108,6 @@ export default function Career({ isEditActive }: { isEditActive: boolean }) {
           <EditDescriptionTextModal
             onSaveText={onSaveText}
             editTextObj={textObj}
-            isEditActive={isEditActive}
           />
         )}
       </div>
@@ -117,7 +116,6 @@ export default function Career({ isEditActive }: { isEditActive: boolean }) {
         {career.map((exp, index) => (
           <CareerTab
             key={`${exp.id}-${index}`}
-            isEditVisible={isEditActive}
             career={{ ...exp }}
             onDelete={onDeleteCareer}
             onSaveEditedCareer={onSaveEditedCareer}
@@ -125,7 +123,6 @@ export default function Career({ isEditActive }: { isEditActive: boolean }) {
         ))}
       </div>
       <CreateAndEditAcademicCareerStepModal
-        isEditVisible={isEditActive}
         onSaveExp={onSaveCareer}
         titleModal={"Karriereschritt hinzufügen"}
       />

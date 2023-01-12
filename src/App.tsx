@@ -20,16 +20,8 @@ export enum ENDPOINT {
 }
 
 function App() {
-  const { isAuthenticated } = useAuth0();
-  const [isEditActive, setIsEditActive] = useState<boolean>(false);
   const [shouldHighlightCveInput, setShouldHighlightCveInput] =
     useState<boolean>(false);
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      setIsEditActive(true);
-    } else setIsEditActive(false);
-  }, [isAuthenticated]);
 
   useEffect(() => {
     if (shouldHighlightCveInput)
@@ -48,22 +40,19 @@ function App() {
 
         <main className={"w-screen xl:w-1/2 flex-grow"}>
           <Element name={"greeting-scroll"} className={"first-tile"}>
-            <Greeting isEditActive={isEditActive} />
+            <Greeting />
           </Element>
           <Element name={"aboutme-scroll"} className={"normal-tile"}>
-            <AboutMe isEditActive={isEditActive} />
+            <AboutMe />
           </Element>
           <Element name={"career-scroll"} className={"normal-tile"}>
-            <Career isEditActive={isEditActive} />
+            <Career />
           </Element>
           <Element name={"academic-scroll"} className={"normal-tile"}>
-            <Academic isEditActive={isEditActive} />
+            <Academic />
           </Element>
           <Element name={"info-scroll"} className={"normal-tile"}>
-            <Info
-              isEditActive={isEditActive}
-              shouldHighlightCveInput={shouldHighlightCveInput}
-            />
+            <Info shouldHighlightCveInput={shouldHighlightCveInput} />
           </Element>
         </main>
       </div>

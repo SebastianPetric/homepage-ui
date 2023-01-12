@@ -9,11 +9,7 @@ import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
 import reducers from "../reducers/Reducers";
 import { editUserInfo } from "./UserSlice";
 
-export default function EditInfoModal({
-  isEditActive,
-}: {
-  isEditActive: boolean;
-}) {
+export default function EditInfoModal() {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [isSavingPossible, setIsSavingPossible] = useState<boolean>(false);
 
@@ -53,10 +49,7 @@ export default function EditInfoModal({
 
   return (
     <>
-      <ModalEditButton
-        isEditVisible={isEditActive}
-        setShowModal={setShowModal}
-      />
+      <ModalEditButton setShowModal={setShowModal} />
       <Modal
         shouldShowModal={showModal}
         titleModal={"Bearbeiten"}

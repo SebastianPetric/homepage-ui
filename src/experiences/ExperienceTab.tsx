@@ -3,12 +3,10 @@ import CreateAndEditExperienceModal from "./CreateAndEditExperienceModal";
 
 export default function ExperienceTab({
   exp,
-  isEditVisible,
   onSaveEdit,
   onDelete,
 }: {
   exp: TExperience;
-  isEditVisible: boolean;
   onSaveEdit: (exp: TExperience) => void;
   onDelete: (id: string) => void;
 }) {
@@ -24,7 +22,6 @@ export default function ExperienceTab({
             onSaveExp={onSaveEditedExperience}
             onDelete={onDelete}
             id={exp.id}
-            isEditVisible={isEditVisible}
             experience={exp}
           />
         </div>

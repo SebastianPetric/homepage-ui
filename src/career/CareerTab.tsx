@@ -23,11 +23,9 @@ export type TCareerDTO = {
 export default function CareerTab({
   career,
   onDelete,
-  isEditVisible,
   onSaveEditedCareer,
 }: {
   career: TCareer;
-  isEditVisible: boolean;
   onDelete: (id: string) => {};
   onSaveEditedCareer: (career: GENERIC_DAO) => void;
 }) {
@@ -46,7 +44,6 @@ export default function CareerTab({
         <CreateAndEditAcademicCareerStepModal
           onSaveExp={onSaveEditedCareer}
           onDelete={onDelete}
-          isEditVisible={isEditVisible}
           id={career.id}
           editExpObj={careerDt}
           titleModal={"Bearbeiten"}

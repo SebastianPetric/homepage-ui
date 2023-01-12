@@ -1,16 +1,19 @@
 import React from "react";
 import { FaEdit } from "react-icons/all";
+import { useSelector } from "react-redux";
 
 export default function ModalEditButton({
   setShowModal,
-  isEditVisible,
 }: {
   setShowModal: (shouldShowModal: boolean) => void;
-  isEditVisible: boolean;
 }) {
+  const isLoggedIn: boolean = useSelector((state: any) => {
+    return state.authentication.isAuthenticated;
+  });
+
   return (
     <>
-      {isEditVisible ? (
+      {isLoggedIn ? (
         <FaEdit
           className={"hover:text-accentColor cursor-pointer mb-2"}
           onClick={() => setShowModal(true)}

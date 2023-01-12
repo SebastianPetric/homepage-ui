@@ -14,7 +14,7 @@ import { getUserInfo } from "../user/UserSlice";
 import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
 import reducers from "../reducers/Reducers";
 
-export default function Greeting({ isEditActive }: { isEditActive: boolean }) {
+export default function Greeting() {
   const [textObj, setTextObj] = useState<TText>({ id: "", text: "", type: "" });
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
@@ -55,7 +55,6 @@ export default function Greeting({ isEditActive }: { isEditActive: boolean }) {
           <EditDescriptionTextModal
             onSaveText={onSaveText}
             editTextObj={textObj}
-            isEditActive={isEditActive}
           />
         )}
       </div>
