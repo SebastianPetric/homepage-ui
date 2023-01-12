@@ -3,7 +3,6 @@ import { useInView } from "react-intersection-observer";
 import {
   deleteEntity,
   findAllEntities,
-  findTextByType,
   saveEntity,
   updateEntity,
 } from "../shared/RestCaller";
@@ -12,11 +11,15 @@ import EditDescriptionTextModal, {
   TText,
 } from "../shared/description/EditDescriptionTextModal";
 import ExperienceTab from "./ExperienceTab";
-import DescriptionText, {
-  onSaveDescriptionText,
-} from "../shared/description/DescriptionText";
+import DescriptionText from "../shared/description/DescriptionText";
 import CreateAndEditExperienceModal from "./CreateAndEditExperienceModal";
 import { ENDPOINT } from "../App";
+import { getUserInfo } from "../user/UserSlice";
+import {
+  getDescriptionByType,
+  getStateByType,
+} from "../covering-letter/DescriptionTextSlice";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 
 export type TExperience = {
   id: string;
@@ -31,12 +34,21 @@ export type TExperienceDTO = {
 
 export default function AboutMe() {
   const [experiences, setExperiences] = useState<TExperience[]>([]);
-  const [textObj, setTextObj] = useState<TText>({ id: "", text: "", type: "" });
-  const [isLoadedCovering, setIsLoadedCovering] = useState<boolean>(false);
   const { ref, inView } = useInView({
     threshold: 0,
     triggerOnce: true,
   });
+
+  const dispatch = useAppDispatch();
+
+  const description: TText = useAppSelector((state) =>
+    getStateByType(state, TextType.ABOUT_ME)
+  );
+
+  useEffect(() => {
+    dispatch(getUserInfo());
+    dispatch(getDescriptionByType(TextType.ABOUT_ME));
+  }, []);
 
   useEffect(() => {
     const getAllExperiences = async () => {
@@ -46,15 +58,9 @@ export default function AboutMe() {
       setExperiences(response);
     };
 
-    const getCoveringLetter = async () => {
-      let response: TText = await findTextByType(TextType.ABOUT_ME);
-      setTextObj(response);
-      setIsLoadedCovering(true);
-    };
-
     if (!!inView) {
       getAllExperiences();
-      getCoveringLetter();
+      dispatch(getDescriptionByType(TextType.ABOUT_ME));
     }
   }, [inView]);
 
@@ -88,10 +94,6 @@ export default function AboutMe() {
     setExperiences(tmp);
   };
 
-  const onSaveText = async (cur: TText) => {
-    await onSaveDescriptionText(cur, ENDPOINT.CAREER.valueOf(), setTextObj);
-  };
-
   const onDeleteExperienceById = async (id: string) => {
     await deleteEntity(ENDPOINT.EXPERIENCES.valueOf(), id);
     const tmp = experiences.filter((it) => it.id !== id);
@@ -103,14 +105,9 @@ export default function AboutMe() {
       <p className={"title"}>Über mich.</p>
 
       <div className={"mt-8"}>
-        {isLoadedCovering && (
-          <EditDescriptionTextModal
-            onSaveText={onSaveText}
-            editTextObj={textObj}
-          />
-        )}
+        <EditDescriptionTextModal type={TextType.ABOUT_ME} />
       </div>
-      <DescriptionText text={textObj.text} />
+      <DescriptionText description={description} />
       <div className={"tile-group"}>
         {experiences.map((exp, index) => (
           <ExperienceTab

@@ -2,6 +2,12 @@ import React, { useEffect, useState } from "react";
 import SaveAndCancelButtons from "../modals/SaveAndCancelButtons";
 import Modal from "../modals/Modal";
 import ModalEditButton from "../modals/ModalEditButton";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import {
+  editDescriptionById,
+  getStateByType,
+  update,
+} from "../../covering-letter/DescriptionTextSlice";
 
 export type TText = {
   id: string;
@@ -22,30 +28,23 @@ export enum TextType {
   INFO = "INFO",
 }
 
-export default function EditDescriptionTextModal({
-  onSaveText,
-  editTextObj,
-}: {
-  onSaveText: (obj: TText) => void;
-  editTextObj: TText;
-}) {
+export default function EditDescriptionTextModal({ type }: { type: TextType }) {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [isSavingPossible, setIsSavingPossible] = useState<boolean>(false);
-  const [text, setText] = useState<string>(editTextObj.text);
+  const dispatch = useAppDispatch();
+
+  const description: TText = useAppSelector((state) =>
+    getStateByType(state, type)
+  );
 
   useEffect(() => {
-    if (text !== "") setIsSavingPossible(true);
+    if (description.text !== "") setIsSavingPossible(true);
     else setIsSavingPossible(false);
-  }, [text]);
+  }, [description.text]);
 
   const onSave = () => {
     setShowModal(false);
-    let newObj: TText = {
-      id: editTextObj.id,
-      type: editTextObj.type,
-      text: text,
-    };
-    onSaveText(newObj);
+    dispatch(editDescriptionById(description));
   };
 
   return (
@@ -58,13 +57,15 @@ export default function EditDescriptionTextModal({
       >
         <div>
           <p className={"mt-5 font-bold"}>Typ:</p>
-          <p>{editTextObj.type}</p>
+          <p>{description.type}</p>
 
           <p className={"mt-5 font-bold"}>Text:</p>
           <textarea
             className={"border-2 w-full h-72 mt-2 mb-2"}
-            onChange={(event) => setText(event.target.value)}
-            value={text}
+            onChange={(event) =>
+              dispatch(update({ ...description, text: event.target.value }))
+            }
+            value={description.text}
           ></textarea>
         </div>
         <SaveAndCancelButtons

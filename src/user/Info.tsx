@@ -1,61 +1,53 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import InfoTab from "./InfoTab";
-import { findTextByType } from "../shared/RestCaller";
 import EditDescriptionTextModal, {
   TextType,
   TText,
 } from "../shared/description/EditDescriptionTextModal";
-import DescriptionText, {
-  onSaveDescriptionText,
-} from "../shared/description/DescriptionText";
+import DescriptionText from "../shared/description/DescriptionText";
 import CveRequest from "./CveRequest";
-import { ENDPOINT } from "../App";
+import { getUserInfo } from "./UserSlice";
+import {
+  getDescriptionByType,
+  getStateByType,
+} from "../covering-letter/DescriptionTextSlice";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 
 export default function Info({
   shouldHighlightCveInput,
 }: {
   shouldHighlightCveInput: boolean;
 }) {
-  const [textObj, setTextObj] = useState<TText>({ id: "", text: "", type: "" });
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const { ref, inView } = useInView({
     threshold: 0,
     triggerOnce: true,
   });
 
-  useEffect(() => {
-    const getCoveringLetter = async () => {
-      let response: TText = await findTextByType(TextType.INFO);
-      setTextObj(response);
-      setIsLoaded(true);
-    };
+  const dispatch = useAppDispatch();
 
+  const description: TText = useAppSelector((state) =>
+    getStateByType(state, TextType.INFO)
+  );
+
+  useEffect(() => {
+    dispatch(getUserInfo());
+    dispatch(getDescriptionByType(TextType.ABOUT_ME));
+  }, []);
+
+  useEffect(() => {
     if (!!inView) {
-      getCoveringLetter();
+      dispatch(getDescriptionByType(TextType.INFO));
     }
   }, [inView]);
-
-  const onSaveEditedText = async (cur: TText) => {
-    await onSaveDescriptionText(
-      cur,
-      ENDPOINT.COVERING_LETTER.valueOf(),
-      setTextObj
-    );
-  };
 
   return (
     <div ref={ref} className={"flex flex-col"}>
       <p className={"title"}>Interesse geweckt?</p>
       <div className={"mt-8"}>
-        {isLoaded && (
-          <EditDescriptionTextModal
-            onSaveText={onSaveEditedText}
-            editTextObj={textObj}
-          />
-        )}
+        <EditDescriptionTextModal type={TextType.INFO} />
       </div>
-      <DescriptionText text={textObj.text} />
+      <DescriptionText description={description} />
       <div className={"tile-group"}>
         <InfoTab />
       </div>

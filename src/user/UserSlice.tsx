@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TUserInfo, TUserInfoDTO } from "./InfoTab";
 import { ENDPOINT } from "../App";
 import { findAllEntities, updateEntity } from "../shared/RestCaller";
@@ -43,7 +43,6 @@ const userSlice = createSlice({
       return {
         ...state,
         info: { ...state.info, [action.payload.key]: action.payload.value },
-        isLoading: false,
       };
     },
   },
@@ -58,7 +57,7 @@ const userSlice = createSlice({
     builder.addCase(
       editUserInfo.fulfilled,
       (state: TUserState, action: PayloadAction<TUserInfo>) => {
-        return { ...state, info: { ...action.payload }, isLoading: false };
+        return { ...state, info: { ...action.payload } };
       }
     );
     builder.addCase(editUserInfo.rejected, (state: TUserState) => {});

@@ -1,12 +1,16 @@
 import { TText, TTextDTO } from "./EditDescriptionTextModal";
 import { updateEntity } from "../RestCaller";
 
-export default function DescriptionText({ text }: { text: string }) {
+export default function DescriptionText({
+  description,
+}: {
+  description: TText;
+}) {
   return (
     <p
       className={"max-w-sm h-full"}
-      dangerouslySetInnerHTML={{ __html: text }}
-    />
+      dangerouslySetInnerHTML={{ __html: description?.text }}
+    ></p>
   );
 }
 

@@ -4,7 +4,6 @@ import AcademicTab, { TAcademic, TAcademicDTO } from "./AcademicTab";
 import {
   deleteEntity,
   findAllEntities,
-  findTextByType,
   saveEntity,
   updateEntity,
 } from "../shared/RestCaller";
@@ -16,19 +15,26 @@ import EditDescriptionTextModal, {
   TextType,
   TText,
 } from "../shared/description/EditDescriptionTextModal";
-import DescriptionText, {
-  onSaveDescriptionText,
-} from "../shared/description/DescriptionText";
+import DescriptionText from "../shared/description/DescriptionText";
 import { ENDPOINT } from "../App";
+import {
+  getDescriptionByType,
+  getStateByType,
+} from "../covering-letter/DescriptionTextSlice";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 
 export default function Academic() {
   const [academic, setAcademic] = useState<TAcademic[]>([]);
-  const [textObj, setTextObj] = useState<TText>({ id: "", text: "", type: "" });
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const { ref, inView } = useInView({
     threshold: 0,
     triggerOnce: true,
   });
+
+  const dispatch = useAppDispatch();
+
+  const description: TText = useAppSelector((state) =>
+    getStateByType(state, TextType.ACADEMIC)
+  );
 
   useEffect(() => {
     const getAllAcademics = async () => {
@@ -38,25 +44,11 @@ export default function Academic() {
       setAcademic(response);
     };
 
-    const getCoveringLetter = async () => {
-      let response: TText = await findTextByType(TextType.ACADEMIC);
-      setTextObj(response);
-      setIsLoaded(true);
-    };
-
     if (!!inView) {
       getAllAcademics();
-      getCoveringLetter();
+      dispatch(getDescriptionByType(TextType.ACADEMIC));
     }
   }, [inView]);
-
-  const onSaveText = async (cur: TText) => {
-    await onSaveDescriptionText(
-      cur,
-      ENDPOINT.COVERING_LETTER.valueOf(),
-      setTextObj
-    );
-  };
 
   const onSaveAcademic = async (ac: GENERIC_DTO) => {
     let newObj: TAcademicDTO = {
@@ -104,14 +96,9 @@ export default function Academic() {
     <div ref={ref} className={"flex flex-col"}>
       <p className={"title"}>Akademischer Werdegang.</p>
       <div className={"mt-8"}>
-        {isLoaded && (
-          <EditDescriptionTextModal
-            onSaveText={onSaveText}
-            editTextObj={textObj}
-          />
-        )}
+        <EditDescriptionTextModal type={TextType.ACADEMIC} />
       </div>
-      <DescriptionText text={textObj.text} />
+      <DescriptionText description={description} />
       <div className={"tile-group"}>
         {academic.map((exp, index) => (
           <AcademicTab

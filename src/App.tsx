@@ -8,7 +8,6 @@ import Academic from "./academic/Academic";
 import Info from "./user/Info";
 import { Element } from "react-scroll";
 import { useEffect, useState } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
 
 export enum ENDPOINT {
   COVERING_LETTER = "covering-letter",

@@ -4,7 +4,6 @@ import CareerTab, { TCareer, TCareerDTO } from "./CareerTab";
 import {
   deleteEntity,
   findAllEntities,
-  findTextByType,
   saveEntity,
   updateEntity,
 } from "../shared/RestCaller";
@@ -16,19 +15,25 @@ import EditDescriptionTextModal, {
   TextType,
   TText,
 } from "../shared/description/EditDescriptionTextModal";
-import DescriptionText, {
-  onSaveDescriptionText,
-} from "../shared/description/DescriptionText";
+import DescriptionText from "../shared/description/DescriptionText";
 import { ENDPOINT } from "../App";
+import {
+  getDescriptionByType,
+  getStateByType,
+} from "../covering-letter/DescriptionTextSlice";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 
 export default function Career() {
   const [career, setCareer] = useState<TCareer[]>([]);
-  const [textObj, setTextObj] = useState<TText>({ id: "", text: "", type: "" });
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const { ref, inView } = useInView({
     threshold: 0,
     triggerOnce: true,
   });
+  const dispatch = useAppDispatch();
+
+  const description: TText = useAppSelector((state) =>
+    getStateByType(state, TextType.CAREER)
+  );
 
   useEffect(() => {
     const getAllCareer = async () => {
@@ -38,25 +43,11 @@ export default function Career() {
       setCareer(response);
     };
 
-    const getCoveringLetter = async () => {
-      let response: TText = await findTextByType(TextType.CAREER);
-      setTextObj(response);
-      setIsLoaded(true);
-    };
-
     if (!!inView) {
       getAllCareer();
-      getCoveringLetter();
+      dispatch(getDescriptionByType(TextType.CAREER));
     }
   }, [inView]);
-
-  const onSaveText = async (cur: TText) => {
-    await onSaveDescriptionText(
-      cur,
-      ENDPOINT.COVERING_LETTER.valueOf(),
-      setTextObj
-    );
-  };
 
   const onSaveCareer = async (car: GENERIC_DTO) => {
     let newObj: TCareerDTO = {
@@ -104,14 +95,9 @@ export default function Career() {
     <div ref={ref} className={"flex flex-col"}>
       <p className={"title"}>Beruflicher Werdegang.</p>
       <div className={"mt-8"}>
-        {isLoaded && (
-          <EditDescriptionTextModal
-            onSaveText={onSaveText}
-            editTextObj={textObj}
-          />
-        )}
+        <EditDescriptionTextModal type={TextType.CAREER} />
       </div>
-      <DescriptionText text={textObj.text} />
+      <DescriptionText description={description} />
       <div className={"tile-group"}>
         {career.map((exp, index) => (
           <CareerTab
