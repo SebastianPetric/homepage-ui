@@ -3,6 +3,8 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
+import { Provider } from "react-redux";
+import { store } from "./store/Store";
 
 import { Auth0Provider } from "@auth0/auth0-react";
 import { ReactQueryDevtools } from "react-query/devtools";
@@ -10,7 +12,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
+  <Provider store={store}>
     <Auth0Provider
       domain={"dev-yr4ucopn5ludqjmf.eu.auth0.com"}
       clientId={"INvTXeRkny58jATZuqATw4iNHNgdudXO"}
@@ -25,5 +27,5 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <ReactQueryDevtools />
       </QueryClientProvider>
     </Auth0Provider>
-  </React.StrictMode>
+  </Provider>
 );

@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import InfoTab, { TUserInfo, TUserInfoDTO } from "./InfoTab";
-import {
-  findAllEntities,
-  findTextByType,
-  updateEntity,
-} from "../shared/RestCaller";
+import InfoTab from "./InfoTab";
+import { findTextByType } from "../shared/RestCaller";
 import EditDescriptionTextModal, {
   TextType,
   TText,
@@ -23,7 +19,6 @@ export default function Info({
   isEditActive: boolean;
   shouldHighlightCveInput: boolean;
 }) {
-  const [user, setUser] = useState<TUserInfo[]>([]);
   const [textObj, setTextObj] = useState<TText>({ id: "", text: "", type: "" });
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const { ref, inView } = useInView({
@@ -32,13 +27,6 @@ export default function Info({
   });
 
   useEffect(() => {
-    const getAllUserInfo = async () => {
-      let response: TUserInfo[] = await findAllEntities(
-        ENDPOINT.USERS.valueOf()
-      );
-      setUser(response);
-    };
-
     const getCoveringLetter = async () => {
       let response: TText = await findTextByType(TextType.INFO);
       setTextObj(response);
@@ -46,7 +34,6 @@ export default function Info({
     };
 
     if (!!inView) {
-      getAllUserInfo();
       getCoveringLetter();
     }
   }, [inView]);
@@ -57,27 +44,6 @@ export default function Info({
       ENDPOINT.COVERING_LETTER.valueOf(),
       setTextObj
     );
-  };
-
-  const onSaveEditedUserInfo = async (cur: TUserInfo) => {
-    const dto: TUserInfoDTO = {
-      first_name: cur.first_name,
-      last_name: cur.last_name,
-      phone: cur.phone,
-      email: cur.email,
-      github_link: cur.github_link,
-      linkedin_link: cur.linkedin_link,
-      xing_link: cur.xing_link,
-    };
-
-    const saved: TUserInfo = await updateEntity(
-      "users",
-      cur.id,
-      JSON.stringify(dto)
-    );
-    const tmp = [...user];
-    tmp[0] = saved;
-    setUser(tmp);
   };
 
   return (
@@ -94,14 +60,7 @@ export default function Info({
       </div>
       <DescriptionText text={textObj.text} />
       <div className={"tile-group"}>
-        {user.map((exp: TUserInfo, index: number) => (
-          <InfoTab
-            key={`${exp.id}-${index}`}
-            user={{ ...exp }}
-            onSaveEditedModel={onSaveEditedUserInfo}
-            isEditActive={isEditActive}
-          />
-        ))}
+        <InfoTab isEditActive={isEditActive} />
       </div>
       <CveRequest shouldHighlightCveInput={shouldHighlightCveInput} />
     </div>

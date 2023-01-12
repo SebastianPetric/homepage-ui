@@ -4,55 +4,51 @@ import SaveAndCancelButtons from "../shared/modals/SaveAndCancelButtons";
 import ModalItem from "../shared/modals/ModalItem";
 import Modal from "../shared/modals/Modal";
 import ModalEditButton from "../shared/modals/ModalEditButton";
+import { useDispatch, useSelector } from "react-redux";
+import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
+import reducers from "../reducers/Reducers";
+import { editUserInfo } from "./UserSlice";
 
 export default function EditInfoModal({
-  onSaveUserInfo,
-  editUserInfoObj,
   isEditActive,
 }: {
-  onSaveUserInfo: (obj: TUserInfo) => void;
-  editUserInfoObj: TUserInfo;
   isEditActive: boolean;
 }) {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [isSavingPossible, setIsSavingPossible] = useState<boolean>(false);
-  const [firstName, setFirstName] = useState<string>(
-    editUserInfoObj.first_name
-  );
-  const [lastName, setLastName] = useState<string>(editUserInfoObj.last_name);
-  const [phone, setPhone] = useState<string>(editUserInfoObj.phone);
-  const [email, setEmail] = useState<string>(editUserInfoObj.email);
-  const [github, setGithub] = useState<string>(editUserInfoObj.github_link);
-  const [linkedin, setLinkedIn] = useState<string>(
-    editUserInfoObj.linkedin_link
-  );
-  const [xing, setXing] = useState<string>(editUserInfoObj.xing_link);
+
+  const dispatch =
+    useDispatch<ThunkDispatch<ReturnType<typeof reducers>, any, AnyAction>>();
+
+  const { info }: { info: TUserInfo } = useSelector((state: any) => {
+    return state.user;
+  });
 
   useEffect(() => {
     if (
-      firstName === "" ||
-      lastName === "" ||
-      phone === "" ||
-      email == "" ||
-      github === "" ||
-      linkedin === "" ||
-      xing === ""
+      info.first_name === "" ||
+      info.last_name === "" ||
+      info.phone === "" ||
+      info.email == "" ||
+      info.github_link === "" ||
+      info.linkedin_link === "" ||
+      info.xing_link === ""
     )
       setIsSavingPossible(false);
     else setIsSavingPossible(true);
-  }, [firstName, lastName, phone, email, github, linkedin, xing]);
+  }, [
+    info.first_name,
+    info.last_name,
+    info.phone,
+    info.email,
+    info.github_link,
+    info.linkedin_link,
+    info.xing_link,
+  ]);
 
   const onSave = () => {
-    const edited: TUserInfo = { ...editUserInfoObj };
-    edited.first_name = firstName;
-    edited.last_name = lastName;
-    edited.phone = phone;
-    edited.email = email;
-    edited.github_link = github;
-    edited.linkedin_link = linkedin;
-    edited.xing_link = xing;
     setShowModal(false);
-    onSaveUserInfo(edited);
+    dispatch(editUserInfo({ ...info }));
   };
 
   return (
@@ -68,15 +64,32 @@ export default function EditInfoModal({
       >
         <ModalItem
           title={"Vorname"}
-          value={firstName}
-          setValue={setFirstName}
+          keyValue={{ key: "first_name", value: info.first_name }}
         />
-        <ModalItem title={"Nachname"} value={lastName} setValue={setLastName} />
-        <ModalItem title={"Mobilfung"} value={phone} setValue={setPhone} />
-        <ModalItem title={"Email"} value={email} setValue={setEmail} />
-        <ModalItem title={"Github"} value={github} setValue={setGithub} />
-        <ModalItem title={"LinkedIn"} value={linkedin} setValue={setLinkedIn} />
-        <ModalItem title={"Xing"} value={xing} setValue={setXing} />
+        <ModalItem
+          title={"Nachname"}
+          keyValue={{ key: "last_name", value: info.last_name }}
+        />
+        <ModalItem
+          title={"Mobilfung"}
+          keyValue={{ key: "phone", value: info.phone }}
+        />
+        <ModalItem
+          title={"Email"}
+          keyValue={{ key: "email", value: info.email }}
+        />
+        <ModalItem
+          title={"Github"}
+          keyValue={{ key: "github_link", value: info.github_link }}
+        />
+        <ModalItem
+          title={"LinkedIn"}
+          keyValue={{ key: "linkedin_link", value: info.linkedin_link }}
+        />
+        <ModalItem
+          title={"Xing"}
+          keyValue={{ key: "xing_link", value: info.xing_link }}
+        />
         <SaveAndCancelButtons
           isSavingPossible={isSavingPossible}
           onSave={onSave}
