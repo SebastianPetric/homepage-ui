@@ -1,36 +1,61 @@
-import { TKeyValue } from "./CreateAndEditAcademicCareerStepModal";
-
-export const editAndSetExperiencePoint = (
-  cur: TKeyValue,
-  experiencePoints: TKeyValue[],
-  setExperiencePoints: (exps: TKeyValue[]) => void
-) => {
-  let tmp = [...experiencePoints];
-  tmp.forEach((exp) => {
-    if (exp.key === cur.key) {
-      exp.value = cur.value;
-    }
-  });
-  setExperiencePoints(tmp);
+export type TExperience = {
+  id?: string;
+  title: string;
+  experiencePoints: string[];
 };
 
-export const addExperiencePoint = (
-  experiences: TKeyValue[],
-  setExperiences: (cur: TKeyValue[]) => void
-) => {
-  let newExp: TKeyValue = {
-    key: `new-${Math.random() * 10}`,
-    value: "",
-  };
-  let tmp = [...experiences, newExp];
-  setExperiences(tmp);
+export type TExperienceDTO = {
+  title: string;
+  experiencePoints: string[];
 };
 
-export const deleteExperiencePoint = (
-  cur: TKeyValue,
-  experiencePoints: TKeyValue[],
-  setExperiencePoints: (cur: TKeyValue[]) => void
+export type TKeyValue = {
+  key: string;
+  value: string;
+};
+
+export type TIndexValue = {
+  index: number;
+  value: string;
+};
+
+export const addNewExperiencePoint = (
+  experience: TExperience,
+  setExperience: (ex: TExperience) => void,
+  cur: string
 ) => {
-  let tmp = experiencePoints.filter((it) => it !== cur);
-  setExperiencePoints(tmp);
+  let tmp = [...experience.experiencePoints];
+  tmp.push(cur);
+  setExperience({ ...experience, experiencePoints: tmp });
+};
+
+export const editSingleExperiencePoint = (
+  experience: TExperience,
+  setExperience: (ex: TExperience) => void,
+  cur: TIndexValue
+) => {
+  let tmp = [...experience.experiencePoints];
+  tmp[cur.index] = cur.value;
+  setExperience({ ...experience, experiencePoints: tmp });
+};
+
+export const deleteSpecificExperiencePoint = (
+  experience: TExperience,
+  setExperience: (ex: TExperience) => void,
+  index: number
+) => {
+  let copy = { ...experience };
+  copy.experiencePoints = copy.experiencePoints.filter(
+    (it: string) => it !== copy.experiencePoints[index]
+  );
+  setExperience(copy);
+};
+
+export const onChangeExperiencePointItem = (
+  experience: TExperience,
+  setExperience: (ex: TExperience) => void,
+  cur: TKeyValue
+) => {
+  let tmp = { ...experience, [cur.key]: cur.value };
+  setExperience(tmp);
 };

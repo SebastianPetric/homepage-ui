@@ -1,6 +1,6 @@
 import { FaMinus, FaPlus } from "react-icons/all";
 import React from "react";
-import { TKeyValue } from "./CreateAndEditAcademicCareerStepModal";
+import { TIndexValue } from "./ExperiencePointsInModalEditor";
 
 export default function ModalExperienceItems({
   experiencePoints,
@@ -8,10 +8,10 @@ export default function ModalExperienceItems({
   editSingleExperiencePoint,
   deleteSpecificExperiencePoint,
 }: {
-  experiencePoints: TKeyValue[];
-  addNewExperiencePoint: () => void;
-  editSingleExperiencePoint: (cur: TKeyValue) => void;
-  deleteSpecificExperiencePoint: (cur: TKeyValue) => void;
+  experiencePoints: string[];
+  addNewExperiencePoint: (cur: string) => void;
+  editSingleExperiencePoint: (cur: TIndexValue) => void;
+  deleteSpecificExperiencePoint: (index: number) => void;
 }) {
   return (
     <>
@@ -19,24 +19,24 @@ export default function ModalExperienceItems({
         <p>Erfahrungen:</p>
         <FaPlus
           className={"ml-5 hover:text-textColor cursor-pointer"}
-          onClick={addNewExperiencePoint}
+          onClick={() => addNewExperiencePoint("")}
         />
       </div>
       {experiencePoints.map((exp, index) => (
-        <div key={`${exp}-${index}`} className={"flex flex-row items-center"}>
+        <div key={index} className={"flex flex-row items-center"}>
           <input
             className={"border-2 w-full mt-2 mb-2"}
-            value={exp.value}
+            value={exp}
             onChange={(event) =>
               editSingleExperiencePoint({
-                key: exp.key,
+                index,
                 value: event.target.value,
               })
             }
           ></input>
           <FaMinus
             className={"deleteButton"}
-            onClick={() => deleteSpecificExperiencePoint(exp)}
+            onClick={() => deleteSpecificExperiencePoint(index)}
           />
         </div>
       ))}

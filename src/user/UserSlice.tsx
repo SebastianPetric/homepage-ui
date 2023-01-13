@@ -2,8 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TUserInfo, TUserInfoDTO } from "./InfoTab";
 import { ENDPOINT } from "../App";
 import { findAllEntities, updateEntity } from "../shared/RestCaller";
-import { TKeyValue } from "../shared/modals/CreateAndEditAcademicCareerStepModal";
-
+import { TKeyValue } from "../shared/modals/ExperiencePointsInModalEditor";
 export type TUserState = {
   info: TUserInfo;
 };
@@ -42,7 +41,7 @@ const userSlice = createSlice({
     update: (state: TUserState, action: PayloadAction<TKeyValue>) => {
       return {
         ...state,
-        info: { ...state.info, [action.payload.key]: action.payload.value },
+        info: { ...state.info, [action.payload.key!]: action.payload.value },
       };
     },
   },
