@@ -3,14 +3,17 @@ import SaveAndCancelButtons from "../shared/modals/SaveAndCancelButtons";
 import ModalItem from "../shared/modals/ModalItem";
 import Modal from "../shared/modals/Modal";
 import ModalEditButton from "../shared/modals/ModalEditButton";
-import { editUserInfo, TUserInfo } from "./UserSlice";
+import { editUserInfo, TUserInfo, update } from "./UserSlice";
 import { TKeyValue } from "../experiences/ExperienceSlice";
-import { useAppDispatch } from "../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
+import { RootState } from "../store/Store";
 
-export default function EditInfoModal({ info }: { info: TUserInfo }) {
+export default function EditInfoModal() {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [isSavingPossible, setIsSavingPossible] = useState<boolean>(false);
-  const [userInfo, setUserInfo] = useState<TUserInfo>(info);
+  const userInfo: TUserInfo = useAppSelector(
+    (state: RootState) => state.user.info
+  );
 
   const dispatch = useAppDispatch();
 
@@ -29,8 +32,7 @@ export default function EditInfoModal({ info }: { info: TUserInfo }) {
   }, [userInfo]);
 
   const onChangeItem = (cur: TKeyValue) => {
-    let tmp = { ...userInfo, [cur.key]: cur.value };
-    setUserInfo(tmp);
+    dispatch(update(cur));
   };
 
   const onSave = () => {

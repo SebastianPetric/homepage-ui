@@ -10,8 +10,8 @@ import { getDescriptionByType, getStateByType } from "./DescriptionTextSlice";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 
 export default function Greeting() {
-  const { info }: { info: TUserInfo } = useSelector((state: any) => {
-    return state.user;
+  const info: TUserInfo = useSelector((state: any) => {
+    return state.user.info;
   });
   const dispatch = useAppDispatch();
 

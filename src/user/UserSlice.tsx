@@ -18,27 +18,6 @@ export type TUserInfo = {
   xing_link: string;
 };
 
-export type TUserInfoDTO = {
-  first_name: string;
-  last_name: string;
-  phone: string;
-  email: string;
-  github_link: string;
-  linkedin_link: string;
-  xing_link: string;
-};
-
-const initialUserState: TUserInfo = {
-  id: "id",
-  first_name: "string",
-  last_name: "string",
-  phone: "string",
-  email: "string",
-  github_link: "string",
-  linkedin_link: "string",
-  xing_link: "string",
-};
-
 export const getUserInfo = createAsyncThunk("user/getInfo", async () => {
   const response: TUserInfo[] = await findAllEntities(ENDPOINT.USERS);
   return response[0];
@@ -51,14 +30,25 @@ export const editUserInfo = createAsyncThunk(
     return await updateEntity(
       ENDPOINT.USERS,
       edited.id,
-      JSON.stringify({ ...edited } as TUserInfoDTO)
+      JSON.stringify(edited)
     );
   }
 );
 
 const userSlice = createSlice({
   name: "user",
-  initialState: { info: { ...initialUserState } },
+  initialState: {
+    info: {
+      id: "",
+      first_name: "",
+      last_name: "",
+      phone: "",
+      email: "",
+      github_link: "",
+      linkedin_link: "",
+      xing_link: "",
+    },
+  },
   reducers: {
     update: (state: TUserState, action: PayloadAction<TKeyValue>) => {
       return {
@@ -71,17 +61,15 @@ const userSlice = createSlice({
     builder.addCase(
       getUserInfo.fulfilled,
       (state: TUserState, action: PayloadAction<TUserInfo>) => {
-        return { ...state, info: { ...action.payload } };
+        state.info = action.payload;
       }
     );
-    builder.addCase(getUserInfo.rejected, (state: TUserState) => {});
     builder.addCase(
       editUserInfo.fulfilled,
       (state: TUserState, action: PayloadAction<TUserInfo>) => {
-        state.info = { ...state, ...action.payload };
+        state.info = action.payload;
       }
     );
-    builder.addCase(editUserInfo.rejected, (state: TUserState) => {});
   },
 });
 

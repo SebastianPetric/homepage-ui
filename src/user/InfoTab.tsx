@@ -6,17 +6,17 @@ import {
   FaXing,
 } from "react-icons/all";
 import EditInfoModal from "./EditInfoModal";
-import { useSelector } from "react-redux";
 import { TUserInfo } from "./UserSlice";
+import { useAppSelector } from "../hooks/hooks";
 
 export default function InfoTab() {
-  const info: TUserInfo = useSelector((state: any) => {
+  const info: TUserInfo = useAppSelector((state: any) => {
     return state.user.info;
   });
 
   return (
     <div className={"flex flex-col"}>
-      <EditInfoModal info={info} />
+      <EditInfoModal />
       <p className={"text-xl font-bold mb-2 text-accentColor"}>
         {info ? info.first_name : ""} {info ? info.last_name : ""}
       </p>

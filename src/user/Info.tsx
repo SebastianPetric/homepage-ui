@@ -31,7 +31,6 @@ export default function Info({
   );
 
   useEffect(() => {
-    dispatch(getUserInfo());
     dispatch(getDescriptionByType(TextType.ABOUT_ME));
   }, []);
 
