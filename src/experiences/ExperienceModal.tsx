@@ -2,34 +2,47 @@ import ModalItem from "../shared/modals/ModalItem";
 import ModalExperienceItems from "../shared/modals/ModalExperienceItems";
 import SaveAndCancelButtons from "../shared/modals/SaveAndCancelButtons";
 import Modal from "../shared/modals/Modal";
-import React from "react";
-import {
-  TExperience,
-  TIndexValue,
-  TKeyValue,
-} from "../shared/modals/ExperiencePointsInModalEditor";
+import React, { useEffect, useState } from "react";
+import { onChangeExperiencePointItem } from "../shared/modals/ExperiencePointsInModalEditor";
+import { validateExperienceModalFieldsNotEmpty } from "../shared/modals/ModalFieldValidator";
+import { useAppDispatch } from "../hooks/hooks";
+import { createExperience, TExperience, TKeyValue } from "./ExperienceSlice";
 
 export default function ExperienceModal({
   showModal,
   setShowModal,
-  isSavingPossible,
   experience,
-  onAddNewExperiencePoint,
-  onEditSingleExperiencePoint,
-  onDeleteSpecificExperiencePoint,
-  onChangeItem,
-  onSave,
 }: {
   showModal: boolean;
   setShowModal: (shouldShow: boolean) => void;
-  isSavingPossible: boolean;
   experience: TExperience;
-  onAddNewExperiencePoint: (cur: string) => void;
-  onEditSingleExperiencePoint: (cur: TIndexValue) => void;
-  onDeleteSpecificExperiencePoint: (index: number) => void;
-  onChangeItem: (cur: TKeyValue) => void;
-  onSave: () => void;
 }) {
+  const [isSavingPossible, setIsSavingPossible] = useState<boolean>(false);
+  const [editedExperience, setEditedExperience] =
+    useState<TExperience>(experience);
+  const setExpPoints = (cur: string[]) => {
+    setEditedExperience({ ...editedExperience, experiencePoints: cur });
+  };
+
+  const dispatch = useAppDispatch();
+
+  const onChangeItem = (cur: TKeyValue) => {
+    onChangeExperiencePointItem(experience, setEditedExperience, cur);
+  };
+
+  const onSave = () => {
+    dispatch(createExperience(experience));
+    setShowModal(false);
+  };
+
+  useEffect(() => {
+    validateExperienceModalFieldsNotEmpty(
+      experience.experiencePoints,
+      experience.title,
+      setIsSavingPossible
+    );
+  }, [experience]);
+
   return (
     <Modal
       shouldShowModal={showModal}
@@ -44,9 +57,7 @@ export default function ExperienceModal({
 
       <ModalExperienceItems
         experiencePoints={experience.experiencePoints}
-        addNewExperiencePoint={onAddNewExperiencePoint}
-        editSingleExperiencePoint={onEditSingleExperiencePoint}
-        deleteSpecificExperiencePoint={onDeleteSpecificExperiencePoint}
+        setExperiencepPoints={setExpPoints}
       />
       <SaveAndCancelButtons
         isSavingPossible={isSavingPossible}

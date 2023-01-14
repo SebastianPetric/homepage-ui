@@ -4,11 +4,13 @@ import authenticationSlice from "../authentication/AuthenticationSlice";
 import descriptionTextSlice from "../covering-letter/DescriptionTextSlice";
 import experienceSlice from "../experiences/ExperienceSlice";
 import academicSlice from "../academic/AcademicSlice";
+import careerSlice from "../career/CareerSlice";
 
 export default combineReducers({
   user: userSlice,
   authentication: authenticationSlice,
   description: descriptionTextSlice,
   experiences: experienceSlice,
+  career: careerSlice,
   academic: academicSlice,
 });

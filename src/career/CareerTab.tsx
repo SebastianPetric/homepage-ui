@@ -1,54 +1,29 @@
-import CreateAndEditAcademicCareerStepModal, {
-  GENERIC_DAO,
-} from "../shared/modals/CreateAndEditAcademicCareerStepModal";
 import { formatMonthYear } from "../util/DateFormatter";
+import EditDeleteTileButtons from "../shared/modals/EditDeleteTileButtons";
+import React, { useState } from "react";
+import { useAppDispatch } from "../hooks/hooks";
+import { deleteCareerStep, TCareer } from "./CareerSlice";
+import EditCareer from "./EditCareer";
 
-export type TCareer = {
-  id: string;
-  title: string;
-  company: string;
-  from_date: string;
-  to_date: string | undefined;
-  toDos: string[];
-};
+export default function CareerTab({ career }: { career: TCareer }) {
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
 
-export type TCareerDTO = {
-  title: string;
-  company: string;
-  from_date: string;
-  to_date: string | undefined;
-  toDos: string[];
-};
-
-export default function CareerTab({
-  career,
-  onDelete,
-  onSaveEditedCareer,
-}: {
-  career: TCareer;
-  onDelete: (id: string) => {};
-  onSaveEditedCareer: (career: GENERIC_DAO) => void;
-}) {
-  const careerDt: GENERIC_DAO = {
-    id: career.id,
-    title: career.title,
-    institution: career.company,
-    from_date: career.from_date,
-    to_date: career.to_date,
-    points: career.toDos,
+  const onDelete = (cur: TCareer) => {
+    dispatch(deleteCareerStep(cur));
   };
 
   return (
     <div className={"flex flex-col mt-10 mr-5 w-80"}>
-      <div className={"flex flex-row"}>
-        <CreateAndEditAcademicCareerStepModal
-          onSaveExp={onSaveEditedCareer}
-          onDelete={onDelete}
-          id={career.id}
-          editExpObj={careerDt}
-          titleModal={"Bearbeiten"}
-        />
-      </div>
+      <EditDeleteTileButtons
+        setShowModal={setShowModal}
+        onDelete={() => onDelete(career)}
+      />
+      <EditCareer
+        career={career}
+        showMdl={showModal}
+        setShowMdl={setShowModal}
+      />
       <p className={"text-xl font-bold text-accentColor"}>{career.title}</p>
       <p className={"text-sm font-bold mb-2"}>
         {career.company} von {formatMonthYear(career.from_date)} bis{" "}

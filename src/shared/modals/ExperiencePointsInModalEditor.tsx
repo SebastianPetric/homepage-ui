@@ -1,23 +1,8 @@
-export type TExperience = {
-  id?: string;
-  title: string;
-  experiencePoints: string[];
-};
-
-export type TExperienceDTO = {
-  title: string;
-  experiencePoints: string[];
-};
-
-export type TKeyValue = {
-  key: string;
-  value: string;
-};
-
-export type TIndexValue = {
-  index: number;
-  value: string;
-};
+import {
+  TExperience,
+  TIndexValue,
+  TKeyValue,
+} from "../../experiences/ExperienceSlice";
 
 export const addNewExperiencePoint = (
   experience: TExperience,

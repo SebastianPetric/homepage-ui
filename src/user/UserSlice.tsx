@@ -1,10 +1,31 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TUserInfo, TUserInfoDTO } from "./InfoTab";
 import { ENDPOINT } from "../App";
 import { findAllEntities, updateEntity } from "../shared/RestCaller";
-import { TKeyValue } from "../shared/modals/ExperiencePointsInModalEditor";
+import { TKeyValue } from "../experiences/ExperienceSlice";
+
 export type TUserState = {
   info: TUserInfo;
+};
+
+export type TUserInfo = {
+  id: string;
+  first_name: string;
+  last_name: string;
+  phone: string;
+  email: string;
+  github_link: string;
+  linkedin_link: string;
+  xing_link: string;
+};
+
+export type TUserInfoDTO = {
+  first_name: string;
+  last_name: string;
+  phone: string;
+  email: string;
+  github_link: string;
+  linkedin_link: string;
+  xing_link: string;
 };
 
 const initialUserState: TUserInfo = {
@@ -26,6 +47,7 @@ export const getUserInfo = createAsyncThunk("user/getInfo", async () => {
 export const editUserInfo = createAsyncThunk(
   "user/editInfo",
   async (edited: TUserInfo) => {
+    console.log(edited);
     return await updateEntity(
       ENDPOINT.USERS,
       edited.id,
@@ -56,7 +78,7 @@ const userSlice = createSlice({
     builder.addCase(
       editUserInfo.fulfilled,
       (state: TUserState, action: PayloadAction<TUserInfo>) => {
-        return { ...state, info: { ...action.payload } };
+        state.info = { ...state, ...action.payload };
       }
     );
     builder.addCase(editUserInfo.rejected, (state: TUserState) => {});

@@ -6,13 +6,30 @@ import {
   updateEntity,
 } from "../shared/RestCaller";
 import { ENDPOINT } from "../App";
-import {
-  TExperience,
-  TExperienceDTO,
-} from "../shared/modals/ExperiencePointsInModalEditor";
 
 type TExperienceState = {
   experiences: TExperience[];
+};
+
+export type TExperience = {
+  id?: string;
+  title: string;
+  experiencePoints: string[];
+};
+
+export type TExperienceBody = {
+  title: string;
+  experiencePoints: string[];
+};
+
+export type TKeyValue = {
+  key: string;
+  value: string;
+};
+
+export type TIndexValue = {
+  index: number;
+  value: string;
 };
 
 export const getAllExperiences = createAsyncThunk(
@@ -28,14 +45,14 @@ export const updateExperience = createAsyncThunk(
     return await updateEntity(
       ENDPOINT.EXPERIENCES,
       cur.id!,
-      JSON.stringify({ ...cur } as TExperienceDTO)
+      JSON.stringify({ ...cur } as TExperienceBody)
     );
   }
 );
 
 export const createExperience = createAsyncThunk(
   "experiences/create",
-  async (cur: TExperienceDTO) => {
+  async (cur: TExperienceBody) => {
     return await saveEntity(ENDPOINT.EXPERIENCES, JSON.stringify(cur));
   }
 );

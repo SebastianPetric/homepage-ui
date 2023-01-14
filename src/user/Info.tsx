@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import InfoTab from "./InfoTab";
-import EditDescriptionTextModal, {
+import {
   TextType,
   TText,
 } from "../shared/description/EditDescriptionTextModal";
@@ -44,10 +44,7 @@ export default function Info({
   return (
     <div ref={ref} className={"flex flex-col"}>
       <p className={"title"}>Interesse geweckt?</p>
-      <div className={"mt-8"}>
-        <EditDescriptionTextModal type={TextType.INFO} />
-      </div>
-      <DescriptionText description={description} />
+      <DescriptionText type={TextType.INFO} description={description} />
       <div className={"tile-group"}>
         <InfoTab />
       </div>

@@ -1,49 +1,16 @@
-import CreateAndEditAcademicCareerStepModal, {
-  GENERIC_DAO,
-} from "../shared/modals/CreateAndEditAcademicCareerStepModal";
 import { formatMonthYear } from "../util/DateFormatter";
+import EditDeleteTileButtons from "../shared/modals/EditDeleteTileButtons";
+import React, { useState } from "react";
+import EditAcademic from "./EditAcademic";
+import { useAppDispatch } from "../hooks/hooks";
+import { deleteAcademicStep, TAcademic } from "./AcademicSlice";
 
-export type TAcademic = {
-  id: string;
-  title: string;
+export default function AcademicTab({ academic }: { academic: TAcademic }) {
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
 
-  school: string;
-
-  from_date: string;
-
-  to_date: string;
-
-  focusList: string[];
-};
-
-export type TAcademicDTO = {
-  title: string;
-
-  school: string;
-
-  from_date: string;
-
-  to_date: string | undefined;
-
-  focusList: string[];
-};
-
-export default function AcademicTab({
-  academic,
-  onSaveEditedCareer,
-  onDelete,
-}: {
-  academic: TAcademic;
-  onSaveEditedCareer: (academic: GENERIC_DAO) => void;
-  onDelete: (id: string) => void;
-}) {
-  const academicDt: GENERIC_DAO = {
-    id: academic.id,
-    title: academic.title,
-    institution: academic.school,
-    from_date: academic.from_date,
-    to_date: academic.to_date,
-    points: academic.focusList,
+  const onDelete = (cur: TAcademic) => {
+    dispatch(deleteAcademicStep(cur));
   };
 
   return (
@@ -52,15 +19,15 @@ export default function AcademicTab({
         key={`${academic.id}`}
         className={"flex flex-col items-start w-80 h-auto mt-10 mr-5"}
       >
-        <div className={"flex flex-row"}>
-          <CreateAndEditAcademicCareerStepModal
-            onSaveExp={onSaveEditedCareer}
-            onDelete={onDelete}
-            id={academic.id}
-            editExpObj={academicDt}
-            titleModal={"Bearbeiten"}
-          />
-        </div>
+        <EditDeleteTileButtons
+          setShowModal={setShowModal}
+          onDelete={() => onDelete(academic)}
+        />
+        <EditAcademic
+          academic={academic}
+          showMdl={showModal}
+          setShowMdl={setShowModal}
+        />
         <p className={"text-xl font-bold text-accentColor"}>{academic.title}</p>
         <p className={"text-sm font-bold mb-2"}>
           {academic.school} von {formatMonthYear(academic.from_date)} bis{" "}

@@ -1,50 +1,41 @@
 import React, { useEffect, useState } from "react";
-import { TUserInfo } from "./InfoTab";
 import SaveAndCancelButtons from "../shared/modals/SaveAndCancelButtons";
 import ModalItem from "../shared/modals/ModalItem";
 import Modal from "../shared/modals/Modal";
 import ModalEditButton from "../shared/modals/ModalEditButton";
-import { useDispatch, useSelector } from "react-redux";
-import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
-import reducers from "../reducers/Reducers";
-import { editUserInfo } from "./UserSlice";
+import { editUserInfo, TUserInfo } from "./UserSlice";
+import { TKeyValue } from "../experiences/ExperienceSlice";
+import { useAppDispatch } from "../hooks/hooks";
 
-export default function EditInfoModal() {
+export default function EditInfoModal({ info }: { info: TUserInfo }) {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [isSavingPossible, setIsSavingPossible] = useState<boolean>(false);
+  const [userInfo, setUserInfo] = useState<TUserInfo>(info);
 
-  const dispatch =
-    useDispatch<ThunkDispatch<ReturnType<typeof reducers>, any, AnyAction>>();
-
-  const { info }: { info: TUserInfo } = useSelector((state: any) => {
-    return state.user;
-  });
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (
-      info.first_name === "" ||
-      info.last_name === "" ||
-      info.phone === "" ||
-      info.email == "" ||
-      info.github_link === "" ||
-      info.linkedin_link === "" ||
-      info.xing_link === ""
+      userInfo.first_name === "" ||
+      userInfo.last_name === "" ||
+      userInfo.phone === "" ||
+      userInfo.email == "" ||
+      userInfo.github_link === "" ||
+      userInfo.linkedin_link === "" ||
+      userInfo.xing_link === ""
     )
       setIsSavingPossible(false);
     else setIsSavingPossible(true);
-  }, [
-    info.first_name,
-    info.last_name,
-    info.phone,
-    info.email,
-    info.github_link,
-    info.linkedin_link,
-    info.xing_link,
-  ]);
+  }, [userInfo]);
+
+  const onChangeItem = (cur: TKeyValue) => {
+    let tmp = { ...userInfo, [cur.key]: cur.value };
+    setUserInfo(tmp);
+  };
 
   const onSave = () => {
     setShowModal(false);
-    dispatch(editUserInfo({ ...info }));
+    dispatch(editUserInfo(userInfo));
   };
 
   return (
@@ -57,31 +48,38 @@ export default function EditInfoModal() {
       >
         <ModalItem
           title={"Vorname"}
-          keyValue={{ key: "first_name", value: info.first_name }}
+          keyValue={{ key: "first_name", value: userInfo.first_name }}
+          onChangeItem={onChangeItem}
         />
         <ModalItem
           title={"Nachname"}
-          keyValue={{ key: "last_name", value: info.last_name }}
+          keyValue={{ key: "last_name", value: userInfo.last_name }}
+          onChangeItem={onChangeItem}
         />
         <ModalItem
           title={"Mobilfung"}
-          keyValue={{ key: "phone", value: info.phone }}
+          keyValue={{ key: "phone", value: userInfo.phone }}
+          onChangeItem={onChangeItem}
         />
         <ModalItem
           title={"Email"}
-          keyValue={{ key: "email", value: info.email }}
+          keyValue={{ key: "email", value: userInfo.email }}
+          onChangeItem={onChangeItem}
         />
         <ModalItem
           title={"Github"}
-          keyValue={{ key: "github_link", value: info.github_link }}
+          keyValue={{ key: "github_link", value: userInfo.github_link }}
+          onChangeItem={onChangeItem}
         />
         <ModalItem
           title={"LinkedIn"}
-          keyValue={{ key: "linkedin_link", value: info.linkedin_link }}
+          keyValue={{ key: "linkedin_link", value: userInfo.linkedin_link }}
+          onChangeItem={onChangeItem}
         />
         <ModalItem
           title={"Xing"}
-          keyValue={{ key: "xing_link", value: info.xing_link }}
+          keyValue={{ key: "xing_link", value: userInfo.xing_link }}
+          onChangeItem={onChangeItem}
         />
         <SaveAndCancelButtons
           isSavingPossible={isSavingPossible}

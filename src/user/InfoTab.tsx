@@ -7,36 +7,16 @@ import {
 } from "react-icons/all";
 import EditInfoModal from "./EditInfoModal";
 import { useSelector } from "react-redux";
-
-export type TUserInfo = {
-  id: string;
-  first_name: string;
-  last_name: string;
-  phone: string;
-  email: string;
-  github_link: string;
-  linkedin_link: string;
-  xing_link: string;
-};
-
-export type TUserInfoDTO = {
-  first_name: string;
-  last_name: string;
-  phone: string;
-  email: string;
-  github_link: string;
-  linkedin_link: string;
-  xing_link: string;
-};
+import { TUserInfo } from "./UserSlice";
 
 export default function InfoTab() {
-  const { info }: { info: TUserInfo } = useSelector((state: any) => {
-    return state.user;
+  const info: TUserInfo = useSelector((state: any) => {
+    return state.user.info;
   });
 
   return (
     <div className={"flex flex-col"}>
-      <EditInfoModal />
+      <EditInfoModal info={info} />
       <p className={"text-xl font-bold mb-2 text-accentColor"}>
         {info ? info.first_name : ""} {info ? info.last_name : ""}
       </p>

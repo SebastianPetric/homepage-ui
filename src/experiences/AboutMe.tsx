@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import React, { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import { getAllExperiences } from "./ExperienceSlice";
-import EditDescriptionTextModal, {
+import { getAllExperiences, TExperience } from "./ExperienceSlice";
+import {
   TextType,
   TText,
 } from "../shared/description/EditDescriptionTextModal";
@@ -15,7 +15,6 @@ import DescriptionText from "../shared/description/DescriptionText";
 import CreateExperience from "./CreateExperience";
 import { useSelector } from "react-redux";
 import ExperienceTab from "./ExperienceTab";
-import { TExperience } from "../shared/modals/ExperiencePointsInModalEditor";
 
 export default function AboutMe() {
   const { ref, inView } = useInView({
@@ -43,11 +42,7 @@ export default function AboutMe() {
   return (
     <div ref={ref} className={"flex flex-col"}>
       <p className={"title"}>Über mich.</p>
-
-      <div className={"mt-8"}>
-        <EditDescriptionTextModal type={TextType.ABOUT_ME} />
-      </div>
-      <DescriptionText description={description} />
+      <DescriptionText type={TextType.ABOUT_ME} description={description} />
       <div className={"tile-group"}>
         {experiences.map((exp, index) => (
           <div key={index}>

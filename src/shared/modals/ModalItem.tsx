@@ -1,5 +1,5 @@
 import React from "react";
-import { TKeyValue } from "./ExperiencePointsInModalEditor";
+import { TKeyValue } from "../../experiences/ExperienceSlice";
 
 export default function ModalItem({
   title,
