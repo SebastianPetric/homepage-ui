@@ -13,7 +13,6 @@ import {
 } from "../covering-letter/DescriptionTextSlice";
 import DescriptionText from "../shared/description/DescriptionText";
 import CreateExperience from "./CreateExperience";
-import { useSelector } from "react-redux";
 import ExperienceTab from "./ExperienceTab";
 
 export default function AboutMe() {
@@ -24,7 +23,7 @@ export default function AboutMe() {
 
   const dispatch = useAppDispatch();
 
-  const experiences: TExperience[] = useSelector(
+  const experiences: TExperience[] = useAppSelector(
     (state: RootState) => state.experiences.experiences
   );
 

@@ -4,13 +4,12 @@ import {
   TText,
 } from "../shared/description/EditDescriptionTextModal";
 import DescriptionText from "../shared/description/DescriptionText";
-import { useSelector } from "react-redux";
 import { getUserInfo, TUserInfo } from "../user/UserSlice";
 import { getDescriptionByType, getStateByType } from "./DescriptionTextSlice";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 
 export default function Greeting() {
-  const info: TUserInfo = useSelector((state: any) => {
+  const info: TUserInfo = useAppSelector((state: any) => {
     return state.user.info;
   });
   const dispatch = useAppDispatch();
