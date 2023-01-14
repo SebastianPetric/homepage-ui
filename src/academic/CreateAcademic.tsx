@@ -25,7 +25,7 @@ export default function CreateAcademic() {
     <>
       <ModalCreateButton setShowModal={setShowModal} />
       <AcademicModal
-        titleModal={"Neuer Karriereschritt"}
+        titleModal={"Schulischen Werdegang hinzufügen"}
         academic={{
           id: "",
           title: "",
@@ -36,7 +36,7 @@ export default function CreateAcademic() {
         }}
         showModal={showModal}
         setShowModal={setShowModal}
-        onSaveCareer={saveNewCareer}
+        onSaveAcademic={saveNewCareer}
       />
     </>
   );

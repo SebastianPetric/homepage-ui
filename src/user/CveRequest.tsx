@@ -51,8 +51,7 @@ export default function CveRequest({
     }
 
     const res = await sendEmail(email, clientCaptchaSolution, optionalText);
-
-    if (res && res.status === 503) {
+    if (res && (res.status === 503 || res.status === 400)) {
       const serverError: Exception = await res.json();
       setClientCaptchaError({
         rejectedField: `${serverError.rejectedField}`,
@@ -73,7 +72,7 @@ export default function CveRequest({
 
   const transitionColorsForHighlighting = () => {
     return shouldHighlightCveInput
-      ? "border-green-600"
+      ? "border-accentColor"
       : `${clientCaptchaError ? "border-red-500" : "border-gray-900"}`;
   };
 
@@ -117,7 +116,7 @@ export default function CveRequest({
               open={shouldHighlightCveInput}
               content={"Hier anfragen"}
               placement={"top"}
-              className={"bg-green-400"}
+              className={"bg-accentColor"}
             >
               <input
                 contentEditable={false}

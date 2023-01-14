@@ -12,13 +12,13 @@ export default function AcademicModal({
   academic,
   showModal,
   setShowModal,
-  onSaveCareer,
+  onSaveAcademic,
 }: {
   titleModal: string;
   academic: TAcademic;
   showModal: boolean;
   setShowModal: (shouldShow: boolean) => void;
-  onSaveCareer: (cur: TAcademic) => void;
+  onSaveAcademic: (cur: TAcademic) => void;
 }) {
   const [isSavingPossible, setIsSavingPossible] = useState<boolean>(false);
   const [editedAcademic, setEditedAcademic] = useState<TAcademic>(academic);
@@ -37,7 +37,7 @@ export default function AcademicModal({
 
   const onSave = (cur: TAcademic) => {
     setShowModal(false);
-    onSaveCareer(cur);
+    onSaveAcademic(cur);
   };
 
   const onChangeItem = (cur: TKeyValue) => {

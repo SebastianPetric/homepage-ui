@@ -28,7 +28,7 @@ export default function Career() {
   const career: TCareer[] = useAppSelector((state) => state.career.careerSteps);
 
   useEffect(() => {
-    if (!!inView) {
+    if (inView) {
       dispatch(getAllCareerSteps());
       dispatch(getDescriptionByType(TextType.CAREER));
     }

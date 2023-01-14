@@ -20,11 +20,11 @@ export default function EditAcademic({
   return (
     <>
       <AcademicModal
-        titleModal={"Karriereschritt bearbeiten"}
+        titleModal={"Schulischen Werdegang bearbeiten"}
         academic={academic}
         showModal={showMdl}
         setShowModal={setShowMdl}
-        onSaveCareer={updateCareer}
+        onSaveAcademic={updateCareer}
       />
     </>
   );

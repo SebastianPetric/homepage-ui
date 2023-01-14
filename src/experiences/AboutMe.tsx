@@ -33,7 +33,7 @@ export default function AboutMe() {
   );
 
   useEffect(() => {
-    if (!!inView) {
+    if (inView) {
       dispatch(getDescriptionByType(TextType.ABOUT_ME));
       dispatch(getAllExperiences());
     }

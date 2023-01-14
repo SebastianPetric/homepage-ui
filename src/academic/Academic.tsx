@@ -31,7 +31,7 @@ export default function Academic() {
   );
 
   useEffect(() => {
-    if (!!inView) {
+    if (inView) {
       dispatch(getAllAcademicSteps());
       dispatch(getDescriptionByType(TextType.ACADEMIC));
     }

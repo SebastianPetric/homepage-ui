@@ -35,7 +35,7 @@ export default function Info({
   }, []);
 
   useEffect(() => {
-    if (!!inView) {
+    if (inView) {
       dispatch(getDescriptionByType(TextType.INFO));
     }
   }, [inView]);
