@@ -108,64 +108,62 @@ export default function CveRequest({
 
   return (
     <>
-      <>
-        {!isEmailSent ? (
-          <div className={"w-full mt-10"}>
-            <ErrorField error={clientCaptchaError} />
-            <Tooltip
-              open={shouldHighlightCveInput}
-              content={"Hier anfragen"}
-              placement={"top"}
-              className={"bg-accentColor"}
-            >
-              <input
-                contentEditable={false}
-                className={`border-2 rounded w-full mb-2 h-20 text-center transition-all duration-700 ${transitionColorsForHighlighting()}`}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder={"Email"}
-              />
-            </Tooltip>
-            <textarea
-              className={
-                "w-full h-auto border-gray-900 border-2 rounded text-center pt-7"
-              }
-              placeholder={"Optionale Nachricht"}
-              onChange={(e) => setOptionalText(e.target.value)}
-              value={optionalText}
-            ></textarea>
-            <button
-              disabled={!isButtonEnabled}
-              onClick={send}
-              className={`${
-                isButtonEnabled
-                  ? "bg-accentColor hover:text-white text-textColor"
-                  : "bg-gray-500 text-gray-800"
-              } w-full h-20 rounded rounded-br-3xl flex items-center justify-center text-xl font-bold  cursor-pointer`}
-            >
-              {isLoading ? "Anfrage wird gesendet..." : "Lebenslauf anfragen"}{" "}
-              {<Spinner shouldBeDisplayed={isLoading} />}
-            </button>
-            <div className="flex flex-col">
-              <div
-                ref={container ? container : undefined}
-                className="border-none flex justify-center items-center"
-                data-sitekey={import.meta.env.VITE_CAPTCHA_SITE_KEY}
-              />
-            </div>
-          </div>
-        ) : (
-          <>
-            {" "}
+      {!isEmailSent ? (
+        <div className={"w-full mt-10"}>
+          <ErrorField error={clientCaptchaError} />
+          <Tooltip
+            open={shouldHighlightCveInput}
+            content={"Hier anfragen"}
+            placement={"top"}
+            className={"bg-accentColor"}
+          >
+            <input
+              contentEditable={false}
+              className={`border-2 rounded w-full mb-2 h-20 text-center transition-all duration-700 ${transitionColorsForHighlighting()}`}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder={"Email"}
+            />
+          </Tooltip>
+          <textarea
+            className={
+              "w-full h-auto border-gray-900 border-2 rounded text-center pt-7"
+            }
+            placeholder={"Optionale Nachricht"}
+            onChange={(e) => setOptionalText(e.target.value)}
+            value={optionalText}
+          ></textarea>
+          <button
+            disabled={!isButtonEnabled}
+            onClick={send}
+            className={`${
+              isButtonEnabled
+                ? "bg-accentColor hover:text-white text-textColor"
+                : "bg-gray-500 text-gray-800"
+            } w-full h-20 rounded rounded-br-3xl flex items-center justify-center text-xl font-bold  cursor-pointer`}
+          >
+            {isLoading ? "Anfrage wird gesendet..." : "Lebenslauf anfragen"}{" "}
+            {<Spinner shouldBeDisplayed={isLoading} />}
+          </button>
+          <div className="flex flex-col">
             <div
-              className={
-                "mt-10 bg-gray-500 text-gray-800 w-full h-20 rounded-br-3xl flex items-center justify-center text-xl font-bold"
-              }
-            >
-              Anfrage gesendet
-            </div>
-          </>
-        )}
-      </>
+              ref={container ? container : undefined}
+              className="border-none flex justify-center items-center"
+              data-sitekey={import.meta.env.VITE_CAPTCHA_SITE_KEY}
+            />
+          </div>
+        </div>
+      ) : (
+        <>
+          {" "}
+          <div
+            className={
+              "mt-10 bg-gray-500 text-gray-800 w-full h-20 rounded-br-3xl flex items-center justify-center text-xl font-bold"
+            }
+          >
+            Anfrage gesendet
+          </div>
+        </>
+      )}
     </>
   );
 }
