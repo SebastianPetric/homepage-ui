@@ -7,7 +7,6 @@ import {
 } from "../shared/description/EditDescriptionTextModal";
 import DescriptionText from "../shared/description/DescriptionText";
 import CveRequest from "./CveRequest";
-import { getUserInfo } from "./UserSlice";
 import {
   getDescriptionByType,
   getStateByType,

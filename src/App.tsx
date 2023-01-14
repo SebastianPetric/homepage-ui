@@ -8,15 +8,7 @@ import Academic from "./academic/Academic";
 import Info from "./user/Info";
 import { Element } from "react-scroll";
 import { useEffect, useState } from "react";
-
-export enum ENDPOINT {
-  COVERING_LETTER = "covering-letter",
-  ACADEMIC = "academic",
-  CAREER = "career",
-  EXPERIENCES = "experiences",
-  SEND = "send",
-  USERS = "users",
-}
+import Authentication from "./authentication/Authentication";
 
 function App() {
   const [shouldHighlightCveInput, setShouldHighlightCveInput] =
@@ -38,6 +30,7 @@ function App() {
         </aside>
 
         <main className={"w-screen xl:w-1/2 flex-grow"}>
+          <Authentication />
           <Element name={"greeting-scroll"} className={"first-tile"}>
             <Greeting />
           </Element>

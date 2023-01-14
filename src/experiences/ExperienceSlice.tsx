@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   deleteEntity,
+  ENDPOINT,
   findAllEntities,
   saveEntity,
   updateEntity,
 } from "../shared/RestCaller";
-import { ENDPOINT } from "../App";
 
 type TExperienceState = {
   experiences: TExperience[];

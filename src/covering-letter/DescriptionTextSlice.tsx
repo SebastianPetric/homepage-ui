@@ -4,9 +4,8 @@ import {
   TText,
   TTextDTO,
 } from "../shared/description/EditDescriptionTextModal";
-import { findTextByType, updateEntity } from "../shared/RestCaller";
+import { ENDPOINT, findTextByType, updateEntity } from "../shared/RestCaller";
 import { RootState } from "../store/Store";
-import { ENDPOINT } from "../App";
 
 type TDescriptionState = {
   descriptions: TText[];

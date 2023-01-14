@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ENDPOINT } from "../App";
-import { findAllEntities, updateEntity } from "../shared/RestCaller";
+import { ENDPOINT, findAllEntities, updateEntity } from "../shared/RestCaller";
 import { TKeyValue } from "../experiences/ExperienceSlice";
 
 export type TUserState = {

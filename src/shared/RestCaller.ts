@@ -1,6 +1,14 @@
 import { getCookie } from "react-use-cookie";
 import { TextType } from "./description/EditDescriptionTextModal";
-import { ENDPOINT } from "../App";
+
+export enum ENDPOINT {
+  COVERING_LETTER = "covering-letter",
+  ACADEMIC = "academic",
+  CAREER = "career",
+  EXPERIENCES = "experiences",
+  SEND = "send",
+  USERS = "users",
+}
 
 export const findAllEntities = async (endpoint: string) => {
   try {
