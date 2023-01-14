@@ -7,12 +7,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        imageColor: "#101115",
+        imageColor: "#fcce53",
         textColor: "#101115",
-        accentColor: "#129776"
+        accentColor: "#fcce53",
       },
       fontFamily: {
-        pacifico: ['pacifico', 'sans-serif'],
+        pacifico: ["pacifico", "sans-serif"],
         sans: ["Poppins", ...defaultTheme.fontFamily.sans],
         serif: [...defaultTheme.fontFamily.serif],
         mono: [...defaultTheme.fontFamily.mono],
