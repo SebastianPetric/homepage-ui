@@ -7,36 +7,14 @@ import {
 } from "@material-tailwind/react";
 import NavigationButton from "./NavigationButton";
 import { useAuth0 } from "@auth0/auth0-react";
-import { setCookie } from "react-use-cookie";
-import { useDispatch } from "react-redux";
-import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
-import reducers from "../reducers/Reducers";
-import { setIsLoggedIn } from "../authentication/AuthenticationSlice";
 
 export default function NavigationBar({
   onClickHighlightCveInput,
 }: {
   onClickHighlightCveInput: (shouldHighlight: boolean) => void;
 }) {
-  const { isAuthenticated, getAccessTokenSilently, logout, loginWithPopup } =
-    useAuth0();
+  const { isAuthenticated, logout, loginWithPopup } = useAuth0();
   const [openNav, setOpenNav] = useState<boolean>(false);
-  const dispatch =
-    useDispatch<ThunkDispatch<ReturnType<typeof reducers>, any, AnyAction>>();
-
-  useEffect(() => {
-    dispatch(setIsLoggedIn(isAuthenticated));
-    if (isAuthenticated) {
-      const setToken = async () => {
-        const token = await getAccessTokenSilently();
-        setCookie("token", token, {
-          SameSite: "Strict",
-          Secure: true,
-        });
-      };
-      setToken();
-    } else setCookie("token", "0");
-  }, [isAuthenticated]);
 
   useEffect(() => {
     window.addEventListener(

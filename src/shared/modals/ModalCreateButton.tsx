@@ -1,18 +1,16 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function ModalCreateButton({
   setShowModal,
 }: {
   setShowModal: (id: boolean) => void;
 }) {
-  const isLoggedIn: boolean = useSelector((state: any) => {
-    return state.authentication.isAuthenticated;
-  });
+  const { isAuthenticated } = useAuth0();
 
   return (
     <>
-      {isLoggedIn ? (
+      {isAuthenticated ? (
         <button
           className="bg-accentColor w-auto h-20 rounded rounded-br-3xl flex items-center justify-center text-xl font-bold hover:text-white cursor-pointer mt-10"
           type="button"
