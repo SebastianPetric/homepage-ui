@@ -7,6 +7,7 @@ import { editUserInfo, TUserInfo, update } from "./UserSlice";
 import { TKeyValue } from "../experiences/ExperienceSlice";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { RootState } from "../store/Store";
+import { validateUserInfoModalFieldsNotEmpty } from "../shared/modals/ModalFieldValidator";
 
 export default function EditInfoModal() {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -18,17 +19,7 @@ export default function EditInfoModal() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (
-      userInfo.first_name === "" ||
-      userInfo.last_name === "" ||
-      userInfo.phone === "" ||
-      userInfo.email == "" ||
-      userInfo.github_link === "" ||
-      userInfo.linkedin_link === "" ||
-      userInfo.xing_link === ""
-    )
-      setIsSavingPossible(false);
-    else setIsSavingPossible(true);
+    validateUserInfoModalFieldsNotEmpty(userInfo, setIsSavingPossible);
   }, [userInfo]);
 
   const onChangeItem = (cur: TKeyValue) => {

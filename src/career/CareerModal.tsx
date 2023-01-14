@@ -6,6 +6,7 @@ import CustomDatePicker, { format } from "../util/DateFormatter";
 import ModalExperienceItems from "../shared/modals/ModalExperienceItems";
 import { TKeyValue } from "../experiences/ExperienceSlice";
 import { TCareer } from "./CareerSlice";
+import { validateCareerModalFieldsNotEmpty } from "../shared/modals/ModalFieldValidator";
 
 export default function CareerModal({
   titleModal,
@@ -24,15 +25,7 @@ export default function CareerModal({
   const [editedCareer, setEditedCareer] = useState<TCareer>(career);
 
   useEffect(() => {
-    if (
-      editedCareer.title === "" ||
-      editedCareer.company === "" ||
-      editedCareer.from_date == undefined ||
-      editedCareer.toDos.length === 0 ||
-      editedCareer.toDos.find((it) => it === "") !== undefined
-    )
-      setIsSavingPossible(false);
-    else setIsSavingPossible(true);
+    validateCareerModalFieldsNotEmpty(editedCareer, setIsSavingPossible);
   }, [editedCareer]);
 
   const onSave = (cur: TCareer) => {

@@ -6,6 +6,7 @@ import CustomDatePicker, { format } from "../util/DateFormatter";
 import ModalExperienceItems from "../shared/modals/ModalExperienceItems";
 import { TKeyValue } from "../experiences/ExperienceSlice";
 import { TAcademic } from "./AcademicSlice";
+import { validateAcademicModalFieldsNotEmpty } from "../shared/modals/ModalFieldValidator";
 
 export default function AcademicModal({
   titleModal,
@@ -24,15 +25,7 @@ export default function AcademicModal({
   const [editedAcademic, setEditedAcademic] = useState<TAcademic>(academic);
 
   useEffect(() => {
-    if (
-      editedAcademic.title === "" ||
-      editedAcademic.school === "" ||
-      editedAcademic.from_date == undefined ||
-      editedAcademic.focusList.length === 0 ||
-      editedAcademic.focusList.find((it) => it === "") !== undefined
-    )
-      setIsSavingPossible(false);
-    else setIsSavingPossible(true);
+    validateAcademicModalFieldsNotEmpty(editedAcademic, setIsSavingPossible);
   }, [editedAcademic]);
 
   const onSave = (cur: TAcademic) => {
