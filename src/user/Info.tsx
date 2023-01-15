@@ -30,10 +30,6 @@ export default function Info({
   );
 
   useEffect(() => {
-    dispatch(getDescriptionByType(TextType.ABOUT_ME));
-  }, []);
-
-  useEffect(() => {
     if (inView) {
       dispatch(getDescriptionByType(TextType.INFO));
     }

@@ -33,20 +33,22 @@ export const editDescriptionById = createAsyncThunk(
 
 const descriptionTextSlice = createSlice({
   name: "description",
-  initialState: { descriptions: [{ id: "", text: "", type: "" }] },
+  initialState: { descriptions: [] },
   reducers: {
     update: (state: TDescriptionState, action: PayloadAction<TText>) => {
       state.descriptions.map((it) => {
         if (it.id === action.payload.id) it.text = action.payload.text;
+        return it;
       });
-      return state;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(
       getDescriptionByType.fulfilled,
       (state: TDescriptionState, action: PayloadAction<TText>) => {
-        state.descriptions.push(action.payload);
+        state.descriptions = [
+          ...new Set([...state.descriptions, action.payload]),
+        ];
       }
     );
     builder.addCase(
