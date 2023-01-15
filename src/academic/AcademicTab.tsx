@@ -17,7 +17,7 @@ export default function AcademicTab({ academic }: { academic: TAcademic }) {
     <>
       <div
         key={`${academic.id}`}
-        className={"flex flex-col items-start w-80 h-auto mt-10 mr-5"}
+        className={"flex flex-col items-start w-80 h-auto mt-10 tab"}
       >
         <EditDeleteTileButtons
           setShowModal={setShowModal}
