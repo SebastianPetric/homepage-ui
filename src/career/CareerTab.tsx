@@ -14,7 +14,7 @@ export default function CareerTab({ career }: { career: TCareer }) {
   };
 
   return (
-    <div className={"flex flex-col mt-10 w-80 tab"}>
+    <div className={"tab"}>
       <EditDeleteTileButtons
         setShowModal={setShowModal}
         onDelete={() => onDelete(career)}

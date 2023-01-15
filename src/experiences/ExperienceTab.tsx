@@ -14,7 +14,7 @@ export default function ExperienceTab({ exp }: { exp: TExperience }) {
   };
 
   return (
-    <div className={"flex flex-col w-80 mt-10 tab"}>
+    <div className={"tab"}>
       <EditDeleteTileButtons
         setShowModal={setShowModal}
         onDelete={() => onDelete(exp)}

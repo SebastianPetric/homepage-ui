@@ -23,7 +23,7 @@
   }
 
   .tab{
-    @apply border-r-4 border-dotted border-accentColor border-opacity-50 pr-5 mr-10;
+    @apply flex flex-col w-72 border-r-4 border-dotted border-accentColor border-opacity-50 pr-10 mr-10  mt-10;
   }
 
   .tile-group {
