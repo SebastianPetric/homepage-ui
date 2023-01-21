@@ -63,7 +63,10 @@ const careerSlice = createSlice({
     builder.addCase(
       getAllCareerSteps.fulfilled,
       (state: TCareerState, action: PayloadAction<TCareer[]>) => {
-        state.careerSteps = action.payload;
+        state.careerSteps = action.payload.sort(
+          (a: TCareer, b: TCareer) =>
+            Date.parse(b.from_date) - Date.parse(a.from_date)
+        );
       }
     );
     builder.addCase(

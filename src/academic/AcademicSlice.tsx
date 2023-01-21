@@ -77,7 +77,10 @@ const academicSlice = createSlice({
     builder.addCase(
       getAllAcademicSteps.fulfilled,
       (state: TAcademicState, action: PayloadAction<TAcademic[]>) => {
-        state.academicSteps = action.payload;
+        state.academicSteps = action.payload.sort(
+          (a: TAcademic, b: TAcademic) =>
+            Date.parse(b.from_date) - Date.parse(a.from_date)
+        );
       }
     );
     builder.addCase(
