@@ -87,16 +87,21 @@ const careerSlice = createSlice({
       updateCareerStep.fulfilled,
       (state: TCareerState, action: PayloadAction<TCareer>) => {
         state.careerSteps = [
-          ...state.careerSteps.map((it) => {
-            if (it.id === action.payload.id) {
-              it.title = action.payload.title;
-              it.company = action.payload.company;
-              it.from_date = action.payload.from_date;
-              it.to_date = action.payload.to_date;
-              it.toDos = action.payload.toDos;
-            }
-            return it;
-          }),
+          ...state.careerSteps
+            .map((it) => {
+              if (it.id === action.payload.id) {
+                it.title = action.payload.title;
+                it.company = action.payload.company;
+                it.from_date = action.payload.from_date;
+                it.to_date = action.payload.to_date;
+                it.toDos = action.payload.toDos;
+              }
+              return it;
+            })
+            .sort(
+              (a: TCareer, b: TCareer) =>
+                Date.parse(b.from_date) - Date.parse(a.from_date)
+            ),
         ];
       }
     );

@@ -6,6 +6,7 @@ import {
   saveEntity,
   updateEntity,
 } from "../shared/RestCaller";
+import { TCareer } from "../career/CareerSlice";
 
 type TAcademicState = {
   academicSteps: TAcademic[];
@@ -86,10 +87,15 @@ const academicSlice = createSlice({
     builder.addCase(
       updateAcademicStep.fulfilled,
       (state: TAcademicState, action: PayloadAction<TAcademic>) => {
-        state.academicSteps = state.academicSteps.map((it) => {
-          if (it.id === action.payload.id) return action.payload;
-          return it;
-        });
+        state.academicSteps = state.academicSteps
+          .map((it) => {
+            if (it.id === action.payload.id) return action.payload;
+            return it;
+          })
+          .sort(
+            (a: TAcademic, b: TAcademic) =>
+              Date.parse(b.from_date) - Date.parse(a.from_date)
+          );
       }
     );
 
