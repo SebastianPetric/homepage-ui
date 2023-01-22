@@ -43,7 +43,9 @@ export default function Academic() {
       <DescriptionText type={TextType.ACADEMIC} description={description} />
       <div className={"tile-group"}>
         {academic.map((exp, index) => (
-          <AcademicTab key={index} academic={{ ...exp }} />
+          <div key={index}>
+            <AcademicTab academic={{ ...exp }} />
+          </div>
         ))}
       </div>
       <CreateAcademic />

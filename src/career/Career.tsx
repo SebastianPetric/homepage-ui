@@ -40,7 +40,9 @@ export default function Career() {
       <DescriptionText type={TextType.CAREER} description={description} />
       <div className={"tile-group"}>
         {career.map((exp, index) => (
-          <CareerTab key={`${exp.id}-${index}`} career={{ ...exp }} />
+          <div key={index}>
+            <CareerTab career={{ ...exp }} />
+          </div>
         ))}
       </div>
       <CreateCareer />
