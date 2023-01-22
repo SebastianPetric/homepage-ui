@@ -28,8 +28,7 @@ export default function ModalExperienceItems({
   const onEditSingleExperienceYearPoint = (cur: TIndexExperienceGrade) => {
     let tmp = JSON.parse(JSON.stringify(experiencePoints));
     if (cur.grade) tmp[cur.index].gradeOfExperience = cur.grade;
-    if (cur.years) tmp[cur.index].yearsOfExperience = cur.years;
-    console.log(tmp);
+    if (cur.years !== undefined) tmp[cur.index].yearsOfExperience = cur.years;
     setExperiencepPoints(tmp);
   };
 
@@ -76,8 +75,10 @@ export default function ModalExperienceItems({
             }
           ></input>
           <input
-            className={"border-2 w-10 my-2 mx-2 pl-2"}
+            className={"border-2 w-20 my-2 mx-2 pl-2"}
             placeholder={"Jahre"}
+            type={"number"}
+            pattern={"[0-9]+"}
             value={exp.yearsOfExperience}
             onChange={(event) =>
               onEditSingleExperienceYearPoint({

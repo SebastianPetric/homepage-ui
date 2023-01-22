@@ -12,6 +12,7 @@ type TExperienceState = {
 };
 
 export enum EXPERIENCE_GRADE {
+  TOTAL_BEGINNER = "TOTAL_BEGINNER",
   BEGINNER = "BEGINNER",
   INTERMEDIATE = "INTERMEDIATE",
   PROFESSIONAL = "PROFESSIONAL",
@@ -115,16 +116,6 @@ const experienceSlice = createSlice({
     builder.addCase(
       updateExperience.fulfilled,
       (state: TExperienceState, action: PayloadAction<TExperience>) => {
-        console.log(
-          "updated",
-          state.experiences.map((it: TExperience) => {
-            if (it.id === action.payload.id) {
-              it.title = action.payload.title;
-              it.experiencePoints = action.payload.experiencePoints;
-            }
-            return it;
-          })
-        );
         state.experiences = state.experiences.map((it: TExperience) => {
           if (it.id === action.payload.id) {
             it.title = action.payload.title;

@@ -37,9 +37,13 @@ export default function ExperienceModal({
   };
 
   const onSave = () => {
-    if (experience.id) dispatch(updateExperience(editedExperience));
-    else dispatch(createExperience(editedExperience));
-    setEditedExperience({ title: "", experiencePoints: [] });
+    if (experience.id) {
+      dispatch(updateExperience(editedExperience));
+      setEditedExperience(editedExperience);
+    } else {
+      dispatch(createExperience(editedExperience));
+      setEditedExperience({ title: "", experiencePoints: [] });
+    }
     setShowModal(false);
   };
 

@@ -21,13 +21,11 @@ export const getDescriptionByType = createAsyncThunk(
 export const editDescriptionById = createAsyncThunk(
   "description/editById",
   async (cur: TText) => {
-    let resp = await updateEntity(
+    return await updateEntity(
       ENDPOINT.COVERING_LETTER,
       cur.id,
       JSON.stringify({ ...cur } as TTextDTO)
     );
-    console.log(resp);
-    return resp;
   }
 );
 

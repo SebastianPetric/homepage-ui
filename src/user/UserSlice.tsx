@@ -25,7 +25,6 @@ export const getUserInfo = createAsyncThunk("user/getInfo", async () => {
 export const editUserInfo = createAsyncThunk(
   "user/editInfo",
   async (edited: TUserInfo) => {
-    console.log(edited);
     return await updateEntity(
       ENDPOINT.USERS,
       edited.id,

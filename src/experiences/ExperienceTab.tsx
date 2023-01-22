@@ -7,6 +7,7 @@ import {
 } from "./ExperienceSlice";
 import EditExperience from "./EditExperience";
 import EditDeleteTileButtons from "../shared/modals/EditDeleteTileButtons";
+import ExperienceIcons from "./ExperienceIcons";
 
 export default function ExperienceTab({ exp }: { exp: TExperience }) {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -27,8 +28,19 @@ export default function ExperienceTab({ exp }: { exp: TExperience }) {
       <p className={"text-accentColor text-xl font-bold mb-2"}>{exp.title}</p>
       <ul>
         {exp.experiencePoints.map((ex: TExperiencePoint, idx: number) => (
-          <li key={idx} className={"font-bold"}>
+          <li
+            key={idx}
+            className={
+              "flex flex-row items-center justify-between text-sm mt-2 h-full"
+            }
+          >
             {ex.name}
+            {ex.yearsOfExperience !== 0 && (
+              <ExperienceIcons
+                years={ex.yearsOfExperience}
+                grade={ex.gradeOfExperience}
+              />
+            )}
           </li>
         ))}
       </ul>

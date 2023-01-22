@@ -12,7 +12,7 @@ export default function ExperienceGradeDropdown({
   return (
     <div className={"w-auto"}>
       <select
-        className="border-2 w-32 my-2 mx-2 pl-2"
+        className="border-2 w-auto my-2 mx-2 pl-2"
         defaultValue={experiencePoint.gradeOfExperience}
         onChange={(event: any) => setExperienceGrade(index, event.target.value)}
       >

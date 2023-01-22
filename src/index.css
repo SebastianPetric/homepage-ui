@@ -6,72 +6,72 @@
 @tailwind utilities;
 
 @layer components {
-  .linkButton {
-    @apply mr-2 ml-2 cursor-pointer hover:text-accentColor;
-  }
+    .linkButton {
+        @apply mr-2 ml-2 cursor-pointer hover:text-accentColor;
+    }
 
-  .first-tile {
-    @apply xl:h-screen py-0 tile;
-  }
+    .first-tile {
+        @apply xl:h-screen py-0 tile;
+    }
 
-  .normal-tile {
-    @apply xl:h-auto py-32 tile border;
-  }
+    .normal-tile {
+        @apply xl:h-auto py-32 tile border;
+    }
 
-  .tile {
-    @apply flex items-center justify-start px-10 md:px-20 min-h-screen h-auto w-full border-b-2 border-dotted border-accentColor border-opacity-50;
-  }
+    .tile {
+        @apply flex items-center justify-start px-10 md:px-20 min-h-screen h-auto w-full border-b-2 border-dotted border-accentColor border-opacity-50;
+    }
 
-  .tab{
-    @apply flex flex-col w-80 border-l-4 border-dotted border-accentColor border-opacity-50 px-10 mt-10;
-  }
+    .tab {
+        @apply flex flex-col w-96 border-l-4 border-dotted border-accentColor border-opacity-50 px-10 mt-10;
+    }
 
-  .tile-group {
-    @apply flex flex-wrap justify-start mt-16 max-w-640;
-  }
+    .tile-group {
+        @apply flex flex-wrap justify-start mt-16 max-w-640;
+    }
 
-  .title {
-    @apply text-4xl lg:text-5xl font-bold;
-  }
+    .title {
+        @apply text-4xl lg:text-5xl font-bold;
+    }
 
-  .deleteButton {
-    @apply hover:text-accentColor cursor-pointer ml-2;
-  }
+    .deleteButton {
+        @apply hover:text-accentColor cursor-pointer ml-2;
+    }
 }
 
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 .min-w-1200 {
-  min-width: 1200px;
+    min-width: 1200px;
 }
 
 .min-w-640 {
-  min-width: 640px;
+    min-width: 640px;
 }
 
 .max-w-640 {
-  max-width: 1100px;
+    max-width: 1100px;
 }
 
 .font-sans {
-  font-family: Poppins, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    font-family: Poppins, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 .font-pacifico {
-  font-family: Pacifico, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    font-family: Pacifico, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 .font-serif {
-  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
 .font-mono {
-  font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
     monospace;
 }
