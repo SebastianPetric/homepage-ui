@@ -16,7 +16,7 @@ export default function DescriptionText({
         <EditDescriptionTextModal type={type} />
       </div>
       <p
-        className={"max-w-sm h-full"}
+        className={"max-w-md h-full"}
         dangerouslySetInnerHTML={{ __html: description?.text }}
       ></p>
     </>
