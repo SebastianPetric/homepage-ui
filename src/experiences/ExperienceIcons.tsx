@@ -1,5 +1,5 @@
 import { EXPERIENCE_GRADE } from "./ExperienceSlice";
-import { BiRadioCircle, BiRadioCircleMarked } from "react-icons/all";
+import { RiDropFill, RiDropLine } from "react-icons/all";
 import React from "react";
 
 export default function ExperienceIcons({
@@ -12,12 +12,12 @@ export default function ExperienceIcons({
   const getStars = (num: number) => {
     const emptyStarsNum = 4 - num;
     return (
-      <div className={"flex flex-row ml-2"}>
+      <div className={"flex flex-row ml-2 text-sm"}>
         {[...Array(num)].map((it, idx) => (
-          <BiRadioCircleMarked key={idx} className={"mx-1"} />
+          <RiDropFill key={idx} className={"mx-1"} />
         ))}
         {[...Array(emptyStarsNum)].map((it, idx) => (
-          <BiRadioCircle key={idx} className={"mx-1"} />
+          <RiDropLine key={idx} className={"mx-1"} />
         ))}
       </div>
     );

@@ -59,7 +59,7 @@ export const updateEntity = async (
 ) => {
   try {
     const requestOptions = {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         authorization: `Bearer ${getCookie("token")}`,
         "Content-Type": "application/json",
