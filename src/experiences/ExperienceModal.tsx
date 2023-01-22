@@ -6,7 +6,13 @@ import React, { useEffect, useState } from "react";
 import { onChangeExperiencePointItem } from "../shared/modals/ExperiencePointsInModalEditor";
 import { validateExperienceModalFieldsNotEmpty } from "../shared/modals/ModalFieldValidator";
 import { useAppDispatch } from "../hooks/hooks";
-import { createExperience, TExperience, TKeyValue } from "./ExperienceSlice";
+import {
+  createExperience,
+  TExperience,
+  TExperiencePoint,
+  TKeyValue,
+  updateExperience,
+} from "./ExperienceSlice";
 
 export default function ExperienceModal({
   showModal,
@@ -20,28 +26,30 @@ export default function ExperienceModal({
   const [isSavingPossible, setIsSavingPossible] = useState<boolean>(false);
   const [editedExperience, setEditedExperience] =
     useState<TExperience>(experience);
-  const setExpPoints = (cur: string[]) => {
+  const setExpPoints = (cur: TExperiencePoint[]) => {
     setEditedExperience({ ...editedExperience, experiencePoints: cur });
   };
 
   const dispatch = useAppDispatch();
 
   const onChangeItem = (cur: TKeyValue) => {
-    onChangeExperiencePointItem(experience, setEditedExperience, cur);
+    onChangeExperiencePointItem(editedExperience, setEditedExperience, cur);
   };
 
   const onSave = () => {
-    dispatch(createExperience(experience));
+    if (experience.id) dispatch(updateExperience(editedExperience));
+    else dispatch(createExperience(editedExperience));
+    setEditedExperience({ title: "", experiencePoints: [] });
     setShowModal(false);
   };
 
   useEffect(() => {
     validateExperienceModalFieldsNotEmpty(
-      experience.experiencePoints,
-      experience.title,
+      editedExperience.experiencePoints,
+      editedExperience.title,
       setIsSavingPossible
     );
-  }, [experience]);
+  }, [editedExperience]);
 
   return (
     <Modal
@@ -51,12 +59,12 @@ export default function ExperienceModal({
     >
       <ModalItem
         title={"Titel"}
-        keyValue={{ key: "title", value: experience.title }}
+        keyValue={{ key: "title", value: editedExperience.title }}
         onChangeItem={onChangeItem}
       />
 
       <ModalExperienceItems
-        experiencePoints={experience.experiencePoints}
+        experiencePoints={editedExperience.experiencePoints}
         setExperiencepPoints={setExpPoints}
       />
       <SaveAndCancelButtons

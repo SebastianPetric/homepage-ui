@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useAppDispatch } from "../hooks/hooks";
-import { deleteExperience, TExperience } from "./ExperienceSlice";
+import {
+  deleteExperience,
+  TExperience,
+  TExperiencePoint,
+} from "./ExperienceSlice";
 import EditExperience from "./EditExperience";
 import EditDeleteTileButtons from "../shared/modals/EditDeleteTileButtons";
 
@@ -22,9 +26,9 @@ export default function ExperienceTab({ exp }: { exp: TExperience }) {
       <EditExperience exp={exp} showMdl={showModal} setShowMdl={setShowModal} />
       <p className={"text-accentColor text-xl font-bold mb-2"}>{exp.title}</p>
       <ul>
-        {exp.experiencePoints.map((ex: string, idx: number) => (
+        {exp.experiencePoints.map((ex: TExperiencePoint, idx: number) => (
           <li key={idx} className={"font-bold"}>
-            {ex}
+            {ex.name}
           </li>
         ))}
       </ul>

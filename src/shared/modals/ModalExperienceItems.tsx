@@ -1,27 +1,50 @@
 import { FaMinus, FaPlus } from "react-icons/all";
 import React from "react";
-import { TIndexValue } from "../../experiences/ExperienceSlice";
+import {
+  EXPERIENCE_GRADE,
+  TExperiencePoint,
+  TIndexExperienceGrade,
+  TIndexValue,
+} from "../../experiences/ExperienceSlice";
+import ExperienceGradeDropdown from "../../experiences/ExperienceGradeDropdown";
 
 export default function ModalExperienceItems({
   experiencePoints,
   setExperiencepPoints,
 }: {
-  experiencePoints: string[];
-  setExperiencepPoints: (cur: string[]) => void;
+  experiencePoints: TExperiencePoint[];
+  setExperiencepPoints: (cur: TExperiencePoint[]) => void;
 }) {
-  const onAddNewExperiencePoint = (cur: string) => {
+  const onAddNewExperiencePoint = (cur: TExperiencePoint) => {
     setExperiencepPoints([...experiencePoints, cur]);
   };
 
   const onEditSingleExperiencePoint = (cur: TIndexValue) => {
-    let tmp = [...experiencePoints];
-    tmp[cur.index] = cur.value;
+    let tmp = JSON.parse(JSON.stringify(experiencePoints));
+    tmp[cur.index].name = cur.value;
+    setExperiencepPoints(tmp);
+  };
+
+  const onEditSingleExperienceYearPoint = (cur: TIndexExperienceGrade) => {
+    let tmp = JSON.parse(JSON.stringify(experiencePoints));
+    if (cur.grade) tmp[cur.index].gradeOfExperience = cur.grade;
+    if (cur.years) tmp[cur.index].yearsOfExperience = cur.years;
+    console.log(tmp);
+    setExperiencepPoints(tmp);
+  };
+
+  const onEditSingleExperienceGradePoint = (
+    idx: number,
+    cur: EXPERIENCE_GRADE
+  ) => {
+    let tmp = JSON.parse(JSON.stringify(experiencePoints));
+    tmp[idx].gradeOfExperience = cur;
     setExperiencepPoints(tmp);
   };
 
   const onDeleteSpecificExperiencePoint = (index: number) => {
-    let tmp = [...experiencePoints];
-    tmp = tmp.filter((it: string) => it !== tmp[index]);
+    let tmp = JSON.parse(JSON.stringify(experiencePoints));
+    tmp = tmp.filter((it: TExperiencePoint) => it !== tmp[index]);
     setExperiencepPoints(tmp);
   };
 
@@ -31,14 +54,20 @@ export default function ModalExperienceItems({
         <p>Erfahrungen:</p>
         <FaPlus
           className={"ml-5 hover:text-textColor cursor-pointer"}
-          onClick={() => onAddNewExperiencePoint("")}
+          onClick={() =>
+            onAddNewExperiencePoint({
+              name: "",
+              yearsOfExperience: 0,
+              gradeOfExperience: EXPERIENCE_GRADE.BEGINNER,
+            })
+          }
         />
       </div>
-      {experiencePoints.map((exp, index) => (
+      {experiencePoints.map((exp: TExperiencePoint, index) => (
         <div key={index} className={"flex flex-row items-center"}>
           <input
             className={"border-2 w-full mt-2 mb-2"}
-            value={exp}
+            value={exp.name}
             onChange={(event) =>
               onEditSingleExperiencePoint({
                 index,
@@ -46,6 +75,23 @@ export default function ModalExperienceItems({
               })
             }
           ></input>
+          <input
+            className={"border-2 w-10 my-2 mx-2 pl-2"}
+            placeholder={"Jahre"}
+            value={exp.yearsOfExperience}
+            onChange={(event) =>
+              onEditSingleExperienceYearPoint({
+                index,
+                years: Number(event.target.value),
+              })
+            }
+          ></input>
+          <p>Jahre</p>
+          <ExperienceGradeDropdown
+            index={index}
+            experiencePoint={exp}
+            setExperienceGrade={onEditSingleExperienceGradePoint}
+          />
           <FaMinus
             className={"deleteButton"}
             onClick={() => onDeleteSpecificExperiencePoint(index)}

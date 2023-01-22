@@ -1,15 +1,18 @@
 import { TUserInfo } from "../../user/UserSlice";
 import { TCareer } from "../../career/CareerSlice";
 import { TAcademic } from "../../academic/AcademicSlice";
+import { TExperiencePoint } from "../../experiences/ExperienceSlice";
 
 export const validateExperienceModalFieldsNotEmpty = (
-  experiencePoints: string[],
+  experiencePoints: TExperiencePoint[],
   title: string,
   setIsSavingPossible: (isPossible: boolean) => void
 ) => {
   let tmp = experiencePoints.map((it) => it);
-  if (title !== "" && tmp.length !== 0 && !tmp.includes(""))
-    setIsSavingPossible(true);
+  if (title !== "" && tmp.length !== 0)
+    experiencePoints.forEach((it) =>
+      it.name !== "" ? setIsSavingPossible(true) : setIsSavingPossible(false)
+    );
   else setIsSavingPossible(false);
 };
 

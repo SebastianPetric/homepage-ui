@@ -6,7 +6,6 @@ import {
   saveEntity,
   updateEntity,
 } from "../shared/RestCaller";
-import { TCareer } from "../career/CareerSlice";
 
 type TAcademicState = {
   academicSteps: TAcademic[];
@@ -50,7 +49,13 @@ export const updateAcademicStep = createAsyncThunk(
     return await updateEntity(
       ENDPOINT.ACADEMIC,
       cur.id,
-      JSON.stringify({ ...cur } as TAcademicBody)
+      JSON.stringify({
+        title: cur.title,
+        school: cur.school,
+        from_date: cur.from_date,
+        to_date: cur.to_date,
+        focusList: cur.focusList,
+      })
     );
   }
 );

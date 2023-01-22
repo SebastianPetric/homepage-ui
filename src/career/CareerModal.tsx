@@ -3,10 +3,10 @@ import ModalItem from "../shared/modals/ModalItem";
 import React, { useEffect, useState } from "react";
 import SaveAndCancelButtons from "../shared/modals/SaveAndCancelButtons";
 import CustomDatePicker, { format } from "../util/DateFormatter";
-import ModalExperienceItems from "../shared/modals/ModalExperienceItems";
 import { TKeyValue } from "../experiences/ExperienceSlice";
 import { TCareer } from "./CareerSlice";
 import { validateCareerModalFieldsNotEmpty } from "../shared/modals/ModalFieldValidator";
+import ModalExperienceItemsCareerAcademic from "../shared/modals/ModalExperienceItemsCareerAcademic";
 
 export default function CareerModal({
   titleModal,
@@ -75,7 +75,7 @@ export default function CareerModal({
         setEndDate={setEndDate}
       />
 
-      <ModalExperienceItems
+      <ModalExperienceItemsCareerAcademic
         experiencePoints={editedCareer.toDos}
         setExperiencepPoints={setExpPoints}
       />

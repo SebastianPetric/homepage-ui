@@ -11,15 +11,29 @@ type TExperienceState = {
   experiences: TExperience[];
 };
 
+export enum EXPERIENCE_GRADE {
+  BEGINNER = "BEGINNER",
+  INTERMEDIATE = "INTERMEDIATE",
+  PROFESSIONAL = "PROFESSIONAL",
+}
+
+export type TExperiencePoint = {
+  name: string;
+
+  yearsOfExperience: number;
+
+  gradeOfExperience: EXPERIENCE_GRADE;
+};
+
 export type TExperience = {
   id?: string;
   title: string;
-  experiencePoints: string[];
+  experiencePoints: TExperiencePoint[];
 };
 
 export type TExperienceBody = {
   title: string;
-  experiencePoints: string[];
+  experiencePoints: TExperiencePoint[];
 };
 
 export type TKeyValue = {
@@ -30,6 +44,13 @@ export type TKeyValue = {
 export type TIndexValue = {
   index: number;
   value: string;
+};
+
+export type TIndexExperienceGrade = {
+  index: number;
+  grade?: EXPERIENCE_GRADE;
+
+  years?: number;
 };
 
 export const getAllExperiences = createAsyncThunk(
@@ -45,7 +66,10 @@ export const updateExperience = createAsyncThunk(
     return await updateEntity(
       ENDPOINT.EXPERIENCES,
       cur.id!,
-      JSON.stringify({ ...cur } as TExperienceBody)
+      JSON.stringify({
+        title: cur.title,
+        experiencePoints: cur.experiencePoints,
+      })
     );
   }
 );
@@ -91,6 +115,16 @@ const experienceSlice = createSlice({
     builder.addCase(
       updateExperience.fulfilled,
       (state: TExperienceState, action: PayloadAction<TExperience>) => {
+        console.log(
+          "updated",
+          state.experiences.map((it: TExperience) => {
+            if (it.id === action.payload.id) {
+              it.title = action.payload.title;
+              it.experiencePoints = action.payload.experiencePoints;
+            }
+            return it;
+          })
+        );
         state.experiences = state.experiences.map((it: TExperience) => {
           if (it.id === action.payload.id) {
             it.title = action.payload.title;
