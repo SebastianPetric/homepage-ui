@@ -15,11 +15,11 @@
     }
 
     .normal-tile {
-        @apply xl:h-auto py-32 tile border;
+        @apply xl:h-auto py-32 min-h-screen border tile;
     }
 
     .tile {
-        @apply flex items-center justify-start px-10 md:px-20 min-h-screen h-auto w-full border-b-2 border-dotted border-accentColor border-opacity-50;
+        @apply flex items-center justify-start px-10 md:px-20 min-h-screen h-auto border-b-2 border-dotted border-accentColor border-opacity-50;
     }
 
     .tab {
