@@ -30,6 +30,10 @@
     "react-scroll": "^1.8.9",
     "react-use-cookie": "^1.4.0"
   },
+  "engines": {
+    "node": ">=24",
+    "npm": ">=10"
+  },
   "devDependencies": {
     "@craco/craco": "^7.0.0",
     "@headlessui/react": "^1.7.7",
